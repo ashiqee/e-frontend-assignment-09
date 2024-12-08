@@ -37,8 +37,7 @@ export const registerUser = async (userData: FieldValues) => {
 export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await nexiosInstance.post<AuthResponse>("/auth/login", userData);
-    console.log(data);
-    
+   
 
     if (data.success) {
       cookies().set("accessToken", data?.data?.accessToken);
@@ -62,28 +61,24 @@ export const logout = () => {
 export const getCurrentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;
 
-  let decodedToken = null;
-
   if (accessToken) {
-    decodedToken = await jwtDecode(accessToken);
+   
 
-    console.log(decodedToken);
+    try {
+      const { data } = await nexiosInstance.get<any>("/users/my-profile");
+     
+ 
+      return data.data;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
     
 
-    return {
-      _id: decodedToken._id,
-      name: decodedToken.name,
-      email: decodedToken.email,
-      mobileNumber: decodedToken.mobileNumber,
-      role: decodedToken.role,
-      status: decodedToken.status,
-      profilePhoto: decodedToken.profilePhoto,
-      isVerified: decodedToken.isVerified
-    };
+
   }
 
-  return decodedToken;
-};
+
 
 // new accessToken
 

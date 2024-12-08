@@ -19,17 +19,19 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
+    GithubIcon,
+ 
   SearchIcon,
   Logo,
 } from "@/components/icons";
+import { getCurrentUser } from "@/services/AuthService";
+import ProfileDropDown from "./shared/ProfileDropDownMenu";
 
-export const Navbar = () => {
+export const Navbar = async () => {
+    const user = await getCurrentUser();
 
-  const user = false
+    console.log(user);
+    
 
   const searchInput = (
     <Input
@@ -85,9 +87,9 @@ export const Navbar = () => {
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
       {
-        user ? <>Login</>:<>
+        user ? <ProfileDropDown user={user}/> :<>
             <Link isExternal className="flex gap-2 items-center p-2 px-4 bg-slate-500/5
-             hover:bg-slate-500/25 rounded-xl" aria-label="Twitter"
+             hover:bg-slate-500/25 rounded-xl" 
               href={'/login'}>
           <User  className="text-default-500" />
            <span>Sing In</span> 
