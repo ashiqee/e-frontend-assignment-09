@@ -1,5 +1,6 @@
+"use client"
 import { Button } from "@nextui-org/button";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -12,7 +13,8 @@ import Loading from "@/components/shared/Loading";
 import { useUser } from "@/context/user.provider";
 import registrationValidation from "@/schema/register.schema";
 
-const RegistrationForm = () => {
+const RegistrationForm = ({role}:{role:string}) => {
+  const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
   const router = useRouter();
   const { setIsLoading: userLoading } = useUser();
   const {
@@ -22,19 +24,49 @@ const RegistrationForm = () => {
   } = useUserRegistration();
 
   const onSubmit = async (data: any) => {
-    const userData = {
-      ...data,
-      profilePhoto: "/images/avataaars.png",
-    };
+    console.log("DATA >>>>>", data);
 
-    handleRegister(userData);
+    // Create a FormData object
+    const formData = new FormData();
+
+    // Add JSON data
+    const registerData={
+        password: data.password,
+        user: {
+          fullName: data.fullName,
+          email: data.email,
+          contactNumber: data.contactNumber,
+          address: data?.address || "",
+          role,
+        },
+      }
+    
+
+    formData.append("data", JSON.stringify(registerData));
+
+    if (profilePhoto) {
+      formData.append("file", profilePhoto);
+    }
+
+    console.log(formData,"BE<<<<");
+    
+    // Pass the FormData to the mutation handler
+    handleRegister(formData);
+
+    // Trigger loading state
     userLoading(true);
   };
 
-  if (isSuccess) {
-    userLoading(false);
-    router.push("/profile");
-  }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setProfilePhoto(event.target.files[0]);
+    }
+  };
+
+  // if (isSuccess) {
+  //   userLoading(false);
+  //   router.push("/profile");
+  // }
 
   return (
     <>
@@ -53,8 +85,8 @@ const RegistrationForm = () => {
       >
         <div className="py-1.5 flex gap-4">
           {" "}
-          <TRInput isRequired label="Full Name" name="name" type="text" />
-          <TRInput isRequired label="Mobile" name="mobileNumber" />
+          <TRInput isRequired label="Full Name" name="fullName" type="text" />
+          <TRInput isRequired label="Mobile" name="contactNumber" />
         </div>
         <div className="py-1.5 flex gap-4">
         <TRInput isRequired label="Email" name="email" type="email" />
@@ -69,8 +101,11 @@ const RegistrationForm = () => {
         </div>
         <div className="py-1.5">
          
-        <TRInput isRequired label="Profile Image" name="name" type="file" />
-          
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
         </div>
       
 

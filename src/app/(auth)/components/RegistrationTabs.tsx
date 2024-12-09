@@ -19,11 +19,11 @@ export default function RegistrationTabs() {
             >
               <Tab key="customer" title="Become A Customer">
               Customer Registration
-              <RegistrationForm  />
+              <RegistrationForm role={"CUSTOMER"} />
               </Tab>
               <Tab key="vendor" title="Become A Vendor">
                Vendor Registration
-               <RegistrationForm  />
+               <RegistrationForm  role={"VENDOR"} />
               </Tab>
             </Tabs>
           </CardBody>

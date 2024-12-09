@@ -6,6 +6,8 @@ import { jwtDecode } from "jwt-decode";
 import { redirect } from "next/navigation";
 
 import nexiosInstance from "@/config/naxios.config";
+import axiosInstance from "@/lib/AxiosInstance";
+import { revalidateTag } from "next/cache";
 
 
 // registration part
@@ -19,20 +21,24 @@ interface AuthResponse{
 }
 
 export const registerUser = async (userData: FieldValues) => {
-  try {
-    const { data } = await nexiosInstance.post<AuthResponse>("/auth/register", userData);
-
-
-    if (data.success) {
-      cookies().set("accessToken", data?.data?.accessToken);
-      cookies().set("refreshToken", data?.data?.refreshToken);
+      try {
+      const { data } = await axiosInstance.post<any>(
+        "/users/register",
+        userData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+  
+      revalidateTag("users");
+  
+      return data;
+    } catch (error: any) {
+      throw new Error(error);
     }
-
-    return data;
-  } catch (error: any) {
-    throw new Error(error);
-  }
-};
+  };
 
 export const loginUser = async (userData: FieldValues) => {
   try {

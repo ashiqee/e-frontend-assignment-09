@@ -1,16 +1,23 @@
 import { z } from "zod";
 
 
-const registrationValidation = z.object({
-    fullName: z.string().min(1, "Please enter your name!"),
-    email:z.string().email("Please enter a valid email address!"),
-    contactNumber: z.string().optional(),
-    address: z.string().optional(),
-    role: z.string({
-        required_error: "Role is required!"
+
+const registrationValidation =  z.object({
+  password: z.string({
+    required_error: "Full Name is required!"
+}),
+      fullName: z.string({
+          required_error: "Full Name is required!"
       }),
-    password: z.string().min(6,"Must be at least 6 characters.")
-})
+      email: z.string({
+          required_error: "Email is required!"
+      }),
+      contactNumber: z.string().optional(),
+      address: z.string().optional(),
+     
+  })
+
+
 
 
 export default registrationValidation;
