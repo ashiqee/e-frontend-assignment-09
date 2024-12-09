@@ -30,7 +30,7 @@ import ProfileDropDown from "./shared/ProfileDropDownMenu";
 export const Navbar = async () => {
     const user = await getCurrentUser();
 
-    console.log(user);
+    
     
 
   const searchInput = (
@@ -88,7 +88,7 @@ export const Navbar = async () => {
         <NavbarItem className="hidden sm:flex gap-2">
       {
         user ? <ProfileDropDown user={user}/> :<>
-            <Link isExternal className="flex gap-2 items-center p-2 px-4 bg-slate-500/5
+            <Link  className="flex gap-2 items-center p-2 px-4 bg-slate-500/5
              hover:bg-slate-500/25 rounded-xl" 
               href={'/login'}>
           <User  className="text-default-500" />

@@ -9,7 +9,7 @@ interface IProps extends IInput{}
 
 const TRInput = ({
     variant ='bordered',
-    size="md",
+    size="sm",
     isRequired=false,
     type="text",
     label,

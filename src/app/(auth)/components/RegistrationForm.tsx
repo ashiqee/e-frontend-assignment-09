@@ -12,6 +12,7 @@ import { useUserRegistration } from "@/hooks/auth.hook";
 import Loading from "@/components/shared/Loading";
 import { useUser } from "@/context/user.provider";
 import registrationValidation from "@/schema/register.schema";
+import { Input, Textarea } from "@nextui-org/input";
 
 const RegistrationForm = ({role}:{role:string}) => {
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
@@ -48,8 +49,7 @@ const RegistrationForm = ({role}:{role:string}) => {
       formData.append("file", profilePhoto);
     }
 
-    console.log(formData,"BE<<<<");
-    
+   
     // Pass the FormData to the mutation handler
     handleRegister(formData);
 
@@ -101,7 +101,17 @@ const RegistrationForm = ({role}:{role:string}) => {
         </div>
         <div className="py-1.5">
          
-        <input
+        <Textarea
+          rows={1}
+          type="text"
+          label="Address"
+          name="address"
+        />
+        </div>
+        <div className="py-1.5">
+         
+        <Input
+        label="Profile Picture"
           type="file"
           accept="image/*"
           onChange={handleFileChange}
