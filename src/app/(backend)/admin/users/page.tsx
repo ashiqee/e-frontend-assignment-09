@@ -1,21 +1,21 @@
-import { getAllUsers } from "@/services/AdminServices/ManageUser";
+
 import UserManangementTable from "../../components/UserManagementTable";
 
 
-export default async function  UsersManage() {
 
-    const users = await getAllUsers()
+export default function  UsersManage() {
 
-    console.log(users);
-    
 
     return (
-        <div>Users Management
+        <div>
+            
+            Users Management
 
 
-            {/* users table  */}
+          
 
-            <UserManangementTable users={users}/>
+            <UserManangementTable />
+         
         </div>
     );
 }

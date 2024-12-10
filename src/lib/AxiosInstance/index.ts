@@ -8,6 +8,7 @@ import { getNewAccessToken } from "@/services/AuthService";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_API,
+  withCredentials:true,
 });
 
 axiosInstance.interceptors.request.use(

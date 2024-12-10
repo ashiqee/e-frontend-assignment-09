@@ -1,10 +1,33 @@
 "use client"
-import React from 'react';
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image} from "@nextui-org/react";
+import React, { useEffect, useState } from 'react';
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination} from "@nextui-org/react";
 import { ActivityIcon } from 'lucide-react';
+import { useGetAllUsers } from '@/hooks/users.hook';
 
-const UserManangementTable = ({users}) => {
+const UserManangementTable = () => {
+  const users = useGetAllUsers()
+
+  const [page, setPage] = useState(1); 
+  const [limit] = useState(10); 
+  const [total, setTotal] = useState(0); 
+  // const [users, setUsers] = useState([]); 
+
+  // useEffect(() => {
+  //     const fetchData = async () => {
+  //         const result = await getAllUsers(page, limit);
+  //         console.log(result);
+          
+  //         setUsers(result.users);
+  //         setTotal(result.total); // Assuming result contains the total number of users
+  //     };
+
+  //     fetchData();
+  // }, [page, limit]);
+  
+
+  
     return (
+       <>
         <Table aria-label="Example static collection table">
         <TableHeader>
           <TableColumn>ID</TableColumn>
@@ -36,9 +59,12 @@ const UserManangementTable = ({users}) => {
                 ))
             }
          
-        
         </TableBody>
       </Table>
+      <div className='py-2  flex justify-center'>
+             <Pagination  color={"primary"} initialPage={page} total={total} />
+          </div>
+       </>
     );
 };
 
