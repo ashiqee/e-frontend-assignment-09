@@ -13,7 +13,7 @@ const VendorProfile = async () => {
     
     return (
         <div>
-            Profile
+            Dashboard
 
             {/* all shop  */}
     <VendorAllShop shops={user?.vendorShops}/>

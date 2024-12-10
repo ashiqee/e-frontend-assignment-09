@@ -1,4 +1,4 @@
-import { FiFileText, FiDollarSign, FiBarChart2, FiSettings, FiShoppingCart, FiUser } from "react-icons/fi";
+import { FiFileText, FiDollarSign, FiBarChart2, FiSettings, FiShoppingCart, FiUser, FiShoppingBag, FiList, FiEye } from "react-icons/fi";
 
 export const roleBasedMenus = {
   admin: [
@@ -8,24 +8,40 @@ export const roleBasedMenus = {
       icon: <FiFileText />,
     },
     {
-      path: "/admin/content",
-      label: "Manage Content",
-      icon: <FiFileText />,
+      path: "/admin/users",
+      label: "Manage Users",
+      icon: <FiUser />,
+      description: "Manage vendors and customers, suspend or delete accounts.",
     },
     {
-      path: "/admin/payments",
-      label: "Manage Payments",
+      path: "/admin/blacklist",
+      label: "Blacklist Shops",
+      icon: <FiShoppingCart />,
+      description: "Restrict operations of vendor shops.",
+    },
+    {
+      path: "/admin/categories",
+      label: "Manage Categories",
+      icon: <FiList />,
+      description: "Add, edit, or delete product categories dynamically.",
+    },
+    {
+      path: "/admin/transactions",
+      label: "Monitor Transactions",
       icon: <FiDollarSign />,
+      description: "Review and track platform transactions.",
     },
     {
-      path: "/admin/analytics",
-      label: "Analytics",
-      icon: <FiBarChart2 />,
+      path: "/admin/activities",
+      label: "Review Activities",
+      icon: <FiEye />,
+      description: "Monitor activities across the platform.",
     },
     {
       path: "/admin/settings",
       label: "Settings",
       icon: <FiSettings />,
+      description: "Platform configurations and preferences.",
     },
   ],
   vendor: [
@@ -33,6 +49,11 @@ export const roleBasedMenus = {
       path: "/vendor/dashboard",
       label: "Dashboard",
       icon: <FiFileText />,
+    },
+    {
+      path: "/vendor/shop",
+      label: "Manage Shops",
+      icon: <FiShoppingBag />,
     },
     {
       path: "/vendor/products",

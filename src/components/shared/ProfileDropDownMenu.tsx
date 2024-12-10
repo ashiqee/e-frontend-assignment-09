@@ -16,7 +16,8 @@ export default function ProfileDropDown({user}:{user:any}) {
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
        
-        <DropdownItem onClick={()=>router.push(`/${user.role.toLowerCase()}/profile`)} key="new">Profile</DropdownItem>
+        <DropdownItem onClick={()=>router.push(`/${user.role.toLowerCase()}/dashboard`)} key="new">Dashboard</DropdownItem>
+        <DropdownItem onClick={()=>router.push(`/${user.role.toLowerCase()}/settings`)} key="new">Settings</DropdownItem>
         <DropdownItem key="delete" className="text-danger" color="danger" onClick={()=>logout()}>
           Logout
         </DropdownItem>

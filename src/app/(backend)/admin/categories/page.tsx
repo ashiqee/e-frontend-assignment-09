@@ -1,7 +1,7 @@
 import { getAllProducts } from '@/services/ProductsServices';
 import React from 'react';
 
-const ProductManagement = async () => {
+const CategoriesManage = async () => {
 
     const products =  await getAllProducts();
 
@@ -14,4 +14,4 @@ const ProductManagement = async () => {
     );
 };
 
-export default ProductManagement;
+export default CategoriesManage;
