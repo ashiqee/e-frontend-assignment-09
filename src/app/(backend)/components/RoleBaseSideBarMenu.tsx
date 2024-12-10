@@ -1,4 +1,4 @@
-import { FiFileText, FiDollarSign, FiBarChart2, FiSettings, FiShoppingCart, FiUser, FiShoppingBag, FiList, FiEye } from "react-icons/fi";
+import { FiFileText, FiDollarSign, FiBarChart2, FiSettings, FiShoppingCart, FiUser, FiShoppingBag, FiList, FiEye, FiClock, FiHeart, FiStar } from "react-icons/fi";
 
 export const roleBasedMenus = {
   admin: [
@@ -12,6 +12,11 @@ export const roleBasedMenus = {
       label: "Manage Users",
       icon: <FiUser />,
       description: "Manage vendors and customers, suspend or delete accounts.",
+    },
+    {
+      path: "/admin/shops",
+      label: "Manage Shops",
+      icon: <FiShoppingBag />,
     },
     {
       path: "/admin/blacklist",
@@ -71,6 +76,12 @@ export const roleBasedMenus = {
       icon: <FiDollarSign />,
     },
     {
+      path: "/vendor/reviews",
+      label: "Customer  Reviews",
+      icon: <FiStar />,
+      description: "Leave reviews and ratings for purchased products.",
+    },
+    {
       path: "/vendor/settings",
       label: "Settings",
       icon: <FiSettings />,
@@ -78,8 +89,8 @@ export const roleBasedMenus = {
   ],
   customer: [
     {
-      path: "/customer/home",
-      label: "Home",
+      path: "/customer/dashboard",
+      label: "Dashboard",
       icon: <FiFileText />,
     },
     {
@@ -88,9 +99,22 @@ export const roleBasedMenus = {
       icon: <FiShoppingCart />,
     },
     {
-      path: "/customer/wishlist",
-      label: "Wishlist",
-      icon: <FiFileText />,
+      path: "/customer/reviews",
+      label: "My Reviews",
+      icon: <FiStar />,
+      description: "Leave reviews and ratings for purchased products.",
+    },
+    {
+      path: "/customer/followed-shops",
+      label: "Followed Shops",
+      icon: <FiHeart />,
+      description: "View products from shops you're following.",
+    },
+    {
+      path: "/customer/recent-products",
+      label: "Recent Products",
+      icon: <FiClock />,
+      description: "View the last 10 products you browsed.",
     },
     {
       path: "/customer/profile",

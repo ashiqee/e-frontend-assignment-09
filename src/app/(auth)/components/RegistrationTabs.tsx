@@ -1,11 +1,14 @@
 import React from "react";
-import {Tabs, Tab, Input, Link, Button, Card, CardBody} from "@nextui-org/react";
+import {Tabs, Tab, Card, CardBody} from "@nextui-org/react";
 import RegistrationForm from "./RegistrationForm";
 
 
 
 export default function RegistrationTabs() {
-    const [selected, setSelected] = React.useState<React.Key>("customer");
+    const [selected, setSelected] = React.useState<React.Key | null | undefined>("customer");
+   
+
+
     return (
         <div className="flex flex-col w-full">
         <Card className="max-w-full w-full h-full">
@@ -13,7 +16,7 @@ export default function RegistrationTabs() {
             <Tabs
               fullWidth
               aria-label="Tabs form"
-              selectedKey={selected}
+              selectedKey={selected as string}
               size="md"
               onSelectionChange={setSelected}
             >

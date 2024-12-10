@@ -12,6 +12,8 @@ import { useUser } from "@/context/user.provider";
 import { roleBasedMenus } from "./RoleBaseSideBarMenu";
 import Loading from "@/components/shared/Loading";
 
+type Role = 'admin' | 'vendor' | 'customer';
+
 const sidebarVariants = {
   open: { width: "250px", opacity: 1 },
   closed: { width: "80px", opacity: 0.8 },
@@ -32,7 +34,7 @@ if(!user){
     return <><Loading/></>
 }
   
-  const menus = roleBasedMenus[user.role.toLowerCase()] || []
+  const menus = roleBasedMenus[user.role.toLowerCase() as Role] || []
  
 
   return (
@@ -73,7 +75,7 @@ if(!user){
         <div className="mx-4 flex flex-col items-center">
             <Avatar size="lg"  src={user?.profilePhoto}/>
            <Link href={`/profile`}> <p>{user?.name}</p></Link>
-            <Link href={'/'}><h2 className="2xl:text-4xl text-xl font-extrabold text-center my-6">Trekz</h2></Link>
+            <Link href={'/'}><h2 className="2xl:text-4xl text-xl font-extrabold text-center my-6">Kidz Bazar</h2></Link>
         <Button className="flex float-end w-full" onClick={()=>logout()} color="danger"> <FiLogOut />Logout</Button>
         </div>
       </nav>
