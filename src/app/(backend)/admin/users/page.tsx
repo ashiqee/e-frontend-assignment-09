@@ -1,5 +1,5 @@
 
-import UserManangementTable from "../../components/UserManagementTable";
+import UserManangementTable from "../../components/Tables/UserManagementTable";
 
 
 
@@ -9,10 +9,8 @@ export default function  UsersManage() {
     return (
         <div>
             
-            Users Management
-
-
-          
+            <h3 className="text-xl uppercase">Users Management</h3>
+         
 
             <UserManangementTable />
          
