@@ -63,3 +63,8 @@ export interface ICategories {
 export interface CategoriesResponse {
   data: ICategories;
 }
+
+export interface CustomJwtPayload {
+  role?:string;
+  userEmail?:string;
+}
