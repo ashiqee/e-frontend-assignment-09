@@ -1,9 +1,10 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import { ActivityIcon, ArrowDownWideNarrowIcon } from 'lucide-react';
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllShops } from '@/hooks/shops.hook';
+import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
 
 interface QueryState {
   sortBy?: string;
@@ -14,8 +15,15 @@ interface QueryState {
 }
 
 const ShopsManagementTable = () => {
-  const { data: results, mutate: fetchData, isPending,isSuccess } = useGetAllShops();
+  const [query, setQuery] = useState<QueryState>({
+    sortBy: 'createdAt',
+    sortOrder: 'asc',
+    page: 1,
+    limit: 10,
+    searchTerm: '',
+ });
 
+  const { data: results, isLoading } = useGetAllShops(query);
   const [page, setPage] = useState(1); 
   const [limit] = useState(2); 
   const [total, setTotal] = useState(0); 
@@ -23,13 +31,7 @@ const ShopsManagementTable = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
-  const [query, setQuery] = useState<QueryState>({
-     sortBy: 'createdAt',
-     sortOrder: 'asc',
-     page: 1,
-     limit: 10,
-     searchTerm: '',
-  });
+ 
 
   
 
@@ -50,10 +52,7 @@ const ShopsManagementTable = () => {
     setQuery((prev) => ({ ...prev, searchTerm: debouncedSearchTerm }));
   }, [debouncedSearchTerm]);
 
-  useEffect(() => {
-    // Fetch data whenever query changes
-    fetchData(query);
-  }, [query, fetchData]);
+
 
   const shops = results?.data?.data || [];
   const totalShops = results?.data?.paginateData?.total || 0;
@@ -99,7 +98,7 @@ const ShopsManagementTable = () => {
         </Dropdown>
         </div>
       </form>
-   {isPending && <p>Loading...</p>}
+   {isLoading && <p>Loading...</p>}
 
 {shops.length > 0 &&  <>
 
@@ -132,14 +131,23 @@ const ShopsManagementTable = () => {
               <TableCell>{shop.totalOrders}</TableCell>
               <TableCell>{shop.status}</TableCell>
               <TableCell>
-                <ActivityIcon />
+                    {/* action modal  */}
+              <ShopDropDownAction 
+              id={shop.id}
+              isDeleted={shop.isDeleted}
+              status={shop.status}
+              />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className="py-2 flex justify-center">
+      <div className="py-2  flex justify-between items-center">
+        <p>
+          Total Shops : {totalShops}
+        </p>
         <Pagination 
+       
           color="primary" 
           page={page} 
           total={total} 

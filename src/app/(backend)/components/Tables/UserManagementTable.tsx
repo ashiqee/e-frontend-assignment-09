@@ -52,10 +52,7 @@ const UserManagementTable = () => {
     setQuery((prev) => ({ ...prev, searchTerm: debouncedSearchTerm }));
   }, [debouncedSearchTerm]);
 
-  // useEffect(() => {
-  //   // Fetch data whenever query changes
-  //   fetchData(query);
-  // }, [query, fetchData]);
+
 
   const users = results?.data?.data || [];
   const totalUsers = results?.data?.paginateData?.total || 0;
@@ -145,7 +142,7 @@ const UserManagementTable = () => {
       </Table>
       <div className="py-2  flex justify-between items-center">
         <p>
-          Total User : {totalUsers}
+          Total Users : {totalUsers}
         </p>
         <Pagination 
        

@@ -4,10 +4,11 @@ import { CircleAlert,  Lock,Unlock } from "lucide-react";
 import { toast } from "sonner";
 
 import {  useSuspendUser } from "@/hooks/users.hook";
+import { useBlacklistShop } from "@/hooks/shops.hook";
 
 
 
-const SuspendUserModal = ({
+const BlackListedShopModal = ({
   userId,
   setIsOpen,
   status
@@ -17,18 +18,18 @@ const SuspendUserModal = ({
   status:any;
 }) => {
 
-    const suspendAUserMutaion = useSuspendUser()
+    const blacklistAShopMutaion = useBlacklistShop()
 
-    const handleSuspendUser = () => {
+    const handleBlacklistedShop = () => {
         if (!userId) return; 
-        suspendAUserMutaion.mutate(userId, {
+        blacklistAShopMutaion.mutate(userId, {
           onSuccess: () => {
-            toast.success(`User ${status==="ACTIVE" ? "Suspend" :"Active"} successfully`);
+            toast.success(`Shop ${status==="ACTIVE" ? "Blacklisted" :"Active"} successfully`);
             setIsOpen(false); // Close modal only on success
           },
           onError: (error) => {
             console.error(error); // Log error for debugging
-            toast.error("Failed to Suspend user");
+            toast.error("Failed to Blacklisted shop");
           },
         });
       };
@@ -47,10 +48,10 @@ const SuspendUserModal = ({
             <div className="space-y-2 flex flex-col justify-center items-center">
               <h3 className="text-3xl">Are you sure  
                 {status === "ACTIVE" ? 
-                " suspend"
+                " blacklisted"
               :
                  " active"
-              } this User?</h3>
+              } this shop?</h3>
               <p>Please confirm</p>
               <CircleAlert color="red" size={60} />
             </div>
@@ -59,10 +60,10 @@ const SuspendUserModal = ({
               <Button color="warning" onPress={() => setIsOpen(false)}>
                 No
               </Button>
-              <Button color="danger" onPress={handleSuspendUser}>
+              <Button color="danger" onPress={handleBlacklistedShop}>
 
               {status === "ACTIVE" ? 
-               <><Lock size={16}/> Yes Suspend it! </>
+               <><Lock size={16}/> Yes Blacklist it! </>
               :
               <><Unlock size={16}/> Yes Active it! </>
               }
@@ -77,4 +78,4 @@ const SuspendUserModal = ({
   );
 };
 
-export default SuspendUserModal;
+export default BlackListedShopModal;

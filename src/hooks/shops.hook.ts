@@ -1,7 +1,7 @@
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { getAllShopsForAdmin } from "@/services/AdminServices/ManageShops";
+import { blacklistAShop, getAllShopsForAdmin } from "@/services/AdminServices/ManageShops";
 
 
 
@@ -15,3 +15,19 @@ import { getAllShopsForAdmin } from "@/services/AdminServices/ManageShops";
     });
   };
   
+
+
+  export const useBlacklistShop = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['blacklistShop'],
+      mutationFn: async (id: string) => {
+        
+        return await blacklistAShop(id);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['shops'] }); // Invalidate the 'users' cache
+      },
+    });
+  };

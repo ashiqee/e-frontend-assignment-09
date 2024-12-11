@@ -31,7 +31,7 @@ export const useSuspendUser = () => {
   return useMutation({
     mutationKey: ['suspendUser'],
     mutationFn: async (id: string) => {
-      console.log(id)
+      
       return await suspendAUser(id);
     },
     onSuccess: () => {
