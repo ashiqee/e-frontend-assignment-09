@@ -1,9 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
-import { ActivityIcon, ArrowDownWideNarrowIcon } from 'lucide-react';
+import {  ArrowDownWideNarrowIcon, EllipsisVertical } from 'lucide-react';
+
 import { useGetAllUsers } from '@/hooks/users.hook';
 import useDebounce from '@/hooks/useDebounce';
+import UserDropDownAction from '../Dropdown/UserDropDownAction';
 
 interface QueryState {
   sortBy?: string;
@@ -14,22 +16,22 @@ interface QueryState {
 }
 
 const UserManagementTable = () => {
-  const { data: results, mutate: fetchData, isPending,isSuccess } = useGetAllUsers();
-
+  const [query, setQuery] = useState<QueryState>({
+    sortBy: 'createdAt',
+    sortOrder: 'asc',
+    page: 1,
+    limit: 10,
+    searchTerm: '',
+ });
+  const { data: results, isLoading } = useGetAllUsers(query);
   const [page, setPage] = useState(1); 
-  const [limit] = useState(2); 
+  const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
-  const [query, setQuery] = useState<QueryState>({
-     sortBy: 'createdAt',
-     sortOrder: 'asc',
-     page: 1,
-     limit: 10,
-     searchTerm: '',
-  });
+ 
 
   
 
@@ -50,10 +52,10 @@ const UserManagementTable = () => {
     setQuery((prev) => ({ ...prev, searchTerm: debouncedSearchTerm }));
   }, [debouncedSearchTerm]);
 
-  useEffect(() => {
-    // Fetch data whenever query changes
-    fetchData(query);
-  }, [query, fetchData]);
+  // useEffect(() => {
+  //   // Fetch data whenever query changes
+  //   fetchData(query);
+  // }, [query, fetchData]);
 
   const users = results?.data?.data || [];
   const totalUsers = results?.data?.paginateData?.total || 0;
@@ -67,10 +69,10 @@ const UserManagementTable = () => {
     <>
       <form className='flex justify-between '>
         <Input
-          type="text"
-          name="searchTerm"
           className="max-w-60 py-3"
+          name="searchTerm"
           placeholder="Search here..."
+          type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -99,7 +101,7 @@ const UserManagementTable = () => {
         </Dropdown>
         </div>
       </form>
-   {isPending && <p>Loading...</p>}
+   {isLoading && <p>Loading...</p>}
 
 {users.length > 0 &&  <>
 
@@ -116,10 +118,10 @@ const UserManagementTable = () => {
         </TableHeader>
         <TableBody >
           {users?.map((user: any, i: number) => (
-            <TableRow className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md' key={user.id}>
+            <TableRow key={user.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
               <TableCell>{(page - 1) * limit + i + 1}</TableCell>
               <TableCell>
-                <Image src={user.profilePhoto} className="w-12 h-12 hover:scale-150" />
+                <Image className="w-12 h-12 hover:scale-150" src={user.profilePhoto} />
               </TableCell>
               <TableCell>{user.fullName}</TableCell>
               <TableCell>
@@ -130,14 +132,23 @@ const UserManagementTable = () => {
               <TableCell>{user.role}</TableCell>
               <TableCell>{user.status}</TableCell>
               <TableCell>
-                <ActivityIcon />
+                {/* action modal  */}
+              <UserDropDownAction 
+              id={user.id}
+              isDeleted={user.isDeleted}
+              status={user.status}
+              />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className="py-2 flex justify-center">
+      <div className="py-2  flex justify-between items-center">
+        <p>
+          Total User : {totalUsers}
+        </p>
         <Pagination 
+       
           color="primary" 
           page={page} 
           total={total} 
