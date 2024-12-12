@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getAllProducts } from '@/services/ProductsServices';
+import P_CategoriesManagementTable from '../../components/Tables/P_CategoriesManagementTable';
 
 const CategoriesManage = async () => {
 
@@ -10,7 +11,9 @@ const CategoriesManage = async () => {
     
     return (
         <div>
-            Product Managment
+            Product Categories Managment
+
+            <P_CategoriesManagementTable/>
         </div>
     );
 };
