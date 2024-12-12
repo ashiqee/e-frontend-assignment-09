@@ -1,9 +1,9 @@
 
-import { getCurrentUser } from '@/services/AuthService';
-import { getAllProducts } from '@/services/ProductsServices';
-import { Image } from '@nextui-org/react';
 import React from 'react';
+
 import VendorAllShop from '../components/VendorAllShop';
+
+import { getCurrentUser } from '@/services/AuthService';
 
 const VendorProfile = async () => {
 

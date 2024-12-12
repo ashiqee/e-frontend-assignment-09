@@ -1,11 +1,10 @@
 
 'use client'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
-import { EllipsisVertical, Lock, Unlock, UserRoundX } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import DeleteUserModal from '../Modals/UsersModal/UserDeletedModal';
-import { useGetAllUsers } from '@/hooks/users.hook';
-import SuspendUserModal from '../Modals/UsersModal/UserSuspendModal';
+import { EllipsisVertical, Lock, Unlock } from 'lucide-react';
+import React, { useState } from 'react';
+
+
 import BlackListedShopModal from '../Modals/ShopsModal/ShopBlacklistedModal';
 
 
@@ -33,7 +32,7 @@ const ShopDropDownAction = ({id,isDeleted,status}:
           >
             
            
-            <DropdownItem onPress={()=>setIsOpen(true)}  key="suspend" >
+            <DropdownItem key="suspend"  onPress={()=>setIsOpen(true)} >
             
             <button className='flex items-center gap-2'>
               
@@ -50,7 +49,7 @@ const ShopDropDownAction = ({id,isDeleted,status}:
           </DropdownMenu>
         </Dropdown>
         {
-            isOpen && <BlackListedShopModal status={status} userId={id} setIsOpen={setIsOpen}/>
+            isOpen && <BlackListedShopModal setIsOpen={setIsOpen} status={status} userId={id}/>
         }
         
         </>

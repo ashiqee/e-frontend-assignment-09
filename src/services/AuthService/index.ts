@@ -2,12 +2,11 @@
 
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
-import { jwtDecode } from "jwt-decode";
 import { redirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 import nexiosInstance from "@/config/naxios.config";
 import axiosInstance from "@/lib/AxiosInstance";
-import { revalidateTag } from "next/cache";
 
 
 // registration part

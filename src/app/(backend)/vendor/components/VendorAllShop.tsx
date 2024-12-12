@@ -13,9 +13,9 @@ const VendorAllShop = ({shops}:{shops:any}) => {
 shops ?   <ul>
 {   shops.map((shop:any)=>(
     <li  key={shop.id}>
-      <Link href={`/vendor/shop/${shop.id}`} className="flex flex-col justify-center items-center">
+      <Link className="flex flex-col justify-center items-center" href={`/vendor/shop/${shop.id}`}>
         
-      <Image src={shop?.logo} className='w-28 h-20 mx-auto rounded-3xl ' />
+      <Image className='w-28 h-20 mx-auto rounded-3xl ' src={shop?.logo} />
        <h3>  {shop.name}</h3>
          
       </Link>

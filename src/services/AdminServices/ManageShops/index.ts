@@ -1,8 +1,8 @@
 
 "use server"
-import nexiosInstance from "@/config/naxios.config";
-import axiosInstance from "@/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
+
+import nexiosInstance from "@/config/naxios.config";
 
 
 export const getAllShopsForAdmin = async (query:Record<any,any>) => {

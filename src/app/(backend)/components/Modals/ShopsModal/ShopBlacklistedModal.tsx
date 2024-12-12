@@ -3,7 +3,6 @@ import { Button } from "@nextui-org/button";
 import { CircleAlert,  Lock,Unlock } from "lucide-react";
 import { toast } from "sonner";
 
-import {  useSuspendUser } from "@/hooks/users.hook";
 import { useBlacklistShop } from "@/hooks/shops.hook";
 
 

@@ -1,17 +1,14 @@
-import { siteConfig } from "@/config/site";
 import {
     Navbar as NextUINavbar,
     NavbarContent,
-    NavbarMenu,
-    NavbarMenuToggle,
-    NavbarBrand,
     NavbarItem,
-    NavbarMenuItem,
   } from "@nextui-org/navbar";
 import React from 'react';
 import NextLink from "next/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import clsx from "clsx";
+
+import { siteConfig } from "@/config/site";
 
 const MainMenu = () => {
     return (

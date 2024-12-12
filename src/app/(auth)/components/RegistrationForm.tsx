@@ -4,17 +4,21 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { Input, Textarea } from "@nextui-org/input";
 
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
-
 import { useUserRegistration } from "@/hooks/auth.hook";
 import Loading from "@/components/shared/Loading";
 import { useUser } from "@/context/user.provider";
 import registrationValidation from "@/schema/register.schema";
-import { Input, Textarea } from "@nextui-org/input";
 
-const RegistrationForm = ({role}:{role:string}) => {
+interface RegistrationFormProps {
+  role: string;
+}
+
+
+const RegistrationForm: React.FC<RegistrationFormProps> = ({role}) => {
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
   const router = useRouter();
   const { setIsLoading: userLoading } = useUser();
@@ -63,10 +67,10 @@ const RegistrationForm = ({role}:{role:string}) => {
     }
   };
 
-  // if (isSuccess) {
-  //   userLoading(false);
-  //   router.push("/profile");
-  // }
+  if (isSuccess) {
+    userLoading(false);
+    router.push("/profile");
+  }
 
   return (
     <>
@@ -102,18 +106,18 @@ const RegistrationForm = ({role}:{role:string}) => {
         <div className="py-1.5">
          
         <Textarea
-          rows={1}
-          type="text"
           label="Address"
           name="address"
+          rows={1}
+          type="text"
         />
         </div>
         <div className="py-1.5">
          
         <Input
-        label="Profile Picture"
+        accept="image/*"
+          label="Profile Picture"
           type="file"
-          accept="image/*"
           onChange={handleFileChange}
         />
         </div>

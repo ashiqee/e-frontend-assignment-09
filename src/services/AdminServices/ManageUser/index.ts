@@ -3,7 +3,6 @@
 import { revalidateTag } from "next/cache";
 
 import nexiosInstance from "@/config/naxios.config";
-import axiosInstance from "@/lib/AxiosInstance";
 
 // Fetch all users for admin with server-side caching
 export const getAllUsersForAdmin = async (query: Record<string, any>) => {

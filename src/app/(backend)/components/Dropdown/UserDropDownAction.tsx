@@ -2,9 +2,9 @@
 'use client'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 import { EllipsisVertical, Lock, UserRoundX } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
 import DeleteUserModal from '../Modals/UsersModal/UserDeletedModal';
-import { useGetAllUsers } from '@/hooks/users.hook';
 import SuspendUserModal from '../Modals/UsersModal/UserSuspendModal';
 
 interface IStatus {
@@ -33,7 +33,7 @@ const UserDropDownAction = ({id,isDeleted,status}:
            
           >
             
-            <DropdownItem onPress={()=>setIsOpen(true)} key="delete">
+            <DropdownItem key="delete" onPress={()=>setIsOpen(true)}>
             <button className='flex items-center gap-2'> 
                 
                  <UserRoundX size={16} /> <span>Delete</span>
@@ -41,7 +41,7 @@ const UserDropDownAction = ({id,isDeleted,status}:
                  </button>
                 
                 </DropdownItem>
-            <DropdownItem onPress={()=>setIsSusOpen(true)}  key="suspend" >
+            <DropdownItem key="suspend"  onPress={()=>setIsSusOpen(true)} >
             
             <button className='flex items-center gap-2'><Lock size={16}/> <span>Suspend</span></button>
                 
@@ -50,10 +50,10 @@ const UserDropDownAction = ({id,isDeleted,status}:
           </DropdownMenu>
         </Dropdown>
         {
-            isOpen && <DeleteUserModal userId={id} setIsOpen={setIsOpen}/>
+            isOpen && <DeleteUserModal setIsOpen={setIsOpen} userId={id}/>
         }
         {
-            isSusOpen && <SuspendUserModal status={status} userId={id} setIsOpen={setIsSusOpen}/>
+            isSusOpen && <SuspendUserModal setIsOpen={setIsSusOpen} status={status} userId={id}/>
         }
         </>
     );

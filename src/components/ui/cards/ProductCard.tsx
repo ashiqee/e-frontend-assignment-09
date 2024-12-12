@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { motion } from "framer-motion"
-import {Button, Card, CardBody, CardFooter, Image} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 import Link from 'next/link';
 
 
@@ -76,15 +76,15 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
 
            {isHover === index &&  (
     <motion.button
-    layoutId="underline"  // Used for layout animations (optional for your case)
-    initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
+    className="md:p-2 p-1 md:px-4 bg-sky-700 text-white w-24 text-sm md:w-40 self-center font-semibold text-center mb-2 absolute z-20 bottom-0 rounded-md"
     exit={{ opacity: 0 }}  // Optional: if you want to animate out when removed
-    transition={{ 
+    initial={{ opacity: 0 }}
+    layoutId="underline"  // Used for layout animations (optional for your case)
+      transition={{ 
       opacity: { duration: 1 }, // Slower fade-in with a duration of 1.5 seconds
       ease: "easeInOut"  // Optional: to make it smooth and ease in/out
     }}
-      className="md:p-2 p-1 md:px-4 bg-sky-700 text-white w-24 text-sm md:w-40 self-center font-semibold text-center mb-2 absolute z-20 bottom-0 rounded-md"
     >
       Add To Cart
     </motion.button>

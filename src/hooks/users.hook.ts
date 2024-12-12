@@ -1,5 +1,6 @@
-import { deletAUser, getAllUsersForAdmin, suspendAUser } from '@/services/AdminServices/ManageUser';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { deletAUser, getAllUsersForAdmin, suspendAUser } from '@/services/AdminServices/ManageUser';
 
 
 export const useGetAllUsers = (query: Record<string, any>) => {

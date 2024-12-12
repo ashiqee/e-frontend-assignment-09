@@ -20,25 +20,25 @@ const ProductDetails = ({ product }: { product: any }) => {
           <div className="px-4 w-[160px] h-[600px] ">
             {product.images.map((img: string, i: number) => (
               <Image
+                key={i}
+                alt="images"
                 className={`${previewImg === img && "border-primary  border-2"} 
                 
                 rounded-md shadow-md mb-4 shadow-slate-800`}
-                onClick={() => setPreviewImg(img)}
-                key={i}
-                alt="images"
-                width={120}
                 height={120}
                 src={img}
+                width={120}
+                onClick={() => setPreviewImg(img)}
               />
             ))}
           </div>
           <div className="overflow-hidden min-w-[600px] h-[600px]">
             <Image
-              className={` rounded-md hover:scale-125 duration-1000 shadow-md shadow-slate-800`}
               alt="images"
-              width={600}
+              className={` rounded-md hover:scale-125 duration-1000 shadow-md shadow-slate-800`}
               height={600}
               src={previewImg.imgUrl ? previewImg.imgUrl : previewImg}
+              width={600}
             />
           </div>
         </div>

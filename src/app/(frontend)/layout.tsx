@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 
-import { Navbar } from "@/components/navbar";
 import { Link } from "@nextui-org/link";
+
+import { Navbar } from "@/components/navbar";
 import MainMenu from "@/components/shared/MainMenu";
 
 

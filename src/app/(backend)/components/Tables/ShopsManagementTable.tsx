@@ -1,10 +1,12 @@
 'use client';
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
-import { ActivityIcon, ArrowDownWideNarrowIcon } from 'lucide-react';
+import { ArrowDownWideNarrowIcon } from 'lucide-react';
+
+import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
+
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllShops } from '@/hooks/shops.hook';
-import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
 
 interface QueryState {
   sortBy?: string;
@@ -66,10 +68,10 @@ const ShopsManagementTable = () => {
     <>
       <form className='flex justify-between '>
         <Input
-          type="text"
-          name="searchTerm"
           className="max-w-60 py-3"
+          name="searchTerm"
           placeholder="Search here..."
+          type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -116,10 +118,10 @@ const ShopsManagementTable = () => {
         </TableHeader>
         <TableBody >
           {shops?.map((shop: any, i: number) => (
-            <TableRow className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md' key={shop.id}>
+            <TableRow key={shop.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
               <TableCell>{(page - 1) * limit + i + 1}</TableCell>
               <TableCell>
-                <Image src={shop.logo} className="w-12 h-12 hover:scale-150" />
+                <Image className="w-12 h-12 hover:scale-150" src={shop.logo} />
               </TableCell>
               <TableCell>{shop.name}</TableCell>
               <TableCell>

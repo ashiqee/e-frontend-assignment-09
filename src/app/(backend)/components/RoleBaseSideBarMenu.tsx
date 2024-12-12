@@ -1,4 +1,4 @@
-import { FiFileText, FiDollarSign, FiBarChart2, FiSettings, FiShoppingCart, FiUser, FiShoppingBag, FiList, FiEye, FiClock, FiHeart, FiStar } from "react-icons/fi";
+import { FiFileText, FiDollarSign, FiSettings, FiShoppingCart, FiUser, FiShoppingBag, FiList, FiEye, FiClock, FiHeart, FiStar } from "react-icons/fi";
 
 export const roleBasedMenus = {
   admin: [
@@ -18,13 +18,7 @@ export const roleBasedMenus = {
       label: "Manage Shops",
       icon: <FiShoppingBag />,
     },
-    {
-      path: "/admin/blacklist",
-      label: "Blacklist Shops",
-      icon: <FiShoppingCart />,
-      description: "Restrict operations of vendor shops.",
-    },
-    {
+      {
       path: "/admin/categories",
       label: "Manage Categories",
       icon: <FiList />,

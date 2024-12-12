@@ -1,5 +1,6 @@
-import { getAllProducts } from '@/services/ProductsServices';
 import React from 'react';
+
+import { getAllProducts } from '@/services/ProductsServices';
 
 const CategoriesManage = async () => {
 
