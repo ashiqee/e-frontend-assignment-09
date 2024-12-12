@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
-import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
+
+import VendorShopDropDownAction from '../Dropdown/VednorShopDropDownAction';
 
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
-import VendorShopDropDownAction from '../Dropdown/VednorShopDropDownAction';
-import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
+import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
+import { useGetAllCategories, useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
+
 
 interface QueryState {
   sortBy?: string;
@@ -18,7 +20,7 @@ interface QueryState {
   searchTerm?: string;
 }
 
-const VendorShopsManagementTable = () => {
+const ProductsManagementTable = () => {
   const [query, setQuery] = useState<QueryState>({
     sortBy: 'createdAt',
     sortOrder: 'asc',
@@ -28,6 +30,7 @@ const VendorShopsManagementTable = () => {
  });
 
   const { data: results, isLoading } = useGetAllVendorMyShops(query);
+  const { data: catResults, isLoading:catLoading } = useGetAllCategoriesForPublic(query);
   const [page, setPage] = useState(1); 
   const [limit] = useState(2); 
   const [total, setTotal] = useState(0); 
@@ -59,18 +62,25 @@ const VendorShopsManagementTable = () => {
 
 
 
+  const products = results?.data?.products || [];
   const shops = results?.data?.shops || [];
-  const totalShops = results?.data?.paginateData?.total || 0;
+  const categories = catResults?.data || [];
+  const totalProducts = results?.data?.paginateData?.total || 0;
+
 
   useEffect(() => {
     // Update total pages when results change
-    setTotal(Math.ceil(totalShops / limit));
-  }, [totalShops, limit]);
+    setTotal(Math.ceil(totalProducts / limit));
+  }, [totalProducts, limit]);
 
   return (
     <>
      {
-            isAddOpen && <CreateVendorShopModal setIsOpen={setIsAddOpen} />
+            isAddOpen && <CreateProductModal 
+            setIsOpen={setIsAddOpen} 
+            shops={shops}
+            categories={categories}
+            />
         }
       <form className='flex justify-between '>
       <div className='flex gap-2 items-center'>
@@ -83,7 +93,7 @@ const VendorShopsManagementTable = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <Button onClick={()=>setIsAddOpen(true)}  className="  px-6">Create New Shop</Button>
+        <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Product</Button>
        </div>
         <div>
         <Dropdown>
@@ -103,7 +113,7 @@ const VendorShopsManagementTable = () => {
             }}
           >
             <DropdownItem key="createdAt">Sort by Created At</DropdownItem>
-            <DropdownItem key="role">Sort by Status</DropdownItem>
+            <DropdownItem key="shop">Sort by Shop</DropdownItem>
             <DropdownItem key="asc">Ascending</DropdownItem>
             <DropdownItem key="desc">Descending</DropdownItem>
           </DropdownMenu>
@@ -112,42 +122,44 @@ const VendorShopsManagementTable = () => {
       </form>
    {isLoading && <p>Loading...</p>}
 
-{shops.length > 0 &&  <>
+{products.length > 0 &&  <>
 
-
-  <Table aria-label="Vendor Shops Management Table">
+   
+  <Table aria-label="Products Management Table">
         <TableHeader>
           <TableColumn>ID</TableColumn>
-          <TableColumn>Logo</TableColumn>
-          <TableColumn>Shop Name</TableColumn> 
-          <TableColumn>Total Products</TableColumn> 
-          <TableColumn>Total Orders</TableColumn>
-          <TableColumn>Total Followers</TableColumn> 
-          <TableColumn>Status</TableColumn>
+          <TableColumn>Image</TableColumn>
+          <TableColumn>Product Name</TableColumn> 
+          <TableColumn>Product Category</TableColumn> 
+          <TableColumn>Product Price</TableColumn> 
+          <TableColumn>Stock Qty</TableColumn>
+          <TableColumn>Discount</TableColumn> 
+          <TableColumn>FlashSale Status</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody >
-          {shops?.map((shop: any, i: number) => (
-            <TableRow key={shop.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
+          {products?.map((product: any, i: number) => (
+            <TableRow key={product.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
               <TableCell>{(page - 1) * limit + i + 1}</TableCell>
               <TableCell>
-                <Image className="w-12 h-12 hover:scale-150" src={shop.logo} />
+                <Image className="w-12 h-12 hover:scale-150" src={product.images[0]} />
               </TableCell>
-              <TableCell>{shop.name}</TableCell>
+              <TableCell>{product.name}</TableCell>
              
-              <TableCell>{shop.totalProducts}</TableCell>
-              <TableCell>{shop.totalOrders}</TableCell>
+              <TableCell>{product?.category?.name}</TableCell>
+              <TableCell>{product.price}</TableCell>
               <TableCell>
-                {shop.totalFollorwers}
+                {product.inventoryCount}
              
               </TableCell>
-              <TableCell>{shop.status}</TableCell>
+              <TableCell>{product.discount}</TableCell>
+              <TableCell>{product.status}</TableCell>
               <TableCell>
                     {/* action modal  */}
               <VendorShopDropDownAction 
-              id={shop.id}
-              isDeleted={shop.isDeleted}
-              data={shop}
+              data={product}
+              id={product.id}
+              isDeleted={product.isDeleted}
               />
               </TableCell>
             </TableRow>
@@ -156,7 +168,7 @@ const VendorShopsManagementTable = () => {
       </Table>
       <div className="py-2  flex justify-between items-center">
         <p>
-          Total Shops : {totalShops}
+          Total Products : {totalProducts}
         </p>
         <Pagination 
        
@@ -174,4 +186,4 @@ const VendorShopsManagementTable = () => {
   );
 };
 
-export default VendorShopsManagementTable;
+export default ProductsManagementTable;

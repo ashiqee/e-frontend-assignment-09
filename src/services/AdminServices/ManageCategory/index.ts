@@ -21,6 +21,19 @@ export const getAllCaterory = async (query: Record<string, any>) => {
     return res.data;
   };
 
+export const getAllPublicCaterory = async () => {
+   
+    const res = await nexiosInstance.get(`/category/all`, {
+      next: { tags: ["categories"] }, // Enable caching with a specific tag
+    });
+  
+    if (!res) {
+      throw new Error("Failed to fetch users");
+    }
+  
+    return res.data;
+  };
+
 
   export const deletACategory = async (id: string) => {
     const res = await nexiosInstance.delete(`/category/delete/${id}`);

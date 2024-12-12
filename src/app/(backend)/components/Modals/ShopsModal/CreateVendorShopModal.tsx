@@ -3,51 +3,55 @@ import { Button } from "@nextui-org/button";
 import { CircleAlert,  Lock,Unlock } from "lucide-react";
 import { toast } from "sonner";
 
-import { useBlacklistShop, useUpdateVendorShop } from "@/hooks/shops.hook";
+import { useBlacklistShop, useCreateVendorShop } from "@/hooks/shops.hook";
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
 import { Input, Textarea } from "@nextui-org/input";
-import { useCreateCategory, useUpdateCategory } from "@/hooks/categories.hook";
+import { useCreateCategory } from "@/hooks/categories.hook";
 import TRTextarea from "@/components/forms/TRTextarea";
 
 
 
-const EditVendorShopModal = ({
- id,
+const CreateVendorShopModal = ({
+ 
   setIsOpen,
-  exitsData
  
 }: {
-   id:any;
+   
   setIsOpen: any;
- exitsData:any
+ 
 }) => {
   const [image, setImage] = useState<File | null>(null);
  
-  const updateVendorShopMutation = useUpdateVendorShop()
+  const createVendorShopMutation = useCreateVendorShop()
 
 
   const onSubmit = async (data: any) => {
    
 
-    // update a FormData object
+    // Create a FormData object
     const formData = new FormData();
 
     // Add JSON data
-    const updateShopsData = {
-      name: data.name,
-      description: data.description,
-    };
+    const shopsData={
+       
+        shop: {
+          name: data.name,
+          description: data.description,
+                   
+        },
+      }
     
 
-    formData.append("data", JSON.stringify(updateShopsData));
+    formData.append("data", JSON.stringify(shopsData));
 
     if (image) {
       formData.append("file", image);
     }
 
+   
     // Pass the FormData to the mutation handler
-    updateVendorShopMutation.mutate({ id, formData });
+    createVendorShopMutation.mutate(formData);
 
     // Trigger loading state
     setIsOpen(false);
@@ -73,14 +77,10 @@ const EditVendorShopModal = ({
           >
              <button onClick={() => setIsOpen(false)} className="absolute top-4 right-4">X</button>
             <div className="space-y-2 flex flex-col ">
-             <h2 className="text-xl font-semibold">Edit Shop Information</h2>
+             <h2 className="text-xl font-semibold">Create New Shop</h2>
              
              <TRForm
-        defaultValues={{
-          name: exitsData.name,
-          description: exitsData.description,
-         
-        }}
+       
         onSubmit={onSubmit}
        
       >
@@ -90,7 +90,7 @@ const EditVendorShopModal = ({
          
         </div>
         <div className="py-1.5 flex gap-4">
-       <TRTextarea
+        <TRTextarea
           label="Shop Description"
           name="description"
           rows={1}
@@ -103,7 +103,7 @@ const EditVendorShopModal = ({
          
         <Input
         accept="image/*"
-          label="Shop logo"
+          label="Shop Logo"
           type="file"
           onChange={handleFileChange}
         />
@@ -112,7 +112,7 @@ const EditVendorShopModal = ({
 
         <div className="flex mt-4 gap-2 justify-end">
           <Button fullWidth color="primary" type="submit">
-            Update Category 
+            Create New Shop 
           </Button>
         </div>
       
@@ -130,4 +130,4 @@ const EditVendorShopModal = ({
   );
 };
 
-export default EditVendorShopModal;
+export default CreateVendorShopModal;

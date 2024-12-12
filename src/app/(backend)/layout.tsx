@@ -10,7 +10,7 @@ const BackendLayout = ({ children }: { children: ReactNode }) => {
             <Sidebar />
 
            
-            <div className="ml-[250px] w-full p-6 overflow-y-auto h-screen dark:bg-slate-900/85 bg-gray-100">
+            <div className=" w-full p-6 overflow-y-auto h-screen dark:bg-slate-900/85 bg-gray-100">
                 {children}
             </div>
         </div>

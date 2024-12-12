@@ -1,7 +1,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { blacklistAShop, getAllShopsForAdmin, getAllShopsForVendor, updateVendorShop } from "@/services/AdminServices/ManageShops";
+import { addProduct, blacklistAShop, createVendorShop, getAllShopsForAdmin, getAllShopsForVendor, updateVendorShop } from "@/services/AdminServices/ManageShops";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
 
@@ -63,3 +63,44 @@ import { FieldValues } from "react-hook-form";
       },
     });
   }
+
+
+
+
+
+  export const useCreateVendorShop = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['categories'],
+      mutationFn: async (data:FieldValues) => {
+        return await createVendorShop(data);
+      },
+      onSuccess: () => {
+        toast.success("VendorShop created successfully");
+        queryClient.invalidateQueries({ queryKey: ['shops'] }); // Invalidate the 'categories' cache
+      },
+      onError: (error: any) => {
+        toast.error(error.message || 'Failed to created VendorShop');
+      },
+    });
+  };
+
+
+  export const useAddProduct = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['products'],
+      mutationFn: async (data:FieldValues) => {
+        return await addProduct(data);
+      },
+      onSuccess: () => {
+        toast.success("Product added successfully");
+        queryClient.invalidateQueries({ queryKey: ['products'] }); // Invalidate the 'categories' cache
+      },
+      onError: (error: any) => {
+        toast.error(error.message || 'Failed to created add product');
+      },
+    });
+  };

@@ -64,7 +64,7 @@ const EditCategoriesModal = ({
     <>
    <div className="absolute z-50">
    <div className="fixed   z-40 inset-0 bg-slate-500/35 flex flex-col w-full bg-opacity-75  justify-center items-center ">
-        <div className="max-w-[30vw]">
+        <div className="md:max-w-[30vw]">
          
           <div
             className=" relative  z-40 min-w-3xl max-w-3xl mx-auto max-h-[90vh] my-auto 

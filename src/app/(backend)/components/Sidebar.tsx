@@ -26,6 +26,7 @@ const linkVariants = {
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isMbOpen, setIsMbOpen] = useState(false);
  
   const {user} = useUser()
 
@@ -43,9 +44,11 @@ if(!user){
  
 
   return (
-    <motion.aside
-      animate={isOpen ? "open" : "closed"}
-      className="fixed top-0 left-0 h-full bg-gray-800 text-white shadow-lg z-50"
+   <div className={` ${isOpen ? "md:mr-[250px]  duration-100":"md:mr-[75px]" }`}>
+   <button onClick={()=>setIsMbOpen(!isMbOpen)} className={`text-right p-3 fixed md:hidden right-2 top-2 ${!isMbOpen ? "":"rotate-90"}`}> ||| </button>
+   <motion.aside
+      animate={isOpen || isMbOpen ? "open" : "closed"}
+      className={`fixed  top-0 left-0 h-full ${isMbOpen ? "hidden":""} bg-gray-800 text-white shadow-lg z-50`}
       initial={isOpen ? "open" : "closed"}
       variants={sidebarVariants}
     >
@@ -59,6 +62,8 @@ if(!user){
         >
           {isOpen ? "<" : ">"}
         </button>
+
+        
       </div>
       
       <nav className="2xl:mt-4 mt-2 flex flex-col justify-between md:h-[80vh] 2xl:h-[85vh]">
@@ -78,13 +83,16 @@ if(!user){
                   
         </ul>
         <div className="mx-4 flex flex-col items-center">
-            <Avatar size="lg"  src={user?.profilePhoto}/>
+            <Avatar className={ ` ${isOpen ? "md:size-20" : "md:size-8" } size-8 `} src={user?.profilePhoto}/>
            <Link href={`/profile`}> <p>{user?.name}</p></Link>
-            <Link href={'/'}><h2 className="2xl:text-4xl text-xl font-extrabold text-center my-6">Kidz Bazar</h2></Link>
-        <Button className="flex float-end w-full" color="danger" onClick={()=>logout()}> <FiLogOut />Logout</Button>
+            <Link href={'/'}><h2 className="2xl:text-4xl md:text-xl  font-extrabold text-center my-6">Kidz Bazar</h2></Link>
+        <Button className="md:flex hidden float-end w-full" color="danger" onClick={()=>logout()}> <FiLogOut />{isOpen && "Logout"}</Button>
+      
+       
         </div>
       </nav>
     </motion.aside>
+   </div>
   );
 };
 
@@ -107,7 +115,7 @@ const MenuItem = ({ href, label, icon, isOpen, pathName }: MenuItemProps) => {
     >
       <Link passHref href={href}>
         <p className="flex items-center gap-3 w-full text-white">
-          <span className="text-md">{icon}</span>
+          <span className={` ${ isOpen ? "text-md":"text-2xl mx-auto text-center"}`}>{icon}</span>
           {isOpen && <span className="text-base text-[12px]">{label}</span>}
         </p>
       </Link>

@@ -1,4 +1,4 @@
-import { createCategory, deletACategory, getAllCaterory, updateCategory } from "@/services/AdminServices/ManageCategory";
+import { createCategory, deletACategory, getAllCaterory, getAllPublicCaterory, updateCategory } from "@/services/AdminServices/ManageCategory";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,6 +10,15 @@ export const useGetAllCategories = (query: Record<string, any>) => {
     return useQuery({
       queryKey: ['categories', query], // Include query parameters in the key
       queryFn: () => getAllCaterory(query),
+      staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    });
+  };
+
+
+export const useGetAllCategoriesForPublic = () => {
+    return useQuery({
+      queryKey: ['categories'], // Include query parameters in the key
+      queryFn: () => getAllPublicCaterory(),
       staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
     });
   };
