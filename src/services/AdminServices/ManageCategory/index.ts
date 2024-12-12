@@ -1,6 +1,9 @@
 "use server"
 import nexiosInstance from "@/config/naxios.config";
+import axiosInstance from "@/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
+import { Jockey_One } from "next/font/google";
+import { FieldValues } from "react-hook-form";
 
 
 
@@ -26,4 +29,48 @@ export const getAllCaterory = async (query: Record<string, any>) => {
     revalidateTag("categories");
   
     return res.data;
+  };
+
+
+
+  export const createCategory = async (data: FieldValues) => {
+      
+    try{
+       
+        
+    const res = await axiosInstance.post('/category/create', data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+  
+    
+    
+    // Revalidate the cache for the "categories" tag
+    revalidateTag("categories");
+  
+    return res.data;
+    }catch(error:any){throw new Error(error)}
+  };
+
+
+  export const updateCategory = async (id:any,formData: FieldValues) => {
+      
+    try{
+             
+    const res = await axiosInstance.patch(`/category/update/${id}`, formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }); 
+  
+    
+    
+    // Revalidate the cache for the "categories" tag
+    revalidateTag("categories");
+  
+    return res.data;
+    }catch(error:any){throw new Error(error)}
   };

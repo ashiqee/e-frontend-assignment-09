@@ -1,5 +1,7 @@
-import { deletACategory, getAllCaterory } from "@/services/AdminServices/ManageCategory";
+import { createCategory, deletACategory, getAllCaterory, updateCategory } from "@/services/AdminServices/ManageCategory";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 
 
@@ -22,7 +24,48 @@ export const useGetAllCategories = (query: Record<string, any>) => {
         return await deletACategory(id);
       },
       onSuccess: () => {
+        toast.success("Category deleted successfully");
         queryClient.invalidateQueries({ queryKey: ['categories'] }); // Invalidate the 'users' cache
+      },
+    });
+  };
+
+
+  export const useCreateCategory = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['categories'],
+      mutationFn: async (data:FieldValues) => {
+        return await createCategory(data);
+      },
+      onSuccess: () => {
+        toast.success("Category created successfully");
+        queryClient.invalidateQueries({ queryKey: ['categories'] }); // Invalidate the 'categories' cache
+      },
+      onError: (error: any) => {
+        toast.error(error.message || 'Failed to created category');
+      },
+    });
+  };
+
+
+
+  export const useUpdateCategory = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['categories'],
+      mutationFn: async ({ id, formData }: { id: string; formData: FieldValues }) => {
+              
+        return await updateCategory(id, formData);
+      },
+      onSuccess: () => {
+        toast.success('Category updated successfully');
+        queryClient.invalidateQueries({ queryKey: ['categories'] }); // Invalidate the cache
+      },
+      onError: (error: any) => {
+        toast.error(error.message || 'Failed to update category');
       },
     });
   };

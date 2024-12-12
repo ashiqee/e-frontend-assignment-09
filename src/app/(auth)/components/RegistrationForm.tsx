@@ -29,7 +29,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({role}) => {
   } = useUserRegistration();
 
   const onSubmit = async (data: any) => {
-    console.log("DATA >>>>>", data);
+   
 
     // Create a FormData object
     const formData = new FormData();

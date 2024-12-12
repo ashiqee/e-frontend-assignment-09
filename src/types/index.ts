@@ -14,6 +14,16 @@ export interface IInput {
   name:string;
   disable?:boolean;
 }
+export interface IRTextarea {
+  variant?: "flat"|"bordered"|"faded"|'underlined';
+  size?:"sm"| "md" | "lg";
+  isRequired?:boolean;
+  type?:string;
+  rows?:number;
+  label?:string;
+  name:string;
+  disable?:boolean;
+}
 
 
 export interface IUser{

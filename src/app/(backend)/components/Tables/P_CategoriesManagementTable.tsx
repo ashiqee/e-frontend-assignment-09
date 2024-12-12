@@ -29,7 +29,7 @@ const P_CategoriesManagementTable = () => {
 
   const { data: results, isLoading } = useGetAllCategories(query);
   const [page, setPage] = useState(1); 
-  const [limit] = useState(2); 
+  const [limit] = useState(5); 
   const [total, setTotal] = useState(0); 
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -126,15 +126,14 @@ const P_CategoriesManagementTable = () => {
         <TableBody >
           {categories?.map((item: any, i: number) => (
             <TableRow key={item.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
-              <TableCell>{(page - 1) * limit + i + 1}</TableCell>
+              <TableCell>{item.id}</TableCell>
               <TableCell>
                 <Image className="w-12 h-12 hover:scale-150" src={item.logo} />
               </TableCell>
               <TableCell>{item.name}</TableCell>
               <TableCell>
-                {item.ownerName}
-                <br />
-                {item.contactNumber}
+                {item.description}
+               
               </TableCell>
               <TableCell>{item.totalProducts}</TableCell>
               
@@ -143,7 +142,7 @@ const P_CategoriesManagementTable = () => {
               <CategoriesDropDownAction 
               id={item.id}
               isDeleted={item.isDeleted}
-              status={item.status}
+              data={item}
               />
               </TableCell>
             </TableRow>
