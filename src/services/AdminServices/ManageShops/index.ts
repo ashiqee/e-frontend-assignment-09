@@ -105,7 +105,6 @@ export const addProduct = async (data: FieldValues) => {
   try{
      
    
-   
   const res = await axiosInstance.post('/product/create-product', data,
       {
         headers: {

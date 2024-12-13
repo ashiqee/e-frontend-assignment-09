@@ -11,7 +11,7 @@ import { parse } from "path";
 
 
 
-const EditProductModal = ({
+const DuplicateProductModal = ({
   exitsData,
   shops,
   id,
@@ -28,7 +28,7 @@ const EditProductModal = ({
 }) => {
   const [images, setImages] = useState<File[]>([]);
  
-  const updateProductMutation = useUpdateProduct()
+  const addProductMutation = useAddProduct()
 
 
 
@@ -40,18 +40,19 @@ const EditProductModal = ({
 
     // Add JSON data
     const productData = {
-     
-      name: data.name,
-      description: data.description,
-      price: parseFloat(data.price),
-      discount: parseFloat(data.discount),
-      categoryId: parseInt(data.categoryId),
-      vendorShopId: parseInt(data.vendorShopId),
-      inventoryCount: parseInt(data.inventoryCount),
-    
-    };
+      product: {
+        name: data.name,
+        description: data.description,
+        price: parseFloat(data.price),
+        discount: parseFloat(data.discount) || 0,
+        categoryId: parseInt(data.categoryId),
+        vendorShopId: parseInt(data.vendorShopId),
+        inventoryCount: parseInt(data.inventoryCount),
+        },
+      };
     
 
+      
     formData.append("data", JSON.stringify(productData));
 
     images.forEach((file) => {
@@ -60,7 +61,7 @@ const EditProductModal = ({
 
    
     // Pass the FormData to the mutation handler
-    updateProductMutation.mutate({id,formData});
+    addProductMutation.mutate(formData);
 
     // Trigger loading state
     setIsOpen(false);
@@ -86,11 +87,11 @@ const EditProductModal = ({
           >
              <button className="absolute top-4 right-4" onClick={() => setIsOpen(false)}>X</button>
             <div className="space-y-2 flex flex-col ">
-             <h2 className="text-xl font-semibold">Edit Product</h2>
+             <h2 className="text-xl font-semibold">Duplicate Product</h2>
              
              <TRForm onSubmit={onSubmit}
              defaultValues={{
-              name: exitsData.name,
+              name: exitsData.name + " copy",
               description: exitsData.description,
               price: exitsData.price && parseFloat(exitsData.price),
               discount: exitsData.price && parseFloat(exitsData.discount),
@@ -160,7 +161,7 @@ const EditProductModal = ({
             Cancel
           </Button>
           <Button  color="primary" type="submit">
-            Update Product
+            Save Change
           </Button>
         </div>
       
@@ -178,4 +179,4 @@ const EditProductModal = ({
   );
 };
 
-export default EditProductModal;
+export default DuplicateProductModal;

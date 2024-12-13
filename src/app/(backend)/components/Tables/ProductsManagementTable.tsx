@@ -11,6 +11,7 @@ import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
 import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
 import { useGetAllCategories, useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
 import ProductDropDownAction from '../Dropdown/ProductDropDownAction';
+import { useGetAllProductsMyShops } from '@/hooks/products.hook';
 
 
 interface QueryState {
@@ -30,19 +31,19 @@ const ProductsManagementTable = () => {
     searchTerm: '',
  });
 
-  const { data: results, isLoading } = useGetAllVendorMyShops(query);
+  const { data: vendorResults, isLoading: vendorLoading } = useGetAllVendorMyShops(query);
+  const { data: productsResults, isLoading } = useGetAllProductsMyShops(query);
+
   const { data: catResults, isLoading:catLoading } = useGetAllCategoriesForPublic();
   const [page, setPage] = useState(1); 
-  const [limit] = useState(2); 
+  const [limit] = useState(5); 
   const [total, setTotal] = useState(0); 
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
   const [isAddOpen,setIsAddOpen]=useState(false)
- 
 
-  
 
   useEffect(() => {
     // Update the query when page, limit, sortBy, or sortOrder changes
@@ -63,10 +64,10 @@ const ProductsManagementTable = () => {
 
 
 
-  const products = results?.data?.products || [];
-  const shops = results?.data?.shops || [];
+  const products = productsResults?.data?.data || [];
+  const shops = vendorResults?.data?.shops || [];
   const categories = catResults?.data || [];
-  const totalProducts = results?.data?.paginateData?.total || 0;
+  const totalProducts = productsResults?.data?.paginateData?.total || 0;
 
 
   useEffect(() => {
@@ -160,7 +161,6 @@ const ProductsManagementTable = () => {
               <ProductDropDownAction 
               data={product}
               id={product.id}
-              isDeleted={product.isDeleted}
               shops={shops}
               categories={categories}
               />
