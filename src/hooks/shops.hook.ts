@@ -91,13 +91,13 @@ import { FieldValues } from "react-hook-form";
     const queryClient = useQueryClient();
   
     return useMutation({
-      mutationKey: ['products'],
+      mutationKey: ['shops'],
       mutationFn: async (data:FieldValues) => {
         return await addProduct(data);
       },
       onSuccess: () => {
         toast.success("Product added successfully");
-        queryClient.invalidateQueries({ queryKey: ['products'] }); // Invalidate the 'categories' cache
+        queryClient.invalidateQueries({ queryKey: ['shops'] }); // Invalidate the 'categories' cache
       },
       onError: (error: any) => {
         toast.error(error.message || 'Failed to created add product');

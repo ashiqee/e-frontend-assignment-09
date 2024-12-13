@@ -11,13 +11,13 @@ import { parse } from "path";
 
 
 
-const CreateProductModal = ({
-  shops,
+const EditProductModal = ({
+  exitsData,
   categories,
   setIsOpen,
  
 }: {
-   shops:any;
+  exitsData:any;
    categories:any;
   setIsOpen: any;
  
@@ -159,4 +159,4 @@ const CreateProductModal = ({
   );
 };
 
-export default CreateProductModal;
+export default EditProductModal;

@@ -102,8 +102,7 @@ export const addProduct = async (data: FieldValues) => {
       
   try{
      
-    console.log(data);
-    
+   
    
   const res = await axiosInstance.post('/product/create-product', data,
       {
@@ -115,7 +114,7 @@ export const addProduct = async (data: FieldValues) => {
   
   
   // Revalidate the cache for the "products" tag
-  revalidateTag("products");
+  revalidateTag("shops");
 
   return res.data;
   }catch(error:any){throw new Error(error)}

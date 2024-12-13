@@ -10,6 +10,7 @@ import useDebounce from '@/hooks/useDebounce';
 import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
 import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
 import { useGetAllCategories, useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
+import ProductDropDownAction from '../Dropdown/ProductDropDownAction';
 
 
 interface QueryState {
@@ -156,7 +157,7 @@ const ProductsManagementTable = () => {
               <TableCell>{product.status}</TableCell>
               <TableCell>
                     {/* action modal  */}
-              <VendorShopDropDownAction 
+              <ProductDropDownAction 
               data={product}
               id={product.id}
               isDeleted={product.isDeleted}
