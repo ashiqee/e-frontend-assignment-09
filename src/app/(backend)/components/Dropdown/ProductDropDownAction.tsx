@@ -8,10 +8,13 @@ import React, { useState } from 'react';
 import EditProductModal from '../Modals/ShopsModal/EditProductModal';
 
 
-const ProductDropDownAction = ({id,isDeleted,data}:
+const ProductDropDownAction = ({id,isDeleted,data,shops,categories}:
     {id:string , 
     isDeleted:boolean,
-    data:any}) => {
+    shops:any,
+    data:any,
+    categories:any
+  }) => {
         const [isOpen,setIsOpen]=useState(false)
         
       
@@ -65,7 +68,14 @@ const ProductDropDownAction = ({id,isDeleted,data}:
           </DropdownMenu>
         </Dropdown>
         {
-            isOpen && <EditProductModal exitsData={data} id={id} setIsOpen={setIsOpen}/>
+            isOpen && <EditProductModal
+            exitsData={data} 
+            categories={categories}
+            id={id} 
+            shops={shops}
+            setIsOpen={setIsOpen}
+            
+            />
         }
         
         </>

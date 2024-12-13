@@ -13,10 +13,14 @@ import { parse } from "path";
 
 const EditProductModal = ({
   exitsData,
+  shops,
+  id,
   categories,
   setIsOpen,
  
 }: {
+  shops:any
+  id: string;
   exitsData:any;
    categories:any;
   setIsOpen: any;
@@ -82,9 +86,21 @@ const EditProductModal = ({
           >
              <button className="absolute top-4 right-4" onClick={() => setIsOpen(false)}>X</button>
             <div className="space-y-2 flex flex-col ">
-             <h2 className="text-xl font-semibold">Add New Product</h2>
+             <h2 className="text-xl font-semibold">Edit Product</h2>
              
-             <TRForm onSubmit={onSubmit}>
+             <TRForm onSubmit={onSubmit}
+             defaultValues={{
+              name: exitsData.name,
+              description: exitsData.description,
+              price: exitsData.price && parseFloat(exitsData.price),
+              discount: exitsData.price && parseFloat(exitsData.discount),
+              categoryId: parseInt(exitsData.categoryId),
+              vendorShopId: parseInt(exitsData.vendorShopId),
+              inventoryCount: parseInt(exitsData.inventoryCount),
+             
+            }}
+             
+             >
   <div className="py-1.5 flex gap-4">
     <TRInput isRequired label="Product Name" name="name" type="text" />
   
@@ -140,8 +156,11 @@ const EditProductModal = ({
       
 
         <div className="flex mt-4 gap-2 justify-end">
-          <Button fullWidth color="primary" type="submit">
-            Add New Product
+          <Button  color="danger" onPress={()=>setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button  color="primary" type="submit">
+            Update Product
           </Button>
         </div>
       
