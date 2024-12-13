@@ -65,11 +65,11 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
           <Link href={`/shop/${item.id}`}>
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
-              alt={item.title}
+              alt={item.name}
               className="w-full rounded-none object-center h-[180px]  md:h-[380px]"
               radius="lg"
               shadow="sm"
-              src={item.thumbnail}
+              src={item.images[0]}
               width="100%"
             />
           </Link>
@@ -96,7 +96,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
            <Link href={`/shop/${item.id}`}>
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
-           <b className='md:text-xl text-[12px]'>{item.title}</b></Link>
+           <b className='`text-[12px]'>{item.name}</b></Link>
            <p className=" md:text-xl font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'> 500৳ </span></p>
            </div>
             

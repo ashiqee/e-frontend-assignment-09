@@ -47,17 +47,27 @@ export const addProduct = async (data: FieldValues) => {
 
 
 
-export const getAllProducts = async () => {
+
+
+
+export const getAllProductsForPublic = async (query:Record<any,any>) => {
   
-        const {data} = await nexiosInstance.get<any>("/product");
+        const queryString = new URLSearchParams(query).toString()
+      
+         const res = await nexiosInstance.get(`/product?${queryString}`, {
+          next: { tags: ["products"] }, // Enable caching with a specific tag
+        });
+      
+        if (!res) {
+          throw new Error('Failed to fetch posts');
+        }
+       
+        return res.data;
+      };
 
-        return data.data;
-
-}
 
 
-
-
+      
 export const getAllProductsForVendor = async (query:Record<any,any>) => {
   
         const queryString = new URLSearchParams(query).toString()
