@@ -1,5 +1,6 @@
 "use client"
 
+import ShopSidebar from '@/components/shared/bar/ShopSidebar';
 import ProductCard from '@/components/ui/cards/ProductCard';
 import { useGetAllProductsForPublic } from '@/hooks/products.hook';
 import useDebounce from '@/hooks/useDebounce';
@@ -54,10 +55,16 @@ const AllShopProducts = () => {
     }, [debouncedSearchTerm]);
   
   
-    const products = productResults?.data?.products || []
+    const products = (productResults as { data: { products: any[] } })?.data?.products || [];
 
     return (
-        <div>
+        <section className="mx-8 my-10 flex gap-6">
+
+<ShopSidebar/>
+
+<div className="w-full">
+
+            
     {
         isLoading ? (
             <div>Loading...</div>
@@ -71,7 +78,11 @@ const AllShopProducts = () => {
             </div>
         )
     }
-        </div>
+
+</div>
+
+
+        </section>
     );
 };
 

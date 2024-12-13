@@ -27,7 +27,7 @@ export default function FrontendLayout({
                 title="nextui.org homepage"
               >
                 <span className="text-default-600">Powered by</span>
-                <p className="text-primary">NextUI</p>
+                <p className="text-primary">Kidz Bazar</p>
               </Link>
             </footer>
  </div>

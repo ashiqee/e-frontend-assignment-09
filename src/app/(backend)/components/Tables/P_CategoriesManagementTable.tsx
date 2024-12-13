@@ -58,7 +58,10 @@ const P_CategoriesManagementTable = () => {
 
 
 
-  const categories = results?.data?.data || [];
+  // const categories = results?.data?.data || [];
+
+  const categories = (results as {data: {categories: {data: any[]}}} )?.data || [];
+
   const totalCategories = results?.data?.paginateData?.total || 0;
 
   useEffect(() => {
