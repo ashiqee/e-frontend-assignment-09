@@ -98,46 +98,5 @@ export const createVendorShop = async (data: FieldValues) => {
 
 
 
-// products api 
-
-export const addProduct = async (data: FieldValues) => {
-      
-  try{
-     
-   
-  const res = await axiosInstance.post('/product/create-product', data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-  
-  
-  // Revalidate the cache for the "products" tag
-  revalidateTag("shops");
-
-  return res.data;
-  }catch(error:any){throw new Error(error)}
-};
 
 
-
-export const updateProduct = async (id:any,formData: FieldValues) => {
-      
-  try{
-           
-  const res = await axiosInstance.patch(`/product/update/${id}`, formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }); 
- 
-  
-  // Revalidate the cache for the "shops" tag
-  revalidateTag("shops");
-
-  return res.data;
-  }catch(error:any){throw new Error(error)}
-};

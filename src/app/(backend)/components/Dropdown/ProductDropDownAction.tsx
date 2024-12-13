@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 
 import EditProductModal from '../Modals/ShopsModal/EditProductModal';
 import DuplicateProductModal from '../Modals/ShopsModal/DuplicateProductModal';
+import DeleteProductModal from '../Modals/ProductsModal/DeleteProductModal';
 
 
 const ProductDropDownAction = ({id,data,shops,categories}:
@@ -18,6 +19,7 @@ const ProductDropDownAction = ({id,data,shops,categories}:
   }) => {
         const [isOpen,setIsOpen]=useState(false)
         const [isDpOpen,setIsDpOpen]=useState(false)
+        const [isDeleteOpen,setIsDelOpen]=useState(false)
         
       
 
@@ -57,7 +59,7 @@ const ProductDropDownAction = ({id,data,shops,categories}:
                 
                 </DropdownItem>
 
-            <DropdownItem key="delete"  onPress={()=>setIsOpen(true)} >
+            <DropdownItem key="delete"  onPress={()=>setIsDelOpen(true)} >
             
             <button className='flex items-center gap-2'>
               
@@ -88,6 +90,10 @@ const ProductDropDownAction = ({id,data,shops,categories}:
             shops={shops} 
             
             />
+        }
+
+{
+            isDeleteOpen && <DeleteProductModal id={id} setIsOpen={setIsDelOpen} status={status}/>
         }
         
         </>

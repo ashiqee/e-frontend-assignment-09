@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
 
-import { addProduct,updateProduct, blacklistAShop, createVendorShop, getAllShopsForAdmin, getAllShopsForVendor, updateVendorShop } from "@/services/AdminServices/ManageShops";
+import { blacklistAShop, createVendorShop, getAllShopsForAdmin, getAllShopsForVendor, updateVendorShop } from "@/services/AdminServices/ManageShops";
 
 
 
@@ -86,44 +86,3 @@ import { addProduct,updateProduct, blacklistAShop, createVendorShop, getAllShops
     });
   };
 
-
-
-  // product related api 
-
-
-  export const useAddProduct = () => {
-    const queryClient = useQueryClient();
-  
-    return useMutation({
-      mutationKey: ['shops'],
-      mutationFn: async (data:FieldValues) => {
-        return await addProduct(data);
-      },
-      onSuccess: () => {
-        toast.success("Product added successfully");
-        queryClient.invalidateQueries({ queryKey: ['shops'] }); // Invalidate the 'categories' cache
-      },
-      onError: (error: any) => {
-        toast.error(error.message || 'Failed to created add product');
-      },
-    });
-  };
-
-  export const useUpdateProduct = () => {
-    const queryClient = useQueryClient();
-  
-    return useMutation({
-      mutationKey: ['shops'],
-      mutationFn: async ({ id, formData }: { id: string; formData: FieldValues }) => {
-              
-        return await updateProduct(id, formData);
-      },
-      onSuccess: () => {
-        toast.success('Product updated successfully');
-        queryClient.invalidateQueries({ queryKey: ['shops'] }); // Invalidate the cache
-      },
-      onError: (error: any) => {
-        toast.error(error.message || 'Failed to update Product');
-      },
-    });
-  }
