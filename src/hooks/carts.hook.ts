@@ -1,4 +1,4 @@
-import { addToCart, getAllUserCartsItems } from "@/services/CartsServices";
+import { addToCart, deletAProductFromCart, getAllUserCartsItems } from "@/services/CartsServices";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -33,3 +33,21 @@ export const useAddToCart = () => {
       staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
     });
   };
+
+
+
+  export const useDeleteCartItem = () => {
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['carts'],
+      mutationFn: async (id: string) => {
+        return await deletAProductFromCart(id);
+      },
+      onSuccess: () => {
+        toast.success("carts deleted successfully");
+        queryClient.invalidateQueries({ queryKey: ['carts'] }); // Invalidate the 'users' cache
+      },
+    });
+  };
+

@@ -44,10 +44,12 @@ export const addToCart = async (formData: FieldValues) => {
 
 
 
-  export const deletAProductFromCart = async (id: string) => {
-    const res = await nexiosInstance.delete(`/carts/delete/${id}`);
+  export const deletAProductFromCart = async (id: any) => {
+    
+    
+    const res = await axiosInstance.delete(`/carts/delete/${id}`);
    
-    // Revalidate the cache for the "categories" tag
+    // Revalidate the cache for the "carts" tag
     revalidateTag("carts");
   
     return res.data;

@@ -7,7 +7,7 @@ import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@
 
 import { useDeleteProduct } from "@/hooks/products.hook";
 import { CheckboxGroup } from "@nextui-org/react";
-import { useGetCartsItems } from "@/hooks/carts.hook";
+import { useDeleteCartItem, useGetCartsItems } from "@/hooks/carts.hook";
 
 
 
@@ -25,6 +25,7 @@ const CartsModal = ({
 
     const deleteProductMutation = useDeleteProduct()
     const {data:cartsItemResult,refetch ,isLoading}= useGetCartsItems()
+    const deleteCartItemMutation = useDeleteCartItem()
     const modalRef = useRef<HTMLDivElement | null>(null);
 
     const handleDeleteCategory = () => {
@@ -61,6 +62,17 @@ const CartsModal = ({
           };
         }, [isOpen, setIsOpen]);
 
+
+        const handleDeleteCartItem = (id:string)=>{
+
+            alert(id)
+            deleteCartItemMutation.mutate(id)
+
+        }
+
+        console.log(cartsItemResult.data.cartItems);
+        
+
   return (
     <>
    <div className="absolute bottom-0 z-50">
@@ -83,11 +95,11 @@ const CartsModal = ({
         <TableColumn>Total</TableColumn>
       </TableHeader>
       <TableBody className=" bg-slate-500/5">
-  {cartsItemResult?.data?.map((item) => (
+  {cartsItemResult?.data?.cartItems?.map((item:any) => (
 
 <TableRow key={item.id}>
     <TableCell>
-        <Trash size={14}/>
+     <button onClick={()=>handleDeleteCartItem(item.product.id)}>   <Trash size={14}/></button>
     </TableCell>
 <TableCell>
     <img 
@@ -107,30 +119,7 @@ const CartsModal = ({
 
 <TableCell><span className="">{(item.product.price * item.quantity).toFixed(2)}</span></TableCell>
 </TableRow>
-    // <li key={item.id} className="flex justify-between text-[10px] w-72 items-center p-2 border-b border-gray-200">
-    //   <div className="flex items-center space-x-4">
-    //     {/* Product Image (optional) */}
-    //     <img 
-    //       src={item.product.images[0] || "https://via.placeholder.com/80"} 
-    //       alt={item.product.name} 
-    //       className="w-12 h-12 object-cover rounded-lg"
-    //     />
-    //     <div>
-    //       <h3 className="text-[10px] text-left font-medium ">{item.product.name}</h3>
-    //  </div>
-    //   </div>
-
-    //   {/* Product Price and Quantity */}
-    //   <div className="flex items-center space-x-4">
-    //     <span className=" font-semibold ">{item.product.price}</span>
-    //     <span className="text-gray-600">Quantity: {item.quantity}</span>
-    //   </div>
-
-    //   {/* Total Price */}
-    //   <div className=" font-semibold ">
-    //     {(item.product.price * item.quantity).toFixed(2)}
-    //   </div>
-    // </li>
+   
   ))}
     </TableBody>
     </Table>
@@ -139,8 +128,13 @@ const CartsModal = ({
 
             </div>
 
-            <div className="flex gap-4 justify-center pt-10">
-              <Button color="warning" onPress={() => setIsOpen(false)}>
+            <div className="  my-2">
+                <div className="flex w-full p-2 border gap-4 justify-between">
+                   <p> Total Items : {cartsItemResult.data.totalQuantity}</p>
+                    <p>SubTolal: {cartsItemResult.data.subtotal}</p>
+                </div>
+             <div className="flex gap-4 justify-center pt-10">
+             <Button color="warning" onPress={() => setIsOpen(false)}>
                 Close
               </Button>
               <Button color="danger" onPress={handleDeleteCategory}>
@@ -148,6 +142,7 @@ const CartsModal = ({
               <CheckCheck /> Checkout
               
               </Button>
+             </div>
             </div>
           </div>
         </div>
