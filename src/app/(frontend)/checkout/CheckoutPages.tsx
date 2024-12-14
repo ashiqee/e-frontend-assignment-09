@@ -97,7 +97,7 @@ if(isLoading){
           </div>
         </div>
       </div>
-      <CheckoutForm user={user}  data={cartsItemResult?.data}/>
+      <CheckoutForm user={user}  cartItems={cartsItemResult?.data}/>
    </div>
     </>
   );

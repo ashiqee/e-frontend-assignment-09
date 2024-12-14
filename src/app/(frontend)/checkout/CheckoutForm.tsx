@@ -2,6 +2,7 @@
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
 import TRTextarea from "@/components/forms/TRTextarea";
+import { useCreateOrder } from "@/hooks/orders.hook";
 import { Button } from "@nextui-org/button";
 import { Radio, RadioGroup } from "@nextui-org/react";
 import { ListOrdered } from "lucide-react";
@@ -9,13 +10,39 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CheckoutForm({data,user}:{data:any,user:any}) {
+export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) {
     const router = useRouter()
     const [payment, setPaymentMethod] = useState("cashOnDelivery");
+    const [discount, setDiscount] = useState(0);
+    const createOrderMutation = useCreateOrder()
     
+    const totalPrice = cartItems.subtotal - discount;
 
     const onSubmit = (data:any)=>{
-        console.log(data);
+
+        const formData = new FormData()
+
+        const formattedCartItems = cartItems.cartItems.map((item: any) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.product.price,
+        }));
+            const orderData = {
+
+                   order: {
+                    cartItems:formattedCartItems,
+                    totalPrice: totalPrice,
+                    fullName: data.name,
+                    mobile: data.contactNumber,
+                    address: data.address,
+                    paymentMethod: payment,
+                   }
+            }
+
+            formData.append("data",JSON.stringify(orderData));
+
+            createOrderMutation.mutate(formData);
+
         
     }
     
@@ -90,10 +117,10 @@ defaultValues={{
            
           />
                 <div className=" w-full p-2  text-md  ">
-                   <p className="flex gap-10 justify-between items-center"> Total Items : <span className="text-right ">{data?.totalQuantity}</span></p>
-                    <p className="flex gap-10 justify-between items-center">Tolal: <span  className="text-right  font-bold"> {(data?.subtotal).toFixed(2)}</span></p>
-                    <p className="flex gap-10 justify-between items-center">Discount: <span  className="text-right  font-bold"> {0}</span></p>
-                    <p className="flex gap-10 justify-between items-center">SubTolal: <span  className="text-right  font-bold"> {(data?.subtotal).toFixed(2)}</span></p>
+                   <p className="flex gap-10 justify-between items-center"> Total Items : <span className="text-right ">{cartItems?.totalQuantity}</span></p>
+                    <p className="flex gap-10 justify-between items-center">Tolal: <span  className="text-right  font-bold"> {(cartItems?.subtotal).toFixed(2)}</span></p>
+                    <p className="flex gap-10 justify-between items-center">Discount: <span  className="text-right  font-bold">-  {discount}</span></p>
+                    <p className="flex gap-10 justify-between items-center">SubTolal: <span  className="text-right  font-bold"> {(totalPrice).toFixed(2)}</span></p>
                 </div>
              
             </div>
@@ -101,8 +128,8 @@ defaultValues={{
           {payment === "cashOnDelivery"? 
           <Button
           color="success"
-          type="button"
-        
+          type="submit"
+            
           onClick={onSubmit}
         >
          Confirm Order
