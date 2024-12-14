@@ -1,6 +1,7 @@
+"use client"
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@nextui-org/button";
-import { CheckCheck, CircleAlert,  Lock,Trash,Unlock } from "lucide-react";
+import { CheckCheck, CircleAlert,  ListOrdered,  Lock,ShoppingBag,Trash,Unlock } from "lucide-react";
 import { toast } from "sonner";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
 
@@ -9,22 +10,12 @@ import { useDeleteProduct } from "@/hooks/products.hook";
 import { CheckboxGroup } from "@nextui-org/react";
 import { useDeleteCartItem, useGetCartsItems } from "@/hooks/carts.hook";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 
-const CartsModal = ({
-  id,
-  setIsOpen,
-  cartsData,
-  isOpen
-}: {
-    id: string;
-  setIsOpen: any;
-  isOpen:boolean;
-  cartsData:any;
-}) => {
+const CartsPage = () => {
 
-    const deleteProductMutation = useDeleteProduct()
     const {data:cartsItemResult,refetch ,isLoading}= useGetCartsItems()
     const deleteCartItemMutation = useDeleteCartItem()
     const modalRef = useRef<HTMLDivElement | null>(null);
@@ -33,22 +24,6 @@ const CartsModal = ({
 
  
 
-    useEffect(()=>{
-        const handleOutsideClick = (event:any) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
-              setIsOpen(false);
-            }
-          };
-      
-          if (isOpen) {
-            document.addEventListener("mousedown", handleOutsideClick);
-          }
-      
-          return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-          };
-        }, [isOpen, setIsOpen]);
-
 
         const handleDeleteCartItem = (id:string)=>{
 
@@ -56,23 +31,22 @@ const CartsModal = ({
             deleteCartItemMutation.mutate(id)
 
         }
-
-        if(isLoading){
-            return <>Loading...</>
-        }
+if(isLoading){
+  return <>Loading...</>
+}
 
   return (
     <>
-   <div className="absolute bottom-0 z-50">
-   <div className="fixed  top-0  z-40 inset-0 bg-slate-500/35 flex  w-full bg-opacity-75  justify-end items-center ">
-        <div className="w-76">
+   <div className="mt-10">
+   <div className=" inset-0  flex flex-col  h-fit  w-full bg-opacity-75  justify-center items-center ">
+        <div className="w-full">
           <div
-            className=" relative  z-40 min-w-3xl max-w-3xl flex flex-col justify-between mx-auto min-h-screen my-auto 
+            className=" relative  z-40 flex flex-col  justify-between  my-auto 
          rounded-xl p-10 overflow-hidden overflow-y-auto 
           bg-gray-900  text-white text-center"
           >
-            <div ref={modalRef} className="space-y-2 flex flex-col max-w-[20vw] justify-center items-center">
-              <h3 className="text-2xl">Carts List</h3>
+            <div ref={modalRef} className="space-y-2 flex flex-col  justify-center items-center">
+              <h3 className="text-2xl">Checkout</h3>
 
 <Table removeWrapper  aria-label="Cart Product collection table">
       <TableHeader>
@@ -90,14 +64,16 @@ const CartsModal = ({
      <button onClick={()=>handleDeleteCartItem(item.product.id)}>   <Trash size={14}/></button>
     </TableCell>
 <TableCell>
-    <img 
+  <Link href={`/shop/${item.product.id}`}>
+  <img 
           src={item.product.images[0] || "https://via.placeholder.com/80"} 
           alt={item.product.name} 
-          className="w-12 h-12 object-cover rounded-lg"
+          className="w-20 h-20 object-cover rounded-lg"
         />
+  </Link>
         
         </TableCell>
-<TableCell><h3 className="text-[10px] text-left font-medium ">{item.product.name}
+<TableCell><h3 className="text-[14px] text-left font-medium ">{item.product.name}
     <br />
 <span className=" font-semibold ">{item.product.price}
 </span>
@@ -116,18 +92,21 @@ const CartsModal = ({
 
             </div>
 
-            <div className="  my-2">
-                <div className="flex w-full p-2 border gap-4 justify-between">
+            <div className=" text-[16px] my-2">
+                <div className="flex w-full p-2 pr-52 gap-20 items-end justify-end">
                    <p> Total Items : {cartsItemResult.data.totalQuantity}</p>
-                    <p>SubTolal: {cartsItemResult.data.subtotal}</p>
+                    <p >SubTolal: {(cartsItemResult.data.subtotal).toFixed(2)}</p>
                 </div>
-             <div className="flex gap-4 justify-center pt-10">
-             <Button color="warning"  onPress={()=>router.push("/cart")}>
-                View Cart
-              </Button>
-              <Button color="success" onPress={()=>router.push("/checkout")}>
+             <div className="flex gap-4 justify-end pt-10">
+             
+              <Button color="secondary" onPress={()=>router.push("/shop")}>
 
-              <CheckCheck /> Checkout
+              <ShoppingBag /> Shop More
+              
+              </Button>
+              <Button color="danger" onPress={()=>router.push("/checkout")}>
+
+              <ListOrdered /> Check Out
               
               </Button>
              </div>
@@ -140,4 +119,4 @@ const CartsModal = ({
   );
 };
 
-export default CartsModal;
+export default CartsPage;

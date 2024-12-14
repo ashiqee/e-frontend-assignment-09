@@ -1,8 +1,12 @@
-export default function CheckoutPage() {
+import CheckoutPage from "./CheckoutPages";
+
+export default function Checkout() {
     return (
-        <div>
+        <div className="container mx-auto">
+            <CheckoutPage/>
 
             
+
         </div>
     );
 }

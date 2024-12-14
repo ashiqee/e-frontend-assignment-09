@@ -41,7 +41,7 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
         
-            <main>
+            <main className=" min-h-screen dark:bg-slate-500/35">
               {children}
             </main>
          
