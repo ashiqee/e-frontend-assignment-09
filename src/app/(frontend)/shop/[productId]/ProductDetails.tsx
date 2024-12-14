@@ -4,6 +4,8 @@ import { useGetProductDetailsForPublic } from "@/hooks/products.hook";
 import { Button } from "@nextui-org/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import CartsModal from "../../_components/modals/CartModal";
+import { useAddToCart } from "@/hooks/carts.hook";
 
 
 
@@ -11,7 +13,10 @@ import React, { useEffect, useState } from "react";
 
 const ProductDetails = ({ id }: { id: string }) => {
   const { data: result, isLoading } = useGetProductDetailsForPublic(id);
-  const product = result?.data || {};
+  const addtoCartMutation = useAddToCart()
+  const [isOpen,setIsOpen]=useState(false);
+  const [cartItemQty,setCartItemQty]=useState(1);
+  const product = result?.data ;
   
   // Ensure images is always an array
   const [previewImg, setPreviewImg] = useState(
@@ -27,6 +32,25 @@ const ProductDetails = ({ id }: { id: string }) => {
     return <div>Loading...</div>;
   }
  console.log(product)
+
+ const handleAddToCart = ()=>{
+
+  const formData = new FormData();
+
+  const cartsData = {
+    cart: {
+      productId:product.id,
+      quantity:cartItemQty
+    }
+  }
+
+  formData.append("data", JSON.stringify(cartsData));
+
+  addtoCartMutation.mutate(formData)
+
+  setIsOpen(true)
+
+ }
 
   return (
     <div className="mx-4 md:mx-0">
@@ -50,7 +74,7 @@ const ProductDetails = ({ id }: { id: string }) => {
           <div className="overflow-hidden min-w-[600px] h-[600px]">
             <Image
               alt="images"
-              className={` rounded-md hover:scale-125 duration-1000 shadow-md shadow-slate-800`}
+              className={` rounded-md hover:scale-125 duration-1000 w-full h-full shadow-md shadow-slate-800`}
               height={600}
               src={previewImg}
               width={600}
@@ -58,7 +82,7 @@ const ProductDetails = ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="h-[600px]  overflow-hidden">
+        <div className="h-[600px] w-full  overflow-hidden">
     
      <div className="space-y-5 mt-5  md:mt-0">
             <h1 className="md:text-4xl text-xl font-bold">{product?.name.slice(0,60)}</h1>
@@ -107,7 +131,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                     <button>+</button>
                   </div>
 
-                  <Button className="text-black min-w-full text-md hover:bg-white hover:scale-105 duration-1000 font-bold">
+                  <Button onPress={handleAddToCart} className="text-black min-w-full text-md hover:bg-white hover:scale-105 duration-1000 font-bold">
                     Add To Cart
                   </Button>
                 </div>
@@ -132,6 +156,9 @@ const ProductDetails = ({ id }: { id: string }) => {
    <div className="max-w-2xl my-6">{product.description}</div>
    </section>
 
+{
+  isOpen && <><CartsModal id="" isOpen={isOpen} setIsOpen={setIsOpen} cartsData={""}/></>
+}
 
     </div>
   );

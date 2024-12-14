@@ -25,6 +25,7 @@ import {
   Logo,
 } from "@/components/icons";
 import { getCurrentUser } from "@/services/AuthService";
+import CartBar from "./shared/bar/CartBar";
 
 
 export const Navbar = async () => {
@@ -75,15 +76,7 @@ export const Navbar = async () => {
        
       
         <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={"/carts"}
-            variant="flat"
-          >
-           <ShoppingCart/>
-          </Button>
+          <CartBar/>
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
       {

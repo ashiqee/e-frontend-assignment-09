@@ -69,7 +69,7 @@ const AllShopProducts = () => {
         isLoading ? (
             <div>Loading...</div>
         ) : (
-            <div className="gap-3 md:gap-4 grid grid-cols-2 sm:grid-cols-4 mx-4 md:mx-0">
+            <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 mx-4 md:mx-0">
             {products.map((item:any, index:number) => (
              
               <ProductCard key={index} index={index} item={item} />

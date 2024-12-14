@@ -64,7 +64,7 @@ const ProductsManagementTable = () => {
 
 
 
-  const products = productsResults?.data?.products || [];
+  const products = productsResults?.data?.vendorAllProducts || [];
   const shops = vendorResults?.data?.shops || [];
   const categories = catResults?.data || [];
   const totalProducts = productsResults?.data?.paginateData?.total || 0;

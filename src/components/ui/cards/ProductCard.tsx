@@ -67,7 +67,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
               alt={item.name}
-              className="w-full rounded-none object-center h-[100px]  md:h-[220px]"
+              className="mx-auto rounded-none object-cover h-[160px] w-full  md:h-[240px]"
               radius="lg"
               shadow="sm"
               src={item.images[0]}

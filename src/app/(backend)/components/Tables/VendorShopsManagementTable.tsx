@@ -62,6 +62,9 @@ const VendorShopsManagementTable = () => {
   const shops = results?.data?.shops || [];
   const totalShops = results?.data?.paginateData?.total || 0;
 
+  console.log(results);
+  
+
   useEffect(() => {
     // Update total pages when results change
     setTotal(Math.ceil(totalShops / limit));
