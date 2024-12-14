@@ -1,12 +1,14 @@
 import { addToCart, deletAProductFromCart, getAllUserCartsItems } from "@/services/CartsServices";
-import { createOrder } from "@/services/OrderServices";
+import { createOrder, getAllUserOrdersHistory } from "@/services/OrderServices";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 
 
 export const useCreateOrder = () => {
+  const router = useRouter()
     const queryClient = useQueryClient();
   
     return useMutation({
@@ -16,7 +18,10 @@ export const useCreateOrder = () => {
       },
       onSuccess: () => {
         toast.success("Order created successfully");
+       
         queryClient.invalidateQueries({ queryKey: ['orders'] }); // Invalidate the 'carts' cache to trigger a refetch
+        queryClient.invalidateQueries({ queryKey: ['carts'] }); 
+        router.push('/order-success')
       },
       onError: (error: any) => {
         toast.error(error.message || 'Failed to create order');
@@ -27,13 +32,13 @@ export const useCreateOrder = () => {
 
 
 
-  // export const useGetCartsItems = () => {
-  //   return useQuery({
-  //     queryKey: ['carts'], // Include query parameters in the key
-  //     queryFn: () => getAllUserCartsItems(),
-  //     staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
-  //   });
-  // };
+  export const useGetUserOrderHistory = () => {
+    return useQuery({
+      queryKey: ['orders'], // Include query parameters in the key
+      queryFn: () => getAllUserOrdersHistory(),
+      staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    });
+  };
 
 
 

@@ -41,9 +41,8 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
 
             formData.append("data",JSON.stringify(orderData));
 
-            createOrderMutation.mutate(formData);
-
-        
+            createOrderMutation.mutate(formData)
+     
     }
     
     return (

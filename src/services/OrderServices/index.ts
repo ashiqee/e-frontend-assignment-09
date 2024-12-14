@@ -8,7 +8,7 @@ import { FieldValues } from "react-hook-form";
 
 export const createOrder = async (formData: FieldValues) => {
     try {
-      console.log(formData);
+      
       
       const res = await axiosInstance.post('/orders/create', formData, {
         headers: {
@@ -17,6 +17,7 @@ export const createOrder = async (formData: FieldValues) => {
       });
   
       revalidateTag("orders");
+      
       return res.data;
     } catch (error: any) {
       console.error("AxiosError:", error.response?.data || error.message);
@@ -25,23 +26,23 @@ export const createOrder = async (formData: FieldValues) => {
   };
   
 
-//   export const getAllUserCartsItems = async () => {
-//     try {
-//       const res = await axiosInstance.get('/carts');
+  export const getAllUserOrdersHistory = async () => {
+    try {
+      const res = await axiosInstance.get('/orders/getUserOrders');
  
-//       // Check for successful response (status code 2xx)
-//       if (res.status < 200 || res.status >= 300) {
-//         throw new Error(`Failed to fetch carts, status: ${res.status}`);
-//       }
+      // Check for successful response (status code 2xx)
+      if (res.status < 200 || res.status >= 300) {
+        throw new Error(`Failed to fetch carts, status: ${res.status}`);
+      }
  
-//       console.log(res.data);
-//       return res.data;
+   
+      return res.data;
  
-//     } catch (error) {
-//       console.error("Error fetching cart items:", error);
-//       throw new Error('Failed to fetch carts');
-//     }
-//  };
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+      throw new Error('Failed to fetch carts');
+    }
+ };
 
 
 
