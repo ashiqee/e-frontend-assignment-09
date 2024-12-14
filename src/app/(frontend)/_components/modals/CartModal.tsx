@@ -8,6 +8,7 @@ import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@
 import { useDeleteProduct } from "@/hooks/products.hook";
 import { CheckboxGroup } from "@nextui-org/react";
 import { useDeleteCartItem, useGetCartsItems } from "@/hooks/carts.hook";
+import { useRouter } from "next/navigation";
 
 
 
@@ -27,24 +28,10 @@ const CartsModal = ({
     const {data:cartsItemResult,refetch ,isLoading}= useGetCartsItems()
     const deleteCartItemMutation = useDeleteCartItem()
     const modalRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter()
 
-    const handleDeleteCategory = () => {
-        if (!id) return; 
-        deleteProductMutation.mutate(id, {
-          onSuccess: () => {
-            toast.success(`Product deleted successfully`);
-            setIsOpen(false); // Close modal only on success
-          },
-          onError: (error) => {
-            console.error(error); // Log error for debugging
-            toast.error("Failed to Delete Product");
-          },
-        });
-      };
-      
 
-    //   outside click closed modal 
-
+ 
 
     useEffect(()=>{
         const handleOutsideClick = (event:any) => {
@@ -137,7 +124,7 @@ const CartsModal = ({
              <Button color="warning" onPress={() => setIsOpen(false)}>
                 Close
               </Button>
-              <Button color="danger" onPress={handleDeleteCategory}>
+              <Button color="danger" onPress={()=>router.push("/checkout")}>
 
               <CheckCheck /> Checkout
               
