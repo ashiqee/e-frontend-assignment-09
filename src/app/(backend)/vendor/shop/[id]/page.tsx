@@ -1,7 +1,8 @@
 import React from 'react';
 
-import ProductTable from '@/app/(backend)/components/ProductTable';
+
 import { getVendorShopData } from '@/services/VendorShopService';
+import { ProductTable } from '@/app/(backend)/components/ProductTable';
 
 const VendorShop = async ({params}:{params:any}) => {
     const id = params.id
@@ -14,7 +15,7 @@ const VendorShop = async ({params}:{params:any}) => {
 
           <h3>All Products</h3>
 
-         <ProductTable products={data?.products}/>
+         {/* <ProductTable products={data?.products}/> */}
         </div>
     );
 };

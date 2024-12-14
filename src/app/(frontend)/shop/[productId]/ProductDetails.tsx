@@ -1,17 +1,32 @@
 "use client";
 
+import { useGetProductDetailsForPublic } from "@/hooks/products.hook";
 import { Button } from "@nextui-org/button";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 
 
 
-const ProductDetails = ({ product }: { product: any }) => {
-  const [previewImg, setPreviewImg] = useState(product.images[0]);
+const ProductDetails = ({ id }: { id: string }) => {
+  const { data: result, isLoading } = useGetProductDetailsForPublic(id);
+  const product = result?.data || {};
   
+  // Ensure images is always an array
+  const [previewImg, setPreviewImg] = useState(
+    product?.images?.[0] || ""
+  );
 
+  // Update preview image when product changes
+  useEffect(() => {
+    setPreviewImg(product?.images?.[0] || "");
+  }, [product]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+ console.log(product)
 
   return (
     <div className="mx-4 md:mx-0">
@@ -37,7 +52,7 @@ const ProductDetails = ({ product }: { product: any }) => {
               alt="images"
               className={` rounded-md hover:scale-125 duration-1000 shadow-md shadow-slate-800`}
               height={600}
-              src={previewImg.imgUrl ? previewImg.imgUrl : previewImg}
+              src={previewImg}
               width={600}
             />
           </div>
@@ -46,12 +61,12 @@ const ProductDetails = ({ product }: { product: any }) => {
         <div className="h-[600px]  overflow-hidden">
     
      <div className="space-y-5 mt-5  md:mt-0">
-            <h1 className="md:text-4xl text-xl font-bold">{product?.title.slice(0,60)}</h1>
+            <h1 className="md:text-4xl text-xl font-bold">{product?.name.slice(0,60)}</h1>
     
             <p className="flex gap-4 items-center text-3xl">
               TK {product?.price}
               <span className="text-gray-400 text-[16.5px] font-normal  line-through ">
-                Tk {product?.regularPrice}
+                Tk {product?.discount}
               </span>
             </p>
 {/* 

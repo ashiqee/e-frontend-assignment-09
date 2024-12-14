@@ -66,6 +66,21 @@ export const getAllProductsForPublic = async (query:Record<any,any>) => {
       };
 
 
+export const getProductDetailsForPublic = async (id:string) => {
+  
+      
+         const res = await nexiosInstance.get(`/product/${id}`, {
+          next: { tags: ["products"] }, // Enable caching with a specific tag
+        });
+      
+        if (!res) {
+          throw new Error('Failed to fetch posts');
+        }
+       
+        return res.data;
+      };
+
+
 
       
 export const getAllProductsForVendor = async (query:Record<any,any>) => {

@@ -64,11 +64,13 @@ const ProductsManagementTable = () => {
 
 
 
-  const products = productsResults?.data?.data || [];
+  const products = productsResults?.data?.products || [];
   const shops = vendorResults?.data?.shops || [];
   const categories = catResults?.data || [];
   const totalProducts = productsResults?.data?.paginateData?.total || 0;
 
+
+  console.log(products)
 
   useEffect(() => {
     // Update total pages when results change
