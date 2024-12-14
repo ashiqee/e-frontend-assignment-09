@@ -13,7 +13,8 @@ const TRInput = ({
     isRequired=false,
     type="text",
     label,
-    name
+    name,
+    readOnly
 }:IProps) => {
 
 
@@ -31,6 +32,7 @@ const TRInput = ({
         name={name}
         size={size}
         type={type}
+        readOnly={readOnly}
         variant={variant}
 
 

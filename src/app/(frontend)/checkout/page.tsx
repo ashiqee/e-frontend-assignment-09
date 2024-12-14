@@ -1,9 +1,12 @@
+import { getCurrentUser } from "@/services/AuthService";
 import CheckoutPage from "./CheckoutPages";
 
-export default function Checkout() {
+export default async function Checkout() {
+    const user = await getCurrentUser();
+
     return (
         <div className="container mx-auto">
-            <CheckoutPage/>
+            <CheckoutPage user={user}/>
 
             
 

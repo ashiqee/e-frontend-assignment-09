@@ -15,7 +15,7 @@ import CheckoutForm from "./CheckoutForm";
 
 
 
-const CheckoutPage = () => {
+const CheckoutPage = ({user}:{user:any}) => {
 
     const {data:cartsItemResult,refetch ,isLoading}= useGetCartsItems()
     const deleteCartItemMutation = useDeleteCartItem()
@@ -44,13 +44,13 @@ if(isLoading){
           <div
             className="  z-40 flex flex-col min-h-[400px] justify-between mx-auto  my-auto 
          rounded-xl p-10 overflow-hidden overflow-y-auto 
-          bg-gray-900  text-white "
+          dark:bg-gray-900 bg-gray-300/25 dark:text-white "
           >
             <div ref={modalRef} className="space-y-2 ">
               <h3 className="text-xl">Items Summary</h3>
 
 <Table removeWrapper  aria-label="Cart Product collection table">
-      <TableHeader>
+      <TableHeader >
         <TableColumn>-</TableColumn>
         <TableColumn>Image</TableColumn>
         <TableColumn>Product info</TableColumn>
@@ -97,7 +97,7 @@ if(isLoading){
           </div>
         </div>
       </div>
-      <CheckoutForm  data={cartsItemResult?.data}/>
+      <CheckoutForm user={user}  data={cartsItemResult?.data}/>
    </div>
     </>
   );

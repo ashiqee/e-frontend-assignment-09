@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CheckoutForm({data}:{data:any}) {
+export default function CheckoutForm({data,user}:{data:any,user:any}) {
     const router = useRouter()
     const [payment, setPaymentMethod] = useState("cashOnDelivery");
     
@@ -25,10 +25,18 @@ export default function CheckoutForm({data}:{data:any}) {
 <h3>Shipping Address</h3>
 
 
-<TRForm onSubmit={onSubmit}>
+<TRForm onSubmit={onSubmit}
+defaultValues={{
+    email:user.email,
+    name: user.fullName,
+    contactNumber: user.contactNumber,
+    address: user.address
+}}
+>
         <div className="py-3 flex gap-4 items-center">
           <TRInput
             isRequired
+            readOnly
             label="Email"
             name="email"
             type="email"
@@ -74,8 +82,17 @@ export default function CheckoutForm({data}:{data:any}) {
           </RadioGroup>
           <div className="flex flex-col justify-end">
           <div className=" text-[15px] my-2">
+          <TRInput
+            label="Coupon"
+            name="coupon"
+            type="text"
+            size="sm"
+           
+          />
                 <div className=" w-full p-2  text-md  ">
                    <p className="flex gap-10 justify-between items-center"> Total Items : <span className="text-right ">{data?.totalQuantity}</span></p>
+                    <p className="flex gap-10 justify-between items-center">Tolal: <span  className="text-right  font-bold"> {(data?.subtotal).toFixed(2)}</span></p>
+                    <p className="flex gap-10 justify-between items-center">Discount: <span  className="text-right  font-bold"> {0}</span></p>
                     <p className="flex gap-10 justify-between items-center">SubTolal: <span  className="text-right  font-bold"> {(data?.subtotal).toFixed(2)}</span></p>
                 </div>
              

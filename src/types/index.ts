@@ -13,6 +13,7 @@ export interface IInput {
   label?:string;
   name:string;
   disable?:boolean;
+  readOnly?:boolean;
 }
 export interface IRTextarea {
   variant?: "flat"|"bordered"|"faded"|'underlined';
