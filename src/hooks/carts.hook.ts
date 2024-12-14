@@ -9,28 +9,27 @@ export const useAddToCart = () => {
     const queryClient = useQueryClient();
   
     return useMutation({
-      mutationKey: ['carts'],
-      mutationFn: async (formData:FieldValues) => {
-        return await addToCart(formData);
+      mutationKey: ['carts'], // Using 'carts' as the mutation key
+      mutationFn: async (formData: FieldValues) => {
+        return await addToCart(formData); // Call your addToCart API function
       },
       onSuccess: () => {
-        toast.success("Product added in cart successfully");
-        queryClient.invalidateQueries({ queryKey: ['carts'] }); // Invalidate the 'categories' cache
+       
+        queryClient.invalidateQueries({ queryKey: ['carts'] }); // Invalidate the 'carts' cache to trigger a refetch
       },
       onError: (error: any) => {
-        toast.error(error.message || 'Failed to created add cart');
+        toast.error(error.message || 'Failed to add product to cart');
       },
     });
   };
 
 
 
-  
-export const useGetCartsItems = () => {
+
+  export const useGetCartsItems = () => {
     return useQuery({
-      queryKey: ['products'], // Include id parameters in the key
+      queryKey: ['carts'], // Include query parameters in the key
       queryFn: () => getAllUserCartsItems(),
       staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
     });
   };
-

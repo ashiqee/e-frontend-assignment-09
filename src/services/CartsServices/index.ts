@@ -43,6 +43,7 @@ export const addToCart = async (formData: FieldValues) => {
 
 
 
+
   export const deletAProductFromCart = async (id: string) => {
     const res = await nexiosInstance.delete(`/carts/delete/${id}`);
    

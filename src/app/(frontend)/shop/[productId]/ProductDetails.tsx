@@ -6,16 +6,19 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import CartsModal from "../../_components/modals/CartModal";
 import { useAddToCart } from "@/hooks/carts.hook";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 
 
 
 const ProductDetails = ({ id }: { id: string }) => {
-  const { data: result, isLoading } = useGetProductDetailsForPublic(id);
+  const { data: result, isSuccess  ,isLoading } = useGetProductDetailsForPublic(id);
   const addtoCartMutation = useAddToCart()
   const [isOpen,setIsOpen]=useState(false);
   const [cartItemQty,setCartItemQty]=useState(1);
+  const queryClient = useQueryClient();
   const product = result?.data ;
   
   // Ensure images is always an array
@@ -31,7 +34,7 @@ const ProductDetails = ({ id }: { id: string }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
- console.log(product)
+
 
  const handleAddToCart = ()=>{
 
@@ -46,11 +49,17 @@ const ProductDetails = ({ id }: { id: string }) => {
 
   formData.append("data", JSON.stringify(cartsData));
 
-  addtoCartMutation.mutate(formData)
-
-  setIsOpen(true)
-
- }
+  addtoCartMutation.mutate(formData, {
+    onSuccess: () => {
+        toast.success("Product added to cart successfully");
+      queryClient.invalidateQueries({ queryKey: ['carts'] }); 
+      setIsOpen(true); 
+    },
+    onError: (error: any) => {
+      toast.error(error.message || 'Failed to add product to cart');
+    },
+  });
+};
 
   return (
     <div className="mx-4 md:mx-0">
@@ -156,6 +165,7 @@ const ProductDetails = ({ id }: { id: string }) => {
    <div className="max-w-2xl my-6">{product.description}</div>
    </section>
 
+   {isLoading && <p>Loading...</p>}
 {
   isOpen && <><CartsModal id="" isOpen={isOpen} setIsOpen={setIsOpen} cartsData={""}/></>
 }
