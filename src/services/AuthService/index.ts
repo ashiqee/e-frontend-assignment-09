@@ -21,8 +21,9 @@ interface AuthResponse{
 
 export const registerUser = async (userData: FieldValues) => {
       try {
+       console.log(userData);
        
-      const { data } = await nexiosInstance.post<any>(
+      const { data } = await nexiosInstance.post(
         "/users/register",
         userData,
         {
@@ -33,6 +34,8 @@ export const registerUser = async (userData: FieldValues) => {
       );
   
       revalidateTag("users");
+      console.log("A>>",data);
+      
   
       return data;
     } catch (error: any) {

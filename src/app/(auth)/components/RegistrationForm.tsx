@@ -14,6 +14,9 @@ import { useUser } from "@/context/user.provider";
 import registrationValidation from "@/schema/register.schema";
 import TRTextarea from "@/components/forms/TRTextarea";
 import { Button, Input } from "@nextui-org/react";
+import axios from "axios";
+import envConfig from "@/config/envConfig";
+import { toast } from "sonner";
 
 interface RegistrationFormProps {
   userRole: string;
@@ -23,30 +26,27 @@ interface RegistrationFormProps {
 const RegistrationForm: React.FC<RegistrationFormProps> = ({userRole}) => {
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
   const router = useRouter();
-  const { setIsLoading: userLoading } = useUser();
-  const {
-    mutate: handleRegister,
-    isPending,
-    isSuccess,
-  } = useUserRegistration();
+  const { setIsLoading: userLoading,isLoading } = useUser();
+  const [isPending,setIsPending]= useState(false)
+ 
 
   const onSubmit = async (data: any) => {
    
-
+setIsPending(true)
     // Create a FormData object
     const formData = new FormData();
 
     // Add JSON data
-    const registerData={
-        password: data.password,
-        user: {
-          fullName: data.fullName,
-          email: data.email,
-          contactNumber: data.contactNumber,
-          address: data?.address || "",
-          userRole,
-        },
-      }
+    const registerData = {
+      password: data.password,
+      user: {
+        fullName: data.fullName,
+        email: data.email,
+        contactNumber: data.contactNumber,
+        address: data?.address || "",
+        role: userRole,
+      },
+    };
     
 
     formData.append("data", JSON.stringify(registerData));
@@ -56,11 +56,22 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({userRole}) => {
     }
 
    
-    // Pass the FormData to the mutation handler
-    handleRegister(formData);
-
-    // Trigger loading state
-    userLoading(true);
+    try {
+      
+      const response = await axios.post(`${envConfig.baseApi}/users/register`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', 
+        },
+      });
+  
+      toast('User registration Success:', response.data.message);
+    } catch (error) {
+      toast.error('Error registering user:');
+    } finally {
+      // Trigger loading state
+      userLoading(false);
+      router.push("/");
+    }
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,11 +80,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({userRole}) => {
     }
   };
 
-  if (isSuccess) {
-    userLoading(false);
-    router.push("/profile");
-  }
-
+ 
   return (
     <>
       {isPending && <Loading />}

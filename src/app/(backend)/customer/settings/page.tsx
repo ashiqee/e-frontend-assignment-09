@@ -1,7 +1,12 @@
+import ProfileSettings from "@/app/(auth)/components/ProfileSetting";
+
 export default function Settings() {
     return (
-        <div>
-                    All Settings
+        <div >
+
+
+<ProfileSettings/>
+
 
         </div>
     );
