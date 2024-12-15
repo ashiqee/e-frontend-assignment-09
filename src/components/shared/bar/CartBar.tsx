@@ -1,11 +1,13 @@
 "use client"
-import CartsModal from "@/app/(frontend)/_components/modals/CartModal";
-import { useGetCartsItems } from "@/hooks/carts.hook";
+
 import { Button } from "@nextui-org/button";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
 import Loading from "../Loading";
+
+import { useGetCartsItems } from "@/hooks/carts.hook";
 import { getCurrentUser } from "@/services/AuthService";
 
 export default function CartBar() {
@@ -17,12 +19,14 @@ export default function CartBar() {
      
       const checkUserRole = async () => {
         const user = await getCurrentUser();
+
         if (user?.role !== "CUSTOMER") {
           setIsCustomer(false); 
         } else {
           setIsCustomer(true); 
         }
       };
+
       checkUserRole();
     }, []); 
   
@@ -40,10 +44,10 @@ export default function CartBar() {
         <>
        
         <Button
-            onClick={()=>router.push("/cart")}
             className="text-sm font-normal text-default-600 bg-default-100"
-            
             variant="flat"
+            
+            onClick={()=>router.push("/cart")}
           >
                 <span className="text-pink-700 font-bold text-lg">{cartItemQty}</span>
            <ShoppingCart/>

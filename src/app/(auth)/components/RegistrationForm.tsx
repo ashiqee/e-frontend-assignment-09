@@ -1,10 +1,10 @@
 "use client"
-import { Button } from "@nextui-org/button";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { Input, Textarea } from "@nextui-org/input";
+
 
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
@@ -12,13 +12,15 @@ import { useUserRegistration } from "@/hooks/auth.hook";
 import Loading from "@/components/shared/Loading";
 import { useUser } from "@/context/user.provider";
 import registrationValidation from "@/schema/register.schema";
+import TRTextarea from "@/components/forms/TRTextarea";
+import { Button, Input } from "@nextui-org/react";
 
 interface RegistrationFormProps {
-  role: string;
+  userRole: string;
 }
 
 
-const RegistrationForm: React.FC<RegistrationFormProps> = ({role}) => {
+const RegistrationForm: React.FC<RegistrationFormProps> = ({userRole}) => {
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null);
   const router = useRouter();
   const { setIsLoading: userLoading } = useUser();
@@ -42,7 +44,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({role}) => {
           email: data.email,
           contactNumber: data.contactNumber,
           address: data?.address || "",
-          role,
+          userRole,
         },
       }
     
@@ -105,7 +107,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({role}) => {
         </div>
         <div className="py-1.5">
          
-        <Textarea
+        <TRTextarea
           label="Address"
           name="address"
           rows={1}

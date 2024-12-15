@@ -45,7 +45,7 @@ if(!user){
 
   return (
    <div className={` ${isOpen ? "md:mr-[250px]  duration-100":"md:mr-[75px]" }`}>
-   <button onClick={()=>setIsMbOpen(!isMbOpen)} className={`text-right p-3 fixed md:hidden right-2 top-2 ${!isMbOpen ? "":"rotate-90"}`}> ||| </button>
+   <button className={`text-right p-3 fixed md:hidden right-2 top-2 ${!isMbOpen ? "":"rotate-90"}`} onClick={()=>setIsMbOpen(!isMbOpen)}> ||| </button>
    <motion.aside
       animate={isOpen || isMbOpen ? "open" : "closed"}
       className={`fixed  top-0 left-0 h-full ${isMbOpen ? "hidden":""} bg-gray-800 text-white shadow-lg z-50`}

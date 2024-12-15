@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { getVendorShopData } from '@/services/VendorShopService';
-import { ProductTable } from '@/app/(backend)/components/ProductTable';
+
 
 const VendorShop = async ({params}:{params:any}) => {
     const id = params.id

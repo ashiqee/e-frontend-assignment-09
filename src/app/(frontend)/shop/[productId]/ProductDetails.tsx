@@ -1,15 +1,17 @@
 "use client";
 
-import { useGetProductDetailsForPublic } from "@/hooks/products.hook";
 import { Button } from "@nextui-org/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import CartsModal from "../../_components/modals/CartModal";
-import { useAddToCart } from "@/hooks/carts.hook";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetCurrentUser } from "@/hooks/users.hook";
 import { useRouter } from "next/navigation";
+
+import CartsModal from "../../_components/modals/CartModal";
+
+import { useAddToCart } from "@/hooks/carts.hook";
+import { useGetCurrentUser } from "@/hooks/users.hook";
+import { useGetProductDetailsForPublic } from "@/hooks/products.hook";
 
 
 
@@ -46,9 +48,11 @@ const ProductDetails = ({ id }: { id: string }) => {
   if(!user){
     toast.warning("Please registation first for add to cart")
     router.push("/register")
+
     return
   }else if(user?.role !== "CUSTOMER"){
     toast.warning("Only Customer can add to cart")
+
     return
   }
 
@@ -155,7 +159,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                     <button>+</button>
                   </div>
 
-                  <Button onPress={handleAddToCart} className="text-black min-w-full text-md hover:bg-white hover:scale-105 duration-1000 font-bold">
+                  <Button className="text-black min-w-full text-md hover:bg-white hover:scale-105 duration-1000 font-bold" onPress={handleAddToCart}>
                     Add To Cart
                   </Button>
                 </div>
@@ -182,7 +186,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 
    {isLoading && <p>Loading...</p>}
 {
-  isOpen && <><CartsModal id="" isOpen={isOpen} setIsOpen={setIsOpen} cartsData={""}/></>
+  isOpen && <><CartsModal cartsData={""} id="" isOpen={isOpen} setIsOpen={setIsOpen}/></>
 }
 
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ProductDetails from './ProductDetails';
-import { getAllProductsForPublic, getProductDetailsForPublic } from '@/services/ProductsServices';
+
 
 
 const ProductDetailsPage = async ({ params }: { params: { productId: string } }) => {

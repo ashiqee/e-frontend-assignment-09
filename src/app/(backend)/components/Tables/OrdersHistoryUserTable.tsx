@@ -1,14 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
-import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
+
+import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
 
 import useDebounce from '@/hooks/useDebounce';
-import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
-import VendorShopDropDownAction from '../Dropdown/VednorShopDropDownAction';
-import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
 import { useGetUserOrderHistory } from '@/hooks/orders.hook';
 
 interface QueryState {

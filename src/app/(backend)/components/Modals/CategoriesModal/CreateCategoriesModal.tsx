@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
-import { CircleAlert,  Lock,Unlock } from "lucide-react";
-import { toast } from "sonner";
+import { Input } from "@nextui-org/input";
 
-import { useBlacklistShop } from "@/hooks/shops.hook";
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
-import { Input, Textarea } from "@nextui-org/input";
 import { useCreateCategory } from "@/hooks/categories.hook";
 import TRTextarea from "@/components/forms/TRTextarea";
 
@@ -75,7 +72,7 @@ const CreateCategoriesModal = ({
          rounded-xl p-6 overflow-hidden overflow-y-auto 
           bg-gray-900  text-white text-center"
           >
-             <button onClick={() => setIsOpen(false)} className="absolute top-4 right-4">X</button>
+             <button className="absolute top-4 right-4" onClick={() => setIsOpen(false)}>X</button>
             <div className="space-y-2 flex flex-col ">
              <h2 className="text-xl font-semibold">Add New Category</h2>
              

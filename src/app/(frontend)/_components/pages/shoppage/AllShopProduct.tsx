@@ -1,10 +1,11 @@
 "use client"
 
+import React, { useEffect, useState } from 'react';
+
 import ShopSidebar from '@/components/shared/bar/ShopSidebar';
 import ProductCard from '@/components/ui/cards/ProductCard';
 import { useGetAllProductsForPublic } from '@/hooks/products.hook';
 import useDebounce from '@/hooks/useDebounce';
-import React, { useEffect, useState } from 'react';
 
 
 interface QueryState {

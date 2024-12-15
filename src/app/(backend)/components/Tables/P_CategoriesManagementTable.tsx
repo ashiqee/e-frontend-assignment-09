@@ -5,10 +5,11 @@ import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
 
 
-import useDebounce from '@/hooks/useDebounce';
-import { useGetAllCategories } from '@/hooks/categories.hook';
 import CategoriesDropDownAction from '../Dropdown/CategoriesDropDownAction';
 import CreateCategoriesModal from '../Modals/CategoriesModal/CreateCategoriesModal';
+
+import useDebounce from '@/hooks/useDebounce';
+import { useGetAllCategories } from '@/hooks/categories.hook';
 
 interface QueryState {
   sortBy?: string;
@@ -86,7 +87,7 @@ const P_CategoriesManagementTable = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <Button onClick={()=>setIsAddOpen(true)}  className="  px-6">Add New Category</Button>
+        <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Category</Button>
        </div>
         <div>
         <Dropdown>
@@ -144,9 +145,9 @@ const P_CategoriesManagementTable = () => {
               <TableCell>
                     {/* action modal  */}
               <CategoriesDropDownAction 
+              data={item}
               id={item.id}
               isDeleted={item.isDeleted}
-              data={item}
               />
               </TableCell>
             </TableRow>

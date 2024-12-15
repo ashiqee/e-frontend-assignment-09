@@ -30,9 +30,9 @@ const TRInput = ({
         isRequired={isRequired}
         label={label}
         name={name}
+        readOnly={readOnly}
         size={size}
         type={type}
-        readOnly={readOnly}
         variant={variant}
 
 

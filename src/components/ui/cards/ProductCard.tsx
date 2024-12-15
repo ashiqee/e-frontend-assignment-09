@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 import { motion } from "framer-motion"
 import { Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 import Link from 'next/link';
-import { useAddToCart } from '@/hooks/carts.hook';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+
+import { useAddToCart } from '@/hooks/carts.hook';
 import CartsModal from '@/app/(frontend)/_components/modals/CartModal';
 import { useGetCurrentUser } from '@/hooks/users.hook';
-import { useRouter } from 'next/navigation';
+
 
 
 
@@ -34,9 +36,11 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
         if(!user){
           toast.warning("Please registation first for add to cart")
           router.push("/register")
+
           return
         }else if(user?.role !== "CUSTOMER"){
           toast.warning("Only Customer can add to cart")
+
           return
         }
 
@@ -66,7 +70,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
 
     return (<>
     {
-  isOpen && <><CartsModal id="" isOpen={isOpen} setIsOpen={setIsOpen} cartsData={""}/></>
+  isOpen && <><CartsModal cartsData={""} id="" isOpen={isOpen} setIsOpen={setIsOpen}/></>
 }
       <Card key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>

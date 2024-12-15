@@ -1,3 +1,4 @@
+"use client"
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -7,30 +8,31 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
-import { ShoppingCart, User } from 'lucide-react';
+import { User } from 'lucide-react';
 import NextLink from "next/link";
 
 import ProfileDropDown from "./shared/ProfileDropDownMenu";
+import CartBar from "./shared/bar/CartBar";
+import MainMenu from "./shared/MainMenu";
+import DebounceSearch from "./shared/DebounceSearch";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
-    GithubIcon,
+    
  
   SearchIcon,
   Logo,
 } from "@/components/icons";
-import { getCurrentUser } from "@/services/AuthService";
-import CartBar from "./shared/bar/CartBar";
-import MainMenu from "./shared/MainMenu";
+import { useGetCurrentUser } from "@/hooks/users.hook";
 
 
-export const Navbar = async () => {
-    const user = await getCurrentUser();
+
+export const Navbar =  () => {
+ const {data:user}= useGetCurrentUser()
 
     
     
@@ -66,7 +68,13 @@ export const Navbar = async () => {
           </NextLink>
         </NavbarBrand>
 
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        <NavbarItem className="hidden lg:flex">
+          {/* {searchInput} */}
+
+          <DebounceSearch/>
+
+
+        </NavbarItem>
        
       </NavbarContent>
 

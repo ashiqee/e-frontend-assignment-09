@@ -4,13 +4,13 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image,
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
 
-import VendorShopDropDownAction from '../Dropdown/VednorShopDropDownAction';
+
+import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
+import ProductDropDownAction from '../Dropdown/ProductDropDownAction';
 
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
-import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
-import { useGetAllCategories, useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
-import ProductDropDownAction from '../Dropdown/ProductDropDownAction';
+import { useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
 import { useGetAllProductsMyShops } from '@/hooks/products.hook';
 
 
@@ -81,9 +81,9 @@ const ProductsManagementTable = () => {
     <>
      {
             isAddOpen && <CreateProductModal 
-            setIsOpen={setIsAddOpen} 
+            categories={categories} 
+            setIsOpen={setIsAddOpen}
             shops={shops}
-            categories={categories}
             />
         }
       <form className='flex justify-between '>
@@ -161,10 +161,10 @@ const ProductsManagementTable = () => {
               <TableCell>
                     {/* action modal  */}
               <ProductDropDownAction 
+              categories={categories}
               data={product}
               id={product.id}
               shops={shops}
-              categories={categories}
               />
               </TableCell>
             </TableRow>

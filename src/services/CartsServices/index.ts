@@ -1,9 +1,10 @@
 "use server"
-import axiosInstance from "@/lib/AxiosInstance";
-import nexiosInstance from "nexios-http";
 import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
+
 import { getCurrentUser } from "../AuthService";
+
+import axiosInstance from "@/lib/AxiosInstance";
 
 
 
@@ -16,6 +17,7 @@ export const addToCart = async (formData: FieldValues) => {
       });
   
       revalidateTag("carts");
+
       return res.data;
     } catch (error: any) {
       console.error("AxiosError:", error.response?.data || error.message);

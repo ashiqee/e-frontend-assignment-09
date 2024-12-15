@@ -1,11 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-
+import { Button, Image } from '@nextui-org/react';
+import Link from 'next/link';
 
 import ProductCard from '@/components/ui/cards/ProductCard';
 import { useGetAllProductsForPublic } from '@/hooks/products.hook';
-import { Button, Image } from '@nextui-org/react';
-import Link from 'next/link';
 
 
 interface QueryState {
@@ -32,8 +31,8 @@ const products= flashSaleProduct?.data.products || []
 
   
     return (
-        <div className='my-20 flex gap-4 container mx-auto'>
-            <Image className='h-full w-96 object-fit' src='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/flash-sale-design-template-de1ed8f28321fef5a13d120fb7911841_screen.jpg?ts=1637050530' />
+        <div className='md:my-20 md:flex gap-4 container mx-auto'>
+            <Image className='h-full p-4 md:p-0 md:w-96 object-fit' src='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/flash-sale-design-template-de1ed8f28321fef5a13d120fb7911841_screen.jpg?ts=1637050530' />
  <div>
  <div className="gap-3 md:gap-4 grid grid-cols-2 sm:grid-cols-3 mx-4 md:mx-0">
     {products.map((item:any, index:number) => (
@@ -42,7 +41,7 @@ const products= flashSaleProduct?.data.products || []
 
     ))}
     </div>
-    <Link href={`/shop?flashSale=true`}> <Button  variant='bordered' color='warning' className='flex mt-4 mx-auto justify-center' >View More</Button>
+    <Link href={`/shop?flashSale=true`}> <Button  className='flex mt-4 mx-auto justify-center' color='warning' variant='bordered' >View More</Button>
     </Link>
     </div>    </div>
     );

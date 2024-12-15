@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 
-import { useCreateVendorShop } from "@/hooks/shops.hook";
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
 import TRTextarea from "@/components/forms/TRTextarea";
 import TRSelect from "@/components/forms/TRSelect";
-import { parse } from "path";
 import { useAddProduct } from "@/hooks/products.hook";
 
 
@@ -128,10 +126,10 @@ const CreateProductModal = ({
   </div>
   <div className="py-1.5">
     <Input
+      multiple
       accept="image/*"
       label="Product Images"
       type="file"
-      multiple
       onChange={handleFileChange}
     />
   </div>

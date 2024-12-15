@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
-import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
+
+import VendorShopDropDownAction from '../Dropdown/VednorShopDropDownAction';
+import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
 
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
-import VendorShopDropDownAction from '../Dropdown/VednorShopDropDownAction';
-import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
+
 
 interface QueryState {
   sortBy?: string;
@@ -91,7 +92,7 @@ const VendorShopsManagementTable = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <Button onClick={()=>setIsAddOpen(true)}  className="  px-6">Create New Shop</Button>
+        <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Create New Shop</Button>
        </div>
         <div>
         <Dropdown>
@@ -153,9 +154,9 @@ const VendorShopsManagementTable = () => {
               <TableCell>
                     {/* action modal  */}
               <VendorShopDropDownAction 
+              data={shop}
               id={shop.id}
               isDeleted={shop.isDeleted}
-              data={shop}
               />
               </TableCell>
             </TableRow>

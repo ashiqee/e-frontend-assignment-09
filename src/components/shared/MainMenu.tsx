@@ -1,6 +1,4 @@
 import {
-    Navbar as NextUINavbar,
-    NavbarContent,
     NavbarItem,
   } from "@nextui-org/navbar";
 import React from 'react';

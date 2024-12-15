@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 
-import { useCreateVendorShop } from "@/hooks/shops.hook";
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
 import TRTextarea from "@/components/forms/TRTextarea";
 import TRSelect from "@/components/forms/TRSelect";
-import { parse } from "path";
 import { useAddProduct } from "@/hooks/products.hook";
 
 
@@ -90,8 +88,7 @@ const DuplicateProductModal = ({
             <div className="space-y-2 flex flex-col ">
              <h2 className="text-xl font-semibold">Duplicate Product</h2>
              
-             <TRForm onSubmit={onSubmit}
-             defaultValues={{
+             <TRForm defaultValues={{
               name: exitsData.name + " copy",
               description: exitsData.description,
               price: exitsData.price && parseFloat(exitsData.price),
@@ -101,6 +98,7 @@ const DuplicateProductModal = ({
               inventoryCount: parseInt(exitsData.inventoryCount),
              
             }}
+             onSubmit={onSubmit}
              
              >
   <div className="py-1.5 flex gap-4">
@@ -145,10 +143,10 @@ const DuplicateProductModal = ({
   </div>
   <div className="py-1.5">
     <Input
+      multiple
       accept="image/*"
       label="Product Images"
       type="file"
-      multiple
       onChange={handleFileChange}
     />
   </div>

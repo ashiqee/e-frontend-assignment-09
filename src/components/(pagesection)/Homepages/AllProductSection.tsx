@@ -1,11 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-
+import { Button } from '@nextui-org/react';
+import Link from 'next/link';
 
 import ProductCard from '@/components/ui/cards/ProductCard';
 import { useGetAllProductsForPublic } from '@/hooks/products.hook';
-import { Button, Image } from '@nextui-org/react';
-import Link from 'next/link';
 
 
 interface QueryState {
@@ -42,7 +41,7 @@ const products= flashSaleProduct?.data.products || []
 
     ))}
     </div>
-    <Link href={`/shop?flashSale=true`}> <Button  variant='bordered' color='warning' className='flex mt-4 mx-auto justify-center' >View More</Button>
+    <Link href={`/shop?flashSale=true`}> <Button  className='flex mt-4 mx-auto justify-center' color='warning' variant='bordered' >View More</Button>
     </Link>
     </div>    </div>
     );

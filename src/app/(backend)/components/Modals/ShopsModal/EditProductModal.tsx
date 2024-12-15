@@ -7,7 +7,6 @@ import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
 import TRTextarea from "@/components/forms/TRTextarea";
 import TRSelect from "@/components/forms/TRSelect";
-
 import { useUpdateProduct } from "@/hooks/products.hook";
 
 
@@ -89,8 +88,7 @@ const EditProductModal = ({
             <div className="space-y-2 flex flex-col ">
              <h2 className="text-xl font-semibold">Edit Product</h2>
              
-             <TRForm onSubmit={onSubmit}
-             defaultValues={{
+             <TRForm defaultValues={{
               name: exitsData.name,
               description: exitsData.description,
               price: exitsData.price && parseFloat(exitsData.price),
@@ -100,6 +98,7 @@ const EditProductModal = ({
               inventoryCount: parseInt(exitsData.inventoryCount),
              
             }}
+             onSubmit={onSubmit}
              
              >
   <div className="py-1.5 flex gap-4">
@@ -144,10 +143,10 @@ const EditProductModal = ({
   </div>
   <div className="py-1.5">
     <Input
+      multiple
       accept="image/*"
       label="Product Images"
       type="file"
-      multiple
       onChange={handleFileChange}
     />
   </div>

@@ -1,14 +1,14 @@
 "use client"
-import TRForm from "@/components/forms/TRFrom";
-import TRInput from "@/components/forms/TRInput";
-import TRTextarea from "@/components/forms/TRTextarea";
-import { useCreateOrder } from "@/hooks/orders.hook";
 import { Button } from "@nextui-org/button";
 import { Radio, RadioGroup } from "@nextui-org/react";
 import { ListOrdered } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import { useCreateOrder } from "@/hooks/orders.hook";
+import TRTextarea from "@/components/forms/TRTextarea";
+import TRInput from "@/components/forms/TRInput";
+import TRForm from "@/components/forms/TRFrom";
 
 export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) {
     const router = useRouter()
@@ -51,13 +51,13 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
 <h3>Shipping Address</h3>
 
 
-<TRForm onSubmit={onSubmit}
-defaultValues={{
+<TRForm defaultValues={{
     email:user.email,
     name: user.fullName,
     contactNumber: user.contactNumber,
     address: user.address
 }}
+onSubmit={onSubmit}
 >
         <div className="py-3 flex gap-4 items-center">
           <TRInput
@@ -85,10 +85,10 @@ defaultValues={{
            
           />
           <TRTextarea
-            rows={2}
             isRequired
             label="Full Address"
             name="address"
+            rows={2}
             type="text"
            
           />
@@ -99,9 +99,9 @@ defaultValues={{
             className="space-y-4"
             color="secondary"
             defaultValue="cashOnDelivery"
-            onValueChange={(value)=>setPaymentMethod(value)}
-        
             label="Select your Payment method"
+        
+            onValueChange={(value)=>setPaymentMethod(value)}
           >
             <Radio value="cashOnDelivery">Cash on Delivery</Radio>
             <Radio value="payWithAmarPay">Pay Now</Radio>
@@ -111,8 +111,8 @@ defaultValues={{
           <TRInput
             label="Coupon"
             name="coupon"
-            type="text"
             size="sm"
+            type="text"
            
           />
                 <div className=" w-full p-2  text-md  ">
@@ -144,10 +144,7 @@ defaultValues={{
         </div>
       </TRForm>
 
-<div className="flex gap-4 justify-center pt-10">
-             
-             
-            </div>
+<div className="flex gap-4 justify-center pt-10" />
         </div>
     );
 }

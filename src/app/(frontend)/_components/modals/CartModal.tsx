@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "@nextui-org/button";
-import { CheckCheck, CircleAlert,  Lock,Trash,Unlock } from "lucide-react";
-import { toast } from "sonner";
+import { CheckCheck,Trash } from "lucide-react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
-
+import { useRouter } from "next/navigation";
 
 import { useDeleteProduct } from "@/hooks/products.hook";
-import { CheckboxGroup } from "@nextui-org/react";
 import { useDeleteCartItem, useGetCartsItems } from "@/hooks/carts.hook";
-import { useRouter } from "next/navigation";
+
 
 
 
@@ -91,9 +89,9 @@ const CartsModal = ({
     </TableCell>
 <TableCell>
     <img 
-          src={item.product.images[0] || "https://via.placeholder.com/80"} 
           alt={item.product.name} 
-          className="w-12 h-12 object-cover rounded-lg"
+          className="w-12 h-12 object-cover rounded-lg" 
+          src={item.product.images[0] || "https://via.placeholder.com/80"}
         />
         
         </TableCell>

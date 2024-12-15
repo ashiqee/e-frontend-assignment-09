@@ -1,5 +1,6 @@
-import { getCurrentUser } from "@/services/AuthService";
 import CheckoutPage from "./CheckoutPages";
+
+import { getCurrentUser } from "@/services/AuthService";
 
 export default async function Checkout() {
     const user = await getCurrentUser();

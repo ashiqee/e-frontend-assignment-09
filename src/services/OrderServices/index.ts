@@ -1,8 +1,8 @@
 "use server"
-import axiosInstance from "@/lib/AxiosInstance";
-import nexiosInstance from "nexios-http";
 import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
+
+import axiosInstance from "@/lib/AxiosInstance";
 
 
 

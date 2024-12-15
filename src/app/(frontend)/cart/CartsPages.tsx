@@ -1,16 +1,12 @@
 "use client"
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Button } from "@nextui-org/button";
-import { CheckCheck, CircleAlert,  ListOrdered,  Lock,ShoppingBag,Trash,Unlock } from "lucide-react";
-import { toast } from "sonner";
+import {  ListOrdered,ShoppingBag,Trash } from "lucide-react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
-
-
-import { useDeleteProduct } from "@/hooks/products.hook";
-import { CheckboxGroup } from "@nextui-org/react";
-import { useDeleteCartItem, useGetCartsItems } from "@/hooks/carts.hook";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+import { useDeleteCartItem, useGetCartsItems } from "@/hooks/carts.hook";
 
 
 
@@ -31,6 +27,7 @@ const CartsPage = () => {
             deleteCartItemMutation.mutate(id)
 
         }
+
 if(isLoading){
   return <>Loading...</>
 }
@@ -68,9 +65,9 @@ console.log(cartsItemResult);
 <TableCell>
   <Link href={`/shop/${item.product.id}`}>
   <img 
-          src={item.product.images[0] || "https://via.placeholder.com/80"} 
           alt={item.product.name} 
-          className="w-20 h-20 object-cover rounded-lg"
+          className="w-20 h-20 object-cover rounded-lg" 
+          src={item.product.images[0] || "https://via.placeholder.com/80"}
         />
   </Link>
         

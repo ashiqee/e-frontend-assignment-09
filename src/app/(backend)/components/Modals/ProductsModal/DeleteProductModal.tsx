@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@nextui-org/button";
-import { CircleAlert,  Lock,Trash,Unlock } from "lucide-react";
+import { CircleAlert,Trash } from "lucide-react";
 import { toast } from "sonner";
 
 

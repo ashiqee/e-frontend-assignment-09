@@ -1,7 +1,7 @@
 
 'use client'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
-import { Edit3, EllipsisVertical, Lock, Unlock } from 'lucide-react';
+import { Edit3, EllipsisVertical } from 'lucide-react';
 import React, { useState } from 'react';
 
 
@@ -45,7 +45,7 @@ const VendorShopDropDownAction = ({id,isDeleted,data}:
           </DropdownMenu>
         </Dropdown>
         {
-            isOpen && <EditVendorShopModal setIsOpen={setIsOpen} exitsData={data} id={id}/>
+            isOpen && <EditVendorShopModal exitsData={data} id={id} setIsOpen={setIsOpen}/>
         }
         
         </>
