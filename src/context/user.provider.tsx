@@ -1,4 +1,5 @@
 
+"use client"
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
 
 import { IUser } from '@/types';
@@ -20,6 +21,8 @@ const [isLoading,setIsLoading]=useState(true);
 
 const handleUser = async()=>{
     const  user = await getCurrentUser();
+
+    console.log("Heck user",user)
 
     setUser(user)
     setIsLoading(false)

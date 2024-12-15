@@ -21,7 +21,8 @@ interface AuthResponse{
 
 export const registerUser = async (userData: FieldValues) => {
       try {
-      const { data } = await axiosInstance.post<any>(
+        console.log(userData)
+      const { data } = await nexiosInstance.post<any>(
         "/users/register",
         userData,
         {
@@ -41,6 +42,7 @@ export const registerUser = async (userData: FieldValues) => {
 
 export const loginUser = async (userData: FieldValues) => {
   try {
+    console.log(userData)
     const { data } = await nexiosInstance.post<AuthResponse>("/auth/login", userData);
    
 
@@ -66,13 +68,15 @@ export const logout = () => {
 export const getCurrentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;
 
+  
+
   if (accessToken) {
    
 
     try {
       const { data } = await nexiosInstance.get<any>("/users/my-profile");
      
- 
+   
       return data.data;
     } catch (error: any) {
       throw new Error(error);
