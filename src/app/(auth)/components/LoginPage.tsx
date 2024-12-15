@@ -116,7 +116,7 @@ const LoginContent = () => {
                 </p>
               </TRForm>
 
-              <Link className="text-center" href="/reset-password">Forgot password?</Link>
+              <Link className="text-center" href="/forgot-password">Forgot password?</Link>
             </CardBody>
           </Card>
         </motion.div>

@@ -21,7 +21,7 @@ interface AuthResponse{
 
 export const registerUser = async (userData: FieldValues) => {
       try {
-       console.log(userData);
+      
        
       const { data } = await nexiosInstance.post(
         "/users/register",
@@ -126,6 +126,41 @@ export const changePassword = async(updatePassword:FieldValues)=>{
       "oldPassword":updatePassword.oldPassword,
       "newPassword":updatePassword.newPassword,
     },
+    
+        )
+
+
+    return res.data;
+
+  }catch(error:any){
+    throw new Error(error)
+  }
+
+}
+
+
+export const forgotPassword = async(data:any)=>{
+
+  try{
+    
+    const res = await nexiosInstance.post<any>('/auth/forgot-password',data)
+
+
+    return res.data;
+
+  }catch(error:any){
+    throw new Error(error)
+  }
+
+}
+
+export const resetPassword = async(data:any)=>{
+
+  try{
+    
+
+    
+    const res = await nexiosInstance.post<any>('/auth/reset-password',data,
     
         )
 

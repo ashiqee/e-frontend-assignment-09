@@ -1,6 +1,8 @@
 "use client"
+import ChangePasswordModal from "@/app/(backend)/components/Modals/UsersModal/ChangePasswordModal";
 import Loading from "@/components/shared/Loading";
 import { useGetCurrentUser } from "@/hooks/users.hook";
+import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -19,13 +21,14 @@ const ProfileSettings = () => {
   });
 
   const [editData, setEditData] = useState(profileData);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
     setEditData(profileData); // Reset edit data to current profile data
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     const { name, value } = e.target;
     setEditData((prev) => ({
       ...prev,
@@ -55,7 +58,7 @@ const ProfileSettings = () => {
                 name="fullName"
                 value={editData.fullName}
                 onChange={handleInputChange}
-                className="border px-2 py-1 rounded w-40 "
+                className="border px-2 py-1 rounded w-full md:w-48 "
               />
             ) : (
               <span>{profileData.fullName}</span>
@@ -75,7 +78,7 @@ const ProfileSettings = () => {
                 name="email"
                 value={editData.email}
                 onChange={handleInputChange}
-                className="border px-2 py-1 rounded w-40 "
+                className="border px-2 py-1 rounded w-full md:w-48 "
               />
             ) : (
               <span>{profileData.email}</span>
@@ -93,7 +96,7 @@ const ProfileSettings = () => {
                 name="contactNumber"
                 value={editData.contactNumber}
                 onChange={handleInputChange}
-                className="border px-2 py-1 rounded w-40 "
+                className="border px-2 py-1 rounded w-full md:w-48 "
               />
             ) : (
               <span>{profileData.contactNumber}</span>
@@ -111,7 +114,7 @@ const ProfileSettings = () => {
                 name="address"
                 value={editData.address}
                 onChange={handleInputChange}
-                className="border px-2 py-1 rounded w-40 "
+                className="border px-2 py-1 rounded w-full md:w-48 "
               />
             ) : (
               <span>{profileData.address}</span>
@@ -121,13 +124,18 @@ const ProfileSettings = () => {
       </div>
 
       <div className="mt-6 flex justify-between">
-        <button
+       <div className="flex gap-6 items-center">
+       <Button
+       variant="bordered"
           onClick={isEditing ? handleSave : handleEditToggle}
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600"
+          className="flex items-center space-x-2 px-4 py-2 text-white font-medium rounded hover:bg-blue-600"
         >
           <FiEdit />
           <span>{isEditing ? "Save" : "Edit"}</span>
-        </button>
+        </Button>
+
+        <Button className="font-medium rounded" variant="bordered" onPress={()=>setIsOpen(true)} >Change Password</Button>
+       </div>
 
         {isEditing && (
           <button
@@ -138,6 +146,7 @@ const ProfileSettings = () => {
           </button>
         )}
       </div>
+      {isOpen && <ChangePasswordModal status={""} setIsOpen={setIsOpen} userId={user.id}/> }
     </div>
   );
 };

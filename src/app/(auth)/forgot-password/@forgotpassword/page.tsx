@@ -6,16 +6,16 @@ import { Link } from '@nextui-org/link';
 
 import TRForm from '@/components/forms/TRFrom';
 import TRInput from '@/components/forms/TRInput';
-import {  resetPassword } from '@/services/AuthService';
+import { forgotPassword } from '@/services/AuthService';
 import { toast } from 'sonner';
 
 
-const ResetPassword = () => {
+const ForgotPassword = () => {
 
     const handleSendPassword= async(data:any)=>{
       console.log(data);
       
-      const res=   await resetPassword(data)
+      const res=   await forgotPassword(data)
 
       if(res.data){
         toast.success("Reset password link send")
@@ -28,18 +28,13 @@ const ResetPassword = () => {
           <div className='flex p-5  mb-5 flex-col justify-center items-center'>
           <Key size={30}/>
 
-<h2 className="text-2xl " >Reset password</h2>
+<h2 className="text-2xl " >Forgot password?</h2>
 <small>no worries! we are here!</small>
 
           </div>
-          <TRForm  onSubmit={handleSendPassword}>
-           <div className='space-y-3'>
-           <TRInput label='Password' name='password' size='sm' type='password' />
-            <TRInput label='Confirm Password' name='confirm-password' size='sm' type='password' />
-           
+          <TRForm onSubmit={handleSendPassword}>
+            <TRInput label='Email' name='email' size='sm' type='email' />
             <Button fullWidth type='submit'  className="my-4" size='sm'>Reset pasword</Button>
-        
-           </div>
           </TRForm>
 
           <Link href={"/login"}><ArrowLeft/>Back to login in</Link>
@@ -47,4 +42,4 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+export default ForgotPassword;
