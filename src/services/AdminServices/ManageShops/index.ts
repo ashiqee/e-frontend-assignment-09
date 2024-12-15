@@ -11,9 +11,7 @@ export const getAllShopsForAdmin = async (query:Record<any,any>) => {
   
   const queryString = new URLSearchParams(query).toString()
 
-   const res = await nexiosInstance.get(`/vendorShop?${queryString}`, {
-    next: { tags: ["shops"] }, // Enable caching with a specific tag
-  });
+   const res = await axiosInstance.get(`/vendorShop?${queryString}`);
 
   if (!res) {
     throw new Error('Failed to fetch posts');
@@ -26,9 +24,7 @@ export const getAllShopsForVendor = async (query:Record<any,any>) => {
   
   const queryString = new URLSearchParams(query).toString()
 
-   const res = await nexiosInstance.get(`/vendorShop/vendor-shops?${queryString}`, {
-    next: { tags: ["shops"] }, // Enable caching with a specific tag
-  });
+   const res = await axiosInstance.get(`/vendorShop/vendor-shops?${queryString}`);
 
   if (!res) {
     throw new Error('Failed to fetch posts');

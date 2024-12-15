@@ -1,10 +1,11 @@
-import nexiosInstance from "@/config/naxios.config";
+
+import axiosInstance from "@/lib/AxiosInstance";
 
 
 
 
 export const getVendorShopData =  async (id:any)=>{
-    const {data} = await nexiosInstance.get(`/vendorShop/${id}`);
+    const {data} = await axiosInstance.get(`/vendorShop/${id}`);
 
     console.log(data);
     

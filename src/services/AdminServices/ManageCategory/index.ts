@@ -10,9 +10,7 @@ import { FieldValues } from "react-hook-form";
 export const getAllCaterory = async (query: Record<string, any>) => {
     const queryString = new URLSearchParams(query).toString();
     
-    const res = await nexiosInstance.get(`/category?${queryString}`, {
-      next: { tags: ["categories"] }, // Enable caching with a specific tag
-    });
+    const res = await axiosInstance.get(`/category?${queryString}`);
   
     if (!res) {
       throw new Error("Failed to fetch users");
@@ -23,9 +21,7 @@ export const getAllCaterory = async (query: Record<string, any>) => {
 
 export const getAllPublicCaterory = async () => {
    
-    const res = await nexiosInstance.get(`/category/all`, {
-      next: { tags: ["categories"] }, // Enable caching with a specific tag
-    });
+    const res = await axiosInstance.get(`/category/all`);
   
     if (!res) {
       throw new Error("Failed to fetch users");

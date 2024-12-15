@@ -1,11 +1,15 @@
+import envConfig from "@/config/envConfig";
 
 
 export  const getAllProducts = async ()=>{
     
-const  data = await fetch('https://dummyjson.com/products')
-const  posts = await data.json()
+const  data = await fetch(`${envConfig.baseApi}/product`)
+const  res = await data.json()
 
-return posts.products
+console.log(res.data.products);
+
+
+return res.data.products
 }
 
 

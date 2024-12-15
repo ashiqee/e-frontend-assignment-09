@@ -3,13 +3,19 @@ import React, { useState } from 'react';
 import { motion } from "framer-motion"
 import { Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 import Link from 'next/link';
+import { useAddToCart } from '@/hooks/carts.hook';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import CartsModal from '@/app/(frontend)/_components/modals/CartModal';
 
 
 
 
 const ProductCard = ({item, index}:{item:any,index:number}) => {
-
+  const addtoCartMutation = useAddToCart()
+  const queryClient = useQueryClient();
   const [isHover,setIsHover]= useState(null);
+  const [isOpen,setIsOpen]=useState(false);
 
     const list = [
         {
@@ -57,9 +63,40 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
 
       const handleIsHover = (i:any)=>{
         setIsHover(i)
+
+
       }
 
-    return (
+      const handleAddToCart = ()=>{
+
+        const formData = new FormData();
+      
+        const cartsData = {
+          cart: {
+            productId:item.id,
+            quantity:1
+          }
+        }
+      
+        formData.append("data", JSON.stringify(cartsData));
+      
+        addtoCartMutation.mutate(formData, {
+          onSuccess: () => {
+              toast.success("Product added to cart successfully");
+            queryClient.invalidateQueries({ queryKey: ['carts'] }); 
+            setIsOpen(true); 
+          },
+          onError: (error: any) => {
+            toast.error(error.message || 'Failed to add product to cart');
+          },
+        });
+      };
+
+
+    return (<>
+    {
+  isOpen && <><CartsModal id="" isOpen={isOpen} setIsOpen={setIsOpen} cartsData={""}/></>
+}
       <Card key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>
           <CardBody className="overflow-visible w-full relative p-0">
@@ -86,6 +123,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
       opacity: { duration: 1 }, 
       ease: "easeInOut" 
     }}
+    onClick={handleAddToCart}
     >
       Add To Cart
     </motion.button>
@@ -104,6 +142,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
             
           </CardFooter>
         </Card>
+        </>
     )
 };
 

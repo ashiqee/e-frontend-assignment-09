@@ -3,14 +3,13 @@
 import { revalidateTag } from "next/cache";
 
 import nexiosInstance from "@/config/naxios.config";
+import axiosInstance from "@/lib/AxiosInstance";
 
 // Fetch all users for admin with server-side caching
 export const getAllUsersForAdmin = async (query: Record<string, any>) => {
   const queryString = new URLSearchParams(query).toString();
   
-  const res = await nexiosInstance.get(`/users?${queryString}`, {
-    next: { tags: ["users"] }, // Enable caching with a specific tag
-  });
+  const res = await axiosInstance.get(`/users?${queryString}`);
 
   if (!res) {
     throw new Error("Failed to fetch users");

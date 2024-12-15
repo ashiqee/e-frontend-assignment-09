@@ -16,12 +16,12 @@ interface QueryState {
     searchTerm?: string;
   }
 
-const FeaturedSection =  () => {
+const AllProductSection =  () => {
     const [query, setQuery] = useState<QueryState>({
         sortBy: 'createdAt',
-        sortOrder: 'desc',
+        sortOrder: 'asc',
         page: 1,
-        limit: 6,
+        limit: 20,
         searchTerm: '',
      });
     const {data:flashSaleProduct ,isLoading}= useGetAllProductsForPublic(query);
@@ -32,10 +32,10 @@ const products= flashSaleProduct?.data.products || []
 
   
     return (
-        <div className='my-20 flex gap-4 container mx-auto'>
-            <Image className='h-full w-96 object-fit' src='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/flash-sale-design-template-de1ed8f28321fef5a13d120fb7911841_screen.jpg?ts=1637050530' />
+        <div className='my-20  gap-4 container mx-auto'>
+           
  <div>
- <div className="gap-3 md:gap-4 grid grid-cols-2 sm:grid-cols-3 mx-4 md:mx-0">
+ <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 mx-4 md:mx-0">
     {products.map((item:any, index:number) => (
      
       <ProductCard key={index} index={index} item={item} />
@@ -48,4 +48,4 @@ const products= flashSaleProduct?.data.products || []
     );
 };
 
-export default FeaturedSection;
+export default AllProductSection;

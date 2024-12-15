@@ -54,9 +54,7 @@ export const getAllProductsForPublic = async (query:Record<any,any>) => {
   
         const queryString = new URLSearchParams(query).toString()
       
-         const res = await nexiosInstance.get(`/product?${queryString}`, {
-          next: { tags: ["products"] }, // Enable caching with a specific tag
-        });
+        const res = await axiosInstance.get(`/product?${queryString}`);
       
         if (!res) {
           throw new Error('Failed to fetch posts');
@@ -69,9 +67,7 @@ export const getAllProductsForPublic = async (query:Record<any,any>) => {
 export const getProductDetailsForPublic = async (id:string) => {
   
       
-         const res = await nexiosInstance.get(`/product/${id}`, {
-          next: { tags: ["products"] }, // Enable caching with a specific tag
-        });
+         const res = await axiosInstance.get(`/product/${id}`);
       
         if (!res) {
           throw new Error('Failed to fetch posts');
@@ -87,9 +83,7 @@ export const getAllProductsForVendor = async (query:Record<any,any>) => {
   
         const queryString = new URLSearchParams(query).toString()
       
-         const res = await nexiosInstance.get(`/product/vendor?${queryString}`, {
-          next: { tags: ["products"] }, // Enable caching with a specific tag
-        });
+         const res = await axiosInstance.get(`/product/vendor?${queryString}`);
       
         if (!res) {
           throw new Error('Failed to fetch posts');
