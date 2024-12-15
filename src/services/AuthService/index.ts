@@ -21,7 +21,7 @@ interface AuthResponse{
 
 export const registerUser = async (userData: FieldValues) => {
       try {
-        console.log(userData)
+       
       const { data } = await nexiosInstance.post<any>(
         "/users/register",
         userData,
@@ -42,7 +42,7 @@ export const registerUser = async (userData: FieldValues) => {
 
 export const loginUser = async (userData: FieldValues) => {
   try {
-    console.log(userData)
+   
     const { data } = await nexiosInstance.post<AuthResponse>("/auth/login", userData);
    
 
