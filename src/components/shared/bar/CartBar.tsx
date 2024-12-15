@@ -4,17 +4,36 @@ import { useGetCartsItems } from "@/hooks/carts.hook";
 import { Button } from "@nextui-org/button";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../Loading";
+import { getCurrentUser } from "@/services/AuthService";
 
 export default function CartBar() {
     const router = useRouter()
     const {data:cartsItemResult,isLoading}= useGetCartsItems()
+    const [isCustomer, setIsCustomer] = useState(false);
 
-    if(isLoading){
-        return <><Loading/></>
+    useEffect(() => {
+     
+      const checkUserRole = async () => {
+        const user = await getCurrentUser();
+        if (user?.role !== "CUSTOMER") {
+          setIsCustomer(false); 
+        } else {
+          setIsCustomer(true); 
+        }
+      };
+      checkUserRole();
+    }, []); 
+  
+    if (isLoading) {
+      return <Loading />;
     }
-
+  
+    if (!isCustomer) {
+      
+      return null;
+    }
     const cartItemQty = cartsItemResult?.data?.totalQuantity
     
     return (

@@ -8,9 +8,9 @@ const authRoutes = ["/login", "/register"];
 type Role = keyof typeof roleBasedRoutes;
 
 const roleBasedRoutes = {
-    ADMIN: [/^\/admin/, /^\/profile/],
-    VENDOR: [/^\/vendor/, /^\/profile/],
-    CUSTOMER: [/^\/customer/, /^\/profile/],
+    ADMIN: [/^\/admin/, ],
+    VENDOR: [/^\/vendor/, ],
+    CUSTOMER: [/^\/customer/, /^\/cart/, /^\/checkout/],
 };
 
 
@@ -53,8 +53,10 @@ export const config = {
         "/login",
         "/register",
         "/profile/:path*",   
-        "/admin/:path*",     
-        "/vendor/:path*",      
-        "/customer/:path*",      
+        "/admin/:path*",
+        "/vendor/:path*",
+        "/customer/:path*",
+        "/cart",     
+        "/checkout",     
     ],
 };

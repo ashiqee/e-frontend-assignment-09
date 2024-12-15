@@ -8,6 +8,8 @@ import CartsModal from "../../_components/modals/CartModal";
 import { useAddToCart } from "@/hooks/carts.hook";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGetCurrentUser } from "@/hooks/users.hook";
+import { useRouter } from "next/navigation";
 
 
 
@@ -16,10 +18,12 @@ import { useQueryClient } from "@tanstack/react-query";
 const ProductDetails = ({ id }: { id: string }) => {
   const { data: result, isSuccess  ,isLoading } = useGetProductDetailsForPublic(id);
   const addtoCartMutation = useAddToCart()
+  const {data:user,isLoading:userLoading}= useGetCurrentUser();
   const [isOpen,setIsOpen]=useState(false);
   const [cartItemQty,setCartItemQty]=useState(1);
   const queryClient = useQueryClient();
   const product = result?.data ;
+  const router = useRouter()
   
   // Ensure images is always an array
   const [previewImg, setPreviewImg] = useState(
@@ -37,6 +41,17 @@ const ProductDetails = ({ id }: { id: string }) => {
 
 
  const handleAddToCart = ()=>{
+
+  
+  if(!user){
+    toast.warning("Please registation first for add to cart")
+    router.push("/register")
+    return
+  }else if(user?.role !== "CUSTOMER"){
+    toast.warning("Only Customer can add to cart")
+    return
+  }
+
 
   const formData = new FormData();
 

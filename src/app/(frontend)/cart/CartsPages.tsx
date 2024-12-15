@@ -35,6 +35,8 @@ if(isLoading){
   return <>Loading...</>
 }
 
+console.log(cartsItemResult);
+
   return (
     <>
    <div className="mt-10">

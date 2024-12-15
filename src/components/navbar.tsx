@@ -26,6 +26,7 @@ import {
 } from "@/components/icons";
 import { getCurrentUser } from "@/services/AuthService";
 import CartBar from "./shared/bar/CartBar";
+import MainMenu from "./shared/MainMenu";
 
 
 export const Navbar = async () => {
@@ -73,10 +74,11 @@ export const Navbar = async () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-       
+       <MainMenu/>
       
         <NavbarItem className="hidden md:flex">
-          <CartBar/>
+        {user?.role === "CUSTOMER" &&  <CartBar/> }
+         
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
       {
@@ -96,9 +98,7 @@ export const Navbar = async () => {
    
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
+        
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

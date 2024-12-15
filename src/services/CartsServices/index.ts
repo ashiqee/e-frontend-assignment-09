@@ -3,6 +3,7 @@ import axiosInstance from "@/lib/AxiosInstance";
 import nexiosInstance from "nexios-http";
 import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
+import { getCurrentUser } from "../AuthService";
 
 
 
@@ -25,21 +26,27 @@ export const addToCart = async (formData: FieldValues) => {
 
   export const getAllUserCartsItems = async () => {
     try {
+
+      const user = await getCurrentUser();
+  
+      if (user?.role !== 'CUSTOMER') {
+        throw new Error('Unauthorized: Only customers can view cart items');
+      }
+  
       const res = await axiosInstance.get('/carts');
- 
-      // Check for successful response (status code 2xx)
+  
+   
       if (res.status < 200 || res.status >= 300) {
         throw new Error(`Failed to fetch carts, status: ${res.status}`);
       }
- 
-      console.log(res.data);
+  
       return res.data;
- 
+  
     } catch (error) {
       console.error("Error fetching cart items:", error);
       throw new Error('Failed to fetch carts');
     }
- };
+  };
 
 
 

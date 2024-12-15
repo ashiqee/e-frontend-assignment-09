@@ -7,58 +7,20 @@ import { useAddToCart } from '@/hooks/carts.hook';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import CartsModal from '@/app/(frontend)/_components/modals/CartModal';
+import { useGetCurrentUser } from '@/hooks/users.hook';
+import { useRouter } from 'next/navigation';
 
 
 
 
 const ProductCard = ({item, index}:{item:any,index:number}) => {
   const addtoCartMutation = useAddToCart()
+  const {data:user,isLoading}= useGetCurrentUser();
   const queryClient = useQueryClient();
   const [isHover,setIsHover]= useState(null);
   const [isOpen,setIsOpen]=useState(false);
+  const router = useRouter()
 
-    const list = [
-        {
-          title: "Castle Tent House for kids",
-          img: "https://babytoysbd.com/wp-content/uploads/2023/02/CASTLE-TENT-HOUSE.webp",
-          price: "105.50",
-        },
-        {
-          title: "Transparent Bus Toys",
-          img: "https://babytoysbd.com/wp-content/uploads/2023/03/1000020018.jpg",
-          price: "103.00",
-        },
-        {
-          title: "Raspberry",
-          img: "https://htmldemo.net/kidol/kidol/assets/img/shop/details/1.jpg",
-          price: "1010.00",
-        },
-        {
-          title: "Early Education Learning Machine",
-          img: "https://babytoysbd.com/wp-content/uploads/2023/03/1000036711.jpg",
-          price: "105.30",
-        },
-        {
-          title: "Avocado",
-          img: "https://htmldemo.net/kidol/kidol/assets/img/shop/details/1.jpg",
-          price: "1015.70",
-        },
-        {
-          title: "Lemon 2",
-          img: "https://htmldemo.net/kidol/kidol/assets/img/shop/details/1.jpg",
-          price: "108.00",
-        },
-        {
-          title: "Banana",
-          img: "https://htmldemo.net/kidol/kidol/assets/img/shop/details/1.jpg",
-          price: "107.50",
-        },
-        {
-          title: "Watermelon",
-          img: "https://htmldemo.net/kidol/kidol/assets/img/shop/details/1.jpg",
-          price: "1012.20",
-        },
-      ];
 
 
       const handleIsHover = (i:any)=>{
@@ -68,6 +30,15 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
       }
 
       const handleAddToCart = ()=>{
+
+        if(!user){
+          toast.warning("Please registation first for add to cart")
+          router.push("/register")
+          return
+        }else if(user?.role !== "CUSTOMER"){
+          toast.warning("Only Customer can add to cart")
+          return
+        }
 
         const formData = new FormData();
       

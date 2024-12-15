@@ -16,7 +16,7 @@ export default function FrontendLayout({
  <div className="flex flex-col justify-between min-h-screen">
 <main>
 <Navbar/>
-<MainMenu/>
+
 {children}
 </main>
  <footer className="w-full flex items-center justify-center py-3">

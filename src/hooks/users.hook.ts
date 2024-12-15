@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { deletAUser, getAllUsersForAdmin, suspendAUser } from '@/services/AdminServices/ManageUser';
+import { getCurrentUser } from '@/services/AuthService';
 
 
 export const useGetAllUsers = (query: Record<string, any>) => {
@@ -8,6 +9,14 @@ export const useGetAllUsers = (query: Record<string, any>) => {
     queryKey: ['users', query], // Include query parameters in the key
     queryFn: () => getAllUsersForAdmin(query),
     staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+  });
+};
+
+export const useGetCurrentUser = () => {
+  return useQuery({
+    queryKey: ['users'], // Include query parameters in the key
+    queryFn: () => getCurrentUser(),
+    
   });
 };
 

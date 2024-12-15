@@ -12,12 +12,10 @@ import { siteConfig } from "@/config/site";
 
 const MainMenu = () => {
     return (
-        <NextUINavbar className="mb-2 h-8" maxWidth="full" position="static">
-              <NavbarContent>
-
+       
 <NavbarItem>
 
-   <ul className="hidden lg:flex gap-4 justify-start ml-2">
+   <ul className="hidden lg:flex gap-6 justify-end ml-2">
   {siteConfig.navItems.map((item) => (
     <NavbarItem key={item.href}>
       <NextLink
@@ -34,8 +32,7 @@ const MainMenu = () => {
   ))}
 </ul>
 </NavbarItem>
-</NavbarContent>
-</NextUINavbar>
+
     );
 };
 
