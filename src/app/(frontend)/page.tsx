@@ -1,6 +1,7 @@
 
 import AllProductSection from "@/components/(pagesection)/Homepages/AllProductSection";
 import FeaturedSection from "@/components/(pagesection)/Homepages/FeaturedSection";
+import TopShops from "@/components/(pagesection)/Homepages/TopVendorShops";
 import HomepageSlider from "@/components/ui/Slider/HomepageSlider";
 
 
@@ -18,6 +19,9 @@ export default async function Home() {
     </section>
     <section className=" md:px-6">
 <FeaturedSection />
+    </section>
+    <section className=" md:px-6">
+<TopShops />
     </section>
     <section className=" md:px-6">
 <AllProductSection />

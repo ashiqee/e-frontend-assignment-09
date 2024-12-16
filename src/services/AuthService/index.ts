@@ -172,3 +172,20 @@ export const resetPassword = async(data:any)=>{
   }
 
 }
+
+
+export const updateUserProfile = async(data:any)=>{
+
+  try{
+
+    const res = await nexiosInstance.put<any>('/users/update',data,
+    
+        )
+
+    return res.data;
+
+  }catch(error:any){
+    throw new Error(error)
+  }
+
+}

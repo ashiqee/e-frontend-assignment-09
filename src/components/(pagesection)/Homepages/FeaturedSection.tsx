@@ -43,7 +43,7 @@ const products= flashSaleProduct?.data.flashSaleProduct || []
 
     ))}
     </div>
-    <Link href={`/shop?flashSale=true`}> <Button  className='flex mt-4 mx-auto justify-center' color='warning' variant='bordered' >View More</Button>
+    <Link href={`/flashSale`}> <Button  className='flex mt-4 mx-auto justify-center' color='warning' variant='bordered' >View More</Button>
     </Link>
     </div>    </div>
     );

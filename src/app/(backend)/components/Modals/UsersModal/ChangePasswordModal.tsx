@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import {  useSuspendUser } from "@/hooks/users.hook";
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
+import { changePassword } from "@/services/AuthService";
 
 
 
@@ -20,8 +21,21 @@ const ChangePasswordModal = ({
 }) => {
 
 
-    const handleChangePassword = () => {
-       
+    const handleChangePassword = async (data:any) => {
+     const updatePassword ={
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword
+      }
+        
+        
+      const res = await changePassword(updatePassword)
+
+      if(res.success){
+        toast.success(res.message)
+        setIsOpen(false)
+      }
+      
+
       };
       
 

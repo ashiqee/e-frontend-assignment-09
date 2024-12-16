@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
 
 import { blacklistAShop, createVendorShop, getAllShopsForAdmin, getAllShopsForVendor, updateVendorShop } from "@/services/AdminServices/ManageShops";
-import { getVendorShopOrderData } from "@/services/VendorShopService";
+import { getAllShops, getVendorShopOrderData } from "@/services/VendorShopService";
 
 
 
@@ -17,6 +17,16 @@ import { getVendorShopOrderData } from "@/services/VendorShopService";
       staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
     });
   };
+
+  export const useGetAllShopsForPublic = () => {
+    return useQuery({
+      queryKey: ['shops'], // Include query parameters in the key
+      queryFn: () => getAllShops(),
+      staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    });
+  };
+
+
   export const useGetAllVendorShopsOrders = (id:string) => {
     return useQuery({
       queryKey: ['shops', id], // Include query parameters in the key

@@ -20,3 +20,11 @@ export const getVendorShopOrderData =  async (id:any)=>{
 
     return data;
 }
+
+export const getAllShops =  async ()=>{
+    const {data} = await axiosInstance.get(`/vendorShop/`);
+
+
+
+    return data;
+}

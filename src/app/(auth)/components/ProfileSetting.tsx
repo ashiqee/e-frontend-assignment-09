@@ -1,12 +1,16 @@
 "use client"
 import ChangePasswordModal from "@/app/(backend)/components/Modals/UsersModal/ChangePasswordModal";
 import Loading from "@/components/shared/Loading";
+import envConfig from "@/config/envConfig";
 import { useGetCurrentUser } from "@/hooks/users.hook";
+import { updateUserProfile } from "@/services/AuthService";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
+import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FiEdit } from "react-icons/fi";
+import { toast } from "sonner";
 
 const ProfileSettings = () => {
     const {data:user,isLoading:userLoading}= useGetCurrentUser();
@@ -36,9 +40,30 @@ const ProfileSettings = () => {
     }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setProfileData(editData);
+
+const updatedData= {
+  fullName: editData.fullName,
+  contactNumber: editData.contactNumber,
+  address:editData.address
+}
+
+      
+   
+    try {
+      
+  const res =     await updateUserProfile(updatedData)
+     
+      toast(`User profile updated Success ${res}`);
+    } catch (error) {
+      toast.error('Error profile updated');
+    } finally {
+      
     setIsEditing(false);
+     
+    }
+
   };
 
   return (
