@@ -23,7 +23,7 @@ export default function ShopSidebar() {
   return (
     <motion.section
       animate={{ opacity: 1 }}
-      className="p-4 dark:bg-slate-600/25 bg-gray-100 shadow-lg rounded-lg w-64"
+      className="p-4 dark:bg-slate-900/95 bg-gray-100 shadow-lg rounded-lg w-64"
       initial={{ opacity: 0 }}
       transition={{
         opacity: { duration: 1.5 },

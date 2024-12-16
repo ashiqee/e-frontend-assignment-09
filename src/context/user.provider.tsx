@@ -4,6 +4,7 @@ import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, 
 
 import { IUser } from '@/types';
 import { getCurrentUser } from '@/services/AuthService';
+import Loading from '@/components/shared/Loading';
 
 
 interface IUserProviderValues{
@@ -22,7 +23,9 @@ const [isLoading,setIsLoading]=useState(true);
 const handleUser = async()=>{
     const  user = await getCurrentUser();
 
-    console.log("Heck user",user)
+    if(!user){
+        return <Loading/>
+    }
 
     setUser(user)
     setIsLoading(false)

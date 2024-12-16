@@ -124,7 +124,11 @@ export const Navbar =  () => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
+                href={
+                  index === 2
+                  ?  `${item.href}`
+                  :  `/${(user?.role)?.toLowerCase()}${item.href}
+                 `}
                 size="lg"
               >
                 {item.label}

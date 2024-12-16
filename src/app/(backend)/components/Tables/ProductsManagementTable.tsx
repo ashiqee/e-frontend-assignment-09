@@ -13,6 +13,10 @@ import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
 import { useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
 import { useGetAllProductsMyShops } from '@/hooks/products.hook';
 
+import { updateFlashSaleStatus } from '@/services/ProductsServices';
+import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
+
 
 interface QueryState {
   sortBy?: string;
@@ -43,6 +47,8 @@ const ProductsManagementTable = () => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
   const [isAddOpen,setIsAddOpen]=useState(false)
+  const queryClient = useQueryClient()
+       
 
 
   useEffect(() => {
@@ -70,12 +76,32 @@ const ProductsManagementTable = () => {
   const totalProducts = productsResults?.data?.paginateData?.total || 0;
 
 
-  console.log(products)
 
   useEffect(() => {
     // Update total pages when results change
     setTotal(Math.ceil(totalProducts / limit));
   }, [totalProducts, limit]);
+
+
+
+  const handleStatusChange = async (status:boolean,id:string) => {
+    // Update the selected status
+    const flashStatus ={status: status};
+    const res = await updateFlashSaleStatus(flashStatus,id)
+   
+
+    if(res.success){
+      
+      queryClient.invalidateQueries({ queryKey: ['products'] }); // Invalidate the 'users' cache
+    
+      toast.success(res.message);
+      
+    
+    }
+    
+
+  };
+
 
   return (
     <>
@@ -86,7 +112,7 @@ const ProductsManagementTable = () => {
             shops={shops}
             />
         }
-      <form className='flex justify-between '>
+      <form className='md:flex justify-between justify-center'>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -136,7 +162,7 @@ const ProductsManagementTable = () => {
           <TableColumn>Product Name</TableColumn> 
           <TableColumn>Product Category</TableColumn> 
           <TableColumn>Product Price</TableColumn> 
-          <TableColumn>Stock Qty</TableColumn>
+          <TableColumn>Stock Report</TableColumn>
           <TableColumn>Discount</TableColumn> 
           <TableColumn>FlashSale Status</TableColumn>
           <TableColumn>Action</TableColumn>
@@ -153,11 +179,19 @@ const ProductsManagementTable = () => {
               <TableCell>{product?.category?.name}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell>
-                {product.inventoryCount}
+                current stock: {product.inventoryCount}<br></br>
+                 Total Sells: {product.saleQty}
              
               </TableCell>
               <TableCell>{product.discount}</TableCell>
-              <TableCell>{product.status}</TableCell>
+              <TableCell>
+               
+                <button onClick={()=>handleStatusChange(!product.flashSale,product.id)} className={`
+              ${product.flashSale ? "bg-red-600":"bg-slate-400/15"}
+              px-1 py-1 flex gap-2 border-1 rounded-md text-white`}>
+            {product.flashSale ? "Running":"Not running"}
+            </button>
+              </TableCell>
               <TableCell>
                     {/* action modal  */}
               <ProductDropDownAction 

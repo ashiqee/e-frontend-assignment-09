@@ -117,3 +117,22 @@ export const getAllProductsForVendor = async (query:Record<any,any>) => {
         }catch(error:any){throw new Error(error)}
       };
       
+
+      export const updateFlashSaleStatus = async (payload:any,id:any) => {
+        try {
+          const res = await axiosInstance.put(`/product/flashSale/${id}`,payload);
+     
+          // Check for successful response (status code 2xx)
+          if (res.status < 200 || res.status >= 300) {
+            throw new Error(`Failed to fetch carts, status: ${res.status}`);
+          }
+     
+       
+          return res.data;
+     
+        } catch (error) {
+          console.error("Error fetching cart items:", error);
+          throw new Error('Failed to fetch carts');
+        }
+     };
+    

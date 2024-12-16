@@ -59,9 +59,11 @@ const AllShopProducts = () => {
     const products = (productResults as { data: { products: any[] } })?.data?.products || [];
 
     return (
-        <section className="mx-8 my-10 flex gap-6">
+        <section className="mx-8 my-10 md:flex gap-6">
 
+<div className='-translate-x-64 z-50 duration-500 hover:-translate-x-10 fixed '>
 <ShopSidebar/>
+</div>
 
 <div className="w-full">
 

@@ -45,6 +45,25 @@ export const createOrder = async (formData: FieldValues) => {
  };
 
 
+  export const updateOrderItemStatus = async (payload:any,orderItemId:any) => {
+    try {
+      const res = await axiosInstance.put(`/orders/statusChange/${orderItemId}`,payload);
+ 
+      // Check for successful response (status code 2xx)
+      if (res.status < 200 || res.status >= 300) {
+        throw new Error(`Failed to fetch carts, status: ${res.status}`);
+      }
+ 
+   
+      return res.data;
+ 
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+      throw new Error('Failed to fetch carts');
+    }
+ };
+
+
 
 
 //   export const deletAProductFromCart = async (id: any) => {

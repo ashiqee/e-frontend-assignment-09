@@ -48,7 +48,7 @@ if(!user){
    <button className={`text-right p-3 fixed md:hidden right-2 top-2 ${!isMbOpen ? "":"rotate-90"}`} onClick={()=>setIsMbOpen(!isMbOpen)}> ||| </button>
    <motion.aside
       animate={isOpen || isMbOpen ? "open" : "closed"}
-      className={`fixed  top-0 left-0 h-full ${isMbOpen ? "hidden":""} bg-gray-800 text-white shadow-lg z-50`}
+      className={`fixed  top-0 left-0 duration-500 h-full ${isMbOpen ? "-translate-x-64":"translate-x-0 "} bg-gray-800 text-white shadow-lg z-50`}
       initial={isOpen ? "open" : "closed"}
       variants={sidebarVariants}
     >

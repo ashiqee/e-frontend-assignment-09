@@ -81,7 +81,7 @@ const VendorShopsManagementTable = () => {
      {
             isAddOpen && <CreateVendorShopModal setIsOpen={setIsAddOpen} />
         }
-      <form className='flex justify-between '>
+      <form className='md:flex justify-between justify-center'>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"

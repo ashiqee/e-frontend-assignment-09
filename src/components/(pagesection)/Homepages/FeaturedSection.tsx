@@ -13,6 +13,7 @@ interface QueryState {
     page?: number;
     limit?: number;
     searchTerm?: string;
+
   }
 
 const FeaturedSection =  () => {
@@ -22,10 +23,11 @@ const FeaturedSection =  () => {
         page: 1,
         limit: 6,
         searchTerm: '',
+        
      });
     const {data:flashSaleProduct ,isLoading}= useGetAllProductsForPublic(query);
 
-const products= flashSaleProduct?.data.products || []
+const products= flashSaleProduct?.data.flashSaleProduct || []
 
 
 

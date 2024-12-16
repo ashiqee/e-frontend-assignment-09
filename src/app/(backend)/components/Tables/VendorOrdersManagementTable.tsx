@@ -12,6 +12,7 @@ import useDebounce from '@/hooks/useDebounce';
 import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
 import { useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
 import { useGetAllProductsMyShops } from '@/hooks/products.hook';
+import OrderStatusChangeDropdown from '../Dropdown/OrderStatusChangeDropDown';
 
 
 interface QueryState {
@@ -69,6 +70,7 @@ const VendorOrdersManagementTable = () => {
   const categories = catResults?.data || [];
   const totalOrders = orders?.length || 0;
 
+console.log(orders);
 
  
   useEffect(() => {
@@ -79,7 +81,7 @@ const VendorOrdersManagementTable = () => {
   return (
     <>
      
-      <form className='flex justify-between '>
+      <form className='md:flex justify-between justify-center'>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -124,7 +126,7 @@ const VendorOrdersManagementTable = () => {
    
   <Table aria-label="Products Management Table">
         <TableHeader>
-          <TableColumn>ID</TableColumn>
+          <TableColumn>Order ID</TableColumn>
           <TableColumn>Image</TableColumn>
           <TableColumn>Product Name</TableColumn> 
           <TableColumn>Customer Info</TableColumn> 
@@ -132,12 +134,12 @@ const VendorOrdersManagementTable = () => {
           <TableColumn>Item Qty</TableColumn>
           <TableColumn>Total Amount</TableColumn> 
           <TableColumn>Payment Status</TableColumn>
-          <TableColumn>Action</TableColumn>
+          <TableColumn>Order Status</TableColumn>
         </TableHeader>
         <TableBody >
           {orders?.map((order: any, i: number) => (
             <TableRow key={order.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
-              <TableCell>{(page - 1) * limit + i + 1}</TableCell>
+              <TableCell>o_id-{order.id}</TableCell>
               <TableCell>
                 <Image className="w-12 h-12 hover:scale-150" src={order.product.images[0]} />
               </TableCell>
@@ -161,13 +163,11 @@ const VendorOrdersManagementTable = () => {
               <TableCell>{order.order.paymentStatus}</TableCell>
               <TableCell>
                     {/* action modal  */}
-                    Later
-              {/* <orderDropDownAction 
-              categories={categories}
-              data={product}
-              id={product.id}
-              shops={[]}
-              /> */}
+                    
+            <OrderStatusChangeDropdown 
+              status={order.orderStatus}
+              orderItemId={order.order.id}
+            />
               </TableCell>
             </TableRow>
           ))}

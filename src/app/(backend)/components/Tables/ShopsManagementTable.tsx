@@ -66,7 +66,7 @@ const ShopsManagementTable = () => {
 
   return (
     <>
-      <form className='flex justify-between '>
+      <form className='md:flex justify-between justify-center'>
         <Input
           className="max-w-60 py-3"
           name="searchTerm"
