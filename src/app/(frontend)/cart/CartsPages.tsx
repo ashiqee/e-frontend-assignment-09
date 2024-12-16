@@ -41,11 +41,11 @@ if(isLoading){
         <div className="w-full">
           <div
             className=" relative  z-40 flex flex-col  justify-between  my-auto 
-         rounded-xl p-10 overflow-hidden overflow-y-auto 
+         rounded-xl md:p-10 p-3 overflow-hidden overflow-y-auto 
           bg-gray-900  text-white text-center"
           >
             <div ref={modalRef} className="space-y-2 flex flex-col  justify-center items-center">
-              <h3 className="text-2xl">Checkout</h3>
+              <h3 className="text-2xl">Cart Items</h3>
 
 <Table removeWrapper  aria-label="Cart Product collection table">
       <TableHeader>
@@ -63,16 +63,16 @@ if(isLoading){
      <button onClick={()=>handleDeleteCartItem(item.product.id)}>   <Trash size={14}/></button>
     </TableCell>
 <TableCell>
-  <Link href={`/shop/${item.product.id}`}>
+  <Link href={`/products/${item.product.id}`}>
   <img 
           alt={item.product.name} 
-          className="w-20 h-20 object-cover rounded-lg" 
+          className="md:min-w-20 w-16 md:h-20 object-cover rounded-lg" 
           src={item.product.images[0] || "https://via.placeholder.com/80"}
         />
   </Link>
         
         </TableCell>
-<TableCell><h3 className="text-[14px] text-left font-medium ">{item.product.name}
+<TableCell><h3 className="text-[14px] md:text-left font-medium ">{item.product.name}
     <br />
 <span className=" font-semibold ">{item.product.price}
 </span>
@@ -92,7 +92,7 @@ if(isLoading){
             </div>
 
             <div className=" text-[16px] my-2">
-                <div className="flex w-full p-2 pr-52 gap-20 items-end justify-end">
+                <div className="flex w-full p-2 md:pr-52 gap-20 items-end justify-end">
                    <p> Total Items : {cartsItemResult.data.totalQuantity}</p>
                     <p >SubTolal: {(cartsItemResult.data.subtotal).toFixed(2)}</p>
                 </div>

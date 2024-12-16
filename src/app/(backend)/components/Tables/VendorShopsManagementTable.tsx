@@ -9,6 +9,7 @@ import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
 
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
+import Link from 'next/link';
 
 
 interface QueryState {
@@ -81,7 +82,7 @@ const VendorShopsManagementTable = () => {
      {
             isAddOpen && <CreateVendorShopModal setIsOpen={setIsAddOpen} />
         }
-      <form className='md:flex justify-between justify-center'>
+      <form className='md:flex justify-between '>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -137,12 +138,19 @@ const VendorShopsManagementTable = () => {
         </TableHeader>
         <TableBody >
           {shops?.map((shop: any, i: number) => (
-            <TableRow key={shop.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
-              <TableCell>{(page - 1) * limit + i + 1}</TableCell>
+            <TableRow key={shop.id.toString()} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
+              <TableCell>{shop.id}</TableCell>
               <TableCell>
                 <Image className="w-12 h-12 hover:scale-150" src={shop.logo} />
               </TableCell>
-              <TableCell>{shop.name}</TableCell>
+              <TableCell>
+              <Link href={`shop/${shop.id}`}>
+                
+              {shop.name}
+              </Link>
+
+
+              </TableCell>
              
               <TableCell>{shop.totalProducts}</TableCell>
               <TableCell>{shop.totalOrders}</TableCell>

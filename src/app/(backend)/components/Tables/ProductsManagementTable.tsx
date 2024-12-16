@@ -16,6 +16,7 @@ import { useGetAllProductsMyShops } from '@/hooks/products.hook';
 import { updateFlashSaleStatus } from '@/services/ProductsServices';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
+import ShopSelectOption from '../Selects/ShopSelectOption';
 
 
 interface QueryState {
@@ -112,7 +113,7 @@ const ProductsManagementTable = () => {
             shops={shops}
             />
         }
-      <form className='md:flex justify-between justify-center'>
+      <form className='md:flex justify-between '>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -150,6 +151,10 @@ const ProductsManagementTable = () => {
         </Dropdown>
         </div>
       </form>
+
+      <div>
+        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
+      </div>
    {isLoading && <p>Loading...</p>}
 
 {products.length > 0 &&  <>

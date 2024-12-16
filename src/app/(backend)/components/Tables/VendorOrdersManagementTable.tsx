@@ -4,7 +4,6 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image,
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
 
-
 import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
 import ProductDropDownAction from '../Dropdown/ProductDropDownAction';
 
@@ -13,6 +12,7 @@ import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
 import { useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
 import { useGetAllProductsMyShops } from '@/hooks/products.hook';
 import OrderStatusChangeDropdown from '../Dropdown/OrderStatusChangeDropDown';
+import ShopSelectOption from '../Selects/ShopSelectOption';
 
 
 interface QueryState {
@@ -46,6 +46,7 @@ const VendorOrdersManagementTable = () => {
   const [isAddOpen,setIsAddOpen]=useState(false)
 
 
+
   useEffect(() => {
     // Update the query when page, limit, sortBy, or sortOrder changes
     setQuery((prev) => ({
@@ -67,9 +68,9 @@ const VendorOrdersManagementTable = () => {
 
   const products = productsResults?.data?.vendorAllProducts || [];
   const orders = vendorResults?.data?.orders || [];
+  const shops = vendorResults?.data?.shops || [];
   const categories = catResults?.data || [];
   const totalOrders = orders?.length || 0;
-
 
 
  
@@ -81,7 +82,7 @@ const VendorOrdersManagementTable = () => {
   return (
     <>
      
-      <form className='md:flex justify-between justify-center'>
+      <form className='md:flex justify-between items-center'>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -92,7 +93,7 @@ const VendorOrdersManagementTable = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Product</Button>
+        {/* <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Product</Button> */}
        </div>
         <div>
         <Dropdown>
@@ -119,9 +120,13 @@ const VendorOrdersManagementTable = () => {
         </Dropdown>
         </div>
       </form>
+
+      <div>
+        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
+      </div>
    {isLoading && <p>Loading...</p>}
 
-{products.length > 0 &&  <>
+{orders.length > 0 &&  <>
 
    
   <Table aria-label="Products Management Table">

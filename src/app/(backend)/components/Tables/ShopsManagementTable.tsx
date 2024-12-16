@@ -7,6 +7,7 @@ import ShopDropDownAction from '../Dropdown/ShopDropDownAction';
 
 import useDebounce from '@/hooks/useDebounce';
 import { useGetAllShops } from '@/hooks/shops.hook';
+import ShopSelectOption from '../Selects/ShopSelectOption';
 
 interface QueryState {
   sortBy?: string;
@@ -66,7 +67,7 @@ const ShopsManagementTable = () => {
 
   return (
     <>
-      <form className='md:flex justify-between justify-center'>
+      <form className='md:flex justify-between '>
         <Input
           className="max-w-60 py-3"
           name="searchTerm"
@@ -100,6 +101,10 @@ const ShopsManagementTable = () => {
         </Dropdown>
         </div>
       </form>
+
+      <div>
+        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
+      </div>
    {isLoading && <p>Loading...</p>}
 
 {shops.length > 0 &&  <>

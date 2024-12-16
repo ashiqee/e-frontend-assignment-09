@@ -40,11 +40,11 @@ if(isLoading){
         <div className="w-full ">
           <div
             className="  z-40 flex flex-col min-h-[400px] justify-between mx-auto  my-auto 
-         rounded-xl p-10 overflow-hidden overflow-y-auto 
+         rounded-xl md:p-10  overflow-hidden overflow-y-auto 
           dark:bg-gray-900 bg-gray-300/25 dark:text-white "
           >
             <div ref={modalRef} className="space-y-2 ">
-              <h3 className="text-xl">Items Summary</h3>
+              <h3 className="text-xl p-2 md:py-4">Items Summary</h3>
 
 <Table removeWrapper  aria-label="Cart Product collection table">
       <TableHeader >
@@ -62,10 +62,10 @@ if(isLoading){
      <button onClick={()=>handleDeleteCartItem(item.product.id)}>   <Trash size={14}/></button>
     </TableCell>
 <TableCell>
-  <Link href={`/shop/${item.product.id}`}>
+  <Link href={`/products/${item.product.id}`}>
   <img 
           alt={item.product.name} 
-          className="w-20 h-20 object-cover rounded-lg" 
+          className="md:min-w-20 min-w-16 h-20 object-cover rounded-lg" 
           src={item.product.images[0] || "https://via.placeholder.com/80"}
         />
   </Link>

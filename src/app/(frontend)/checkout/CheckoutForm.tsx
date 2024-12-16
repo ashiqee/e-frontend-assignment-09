@@ -94,7 +94,7 @@ onSubmit={onSubmit}
           />
         </div>
 
-        <div className="flex gap-2 mb-4 justify-between">
+        <div className="md:flex space-y-4 gap-2 mb-4 justify-between">
           <RadioGroup
             className="space-y-4"
             color="secondary"

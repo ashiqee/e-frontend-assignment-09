@@ -22,7 +22,8 @@ const ProductDetails = ({ id }: { id: string }) => {
   const addtoCartMutation = useAddToCart()
   const {data:user,isLoading:userLoading}= useGetCurrentUser();
   const [isOpen,setIsOpen]=useState(false);
-  const [cartItemQty,setCartItemQty]=useState(1);
+ 
+  const [parchaseQty,setParchaseQty]=useState(1);
   const queryClient = useQueryClient();
   const product = result?.data ;
   const router = useRouter()
@@ -65,7 +66,7 @@ const ProductDetails = ({ id }: { id: string }) => {
   const cartsData = {
     cart: {
       productId:product.id,
-      quantity:cartItemQty
+      quantity:parchaseQty
     }
   }
 
@@ -86,7 +87,7 @@ const ProductDetails = ({ id }: { id: string }) => {
   return (
     <div className="mx-4 md:mx-0">
       <section className="md:flex gap-6">
-        <div className="md:flex flex flex-col-reverse gap-3">
+        <div className="md:flex flex md:flex-row flex-col-reverse gap-3">
           <div className="px-4 md:w-[160px] md:h-[600px] ">
             {product.images.map((img: string, i: number) => (
               <Image
@@ -158,13 +159,16 @@ const ProductDetails = ({ id }: { id: string }) => {
               <div>
                 <p>Quantity</p>
                 <div className="flex gap-4 mt-2 items-center">
-                  <div className="flex gap-4 border-[0.1px] border-primary/45 rounded-md  px-4 max-w-24 p-2">
-                    <button>-</button>
-                    <p>1</p>
-                    <button>+</button>
+                  <div className="flex text-xl font-bold gap-4 border-[0.1px] border-primary/45 rounded-md  px-4 max-w-24 p-2">
+                  <button 
+  onClick={() => setParchaseQty((prevQty) => Math.max(1, prevQty - 1))}
+>-</button>
+                    <p>{parchaseQty}</p>
+                    <button onClick={()=>setParchaseQty(parchaseQty+1)}>+</button>
+                
                   </div>
 
-                  <Button className="text-black min-w-full text-md hover:bg-white hover:scale-105 duration-1000 font-bold" onPress={handleAddToCart}>
+                  <Button className="  text-md hover:bg-white hover:scale-105 duration-1000 font-bold" onPress={handleAddToCart}>
                     Add To Cart
                   </Button>
                 </div>

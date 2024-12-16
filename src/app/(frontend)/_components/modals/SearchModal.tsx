@@ -15,7 +15,7 @@ const SearchPostModal = ({
 
 
   const handleSeeDetails = (id:string) => {
-    router.push(`/shop/${id}`);
+    router.push(`/products/${id}`);
     setIsOpen([]);
     reset()
   };

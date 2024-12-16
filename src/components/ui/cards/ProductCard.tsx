@@ -75,7 +75,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
       <Card key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>
           <CardBody className="overflow-visible w-full relative p-0">
-          <Link href={`/shop/${item.id}`}>
+          <Link href={`/products/${item.id}`}>
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
               alt={item.name}
@@ -108,7 +108,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
             <h6 className='text-green-600/45 text-[12px] my-1 px-2 rounded-md bg-sky-200/15 font-light'>
              {item.category.name}</h6>
            <div className='flex flex-col gap-1'>
-           <Link href={`/shop/${item.id}`}>
+           <Link href={`/products/${item.id}`}>
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
            <b className='`text-[12px] my-1.5'>{item.name}</b></Link>
