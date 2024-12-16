@@ -90,7 +90,6 @@ export const getAllProductsForVendor = async (query:Record<any,any>) => {
           throw new Error('Failed to fetch posts');
         }
        
-        console.log(res.data);
         
         return res.data;
       };

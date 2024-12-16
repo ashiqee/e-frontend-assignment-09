@@ -13,8 +13,7 @@ const SearchPostModal = ({
 }) => {
   const router = useRouter();
 
-  console.log(postData);
-  
+
   const handleSeeDetails = (id:string) => {
     router.push(`/shop/${id}`);
     setIsOpen([]);

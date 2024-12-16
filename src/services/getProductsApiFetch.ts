@@ -6,7 +6,6 @@ export  const getAllProducts = async ()=>{
 const  data = await fetch(`${envConfig.baseApi}/product`)
 const  res = await data.json()
 
-console.log(res.data.products);
 
 
 return res.data.products

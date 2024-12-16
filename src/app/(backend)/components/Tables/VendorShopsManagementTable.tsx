@@ -62,7 +62,7 @@ const VendorShopsManagementTable = () => {
  
   const totalShops = results?.data?.paginateData?.total || 0;
 
-  console.log(results);
+ 
 
   
   useEffect(() => {

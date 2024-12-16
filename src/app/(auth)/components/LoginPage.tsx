@@ -33,7 +33,7 @@ const LoginContent = () => {
     if (!isPending) {
         if (isSuccess) {
           if (redirect) {
-            console.log("Redirue>>>>>>>>>>>");
+          
             
             router.push(redirect); 
           } else {

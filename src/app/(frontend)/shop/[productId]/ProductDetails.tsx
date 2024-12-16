@@ -40,6 +40,9 @@ const ProductDetails = ({ id }: { id: string }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  if (!result) {
+    return <>Shop not found</> ;
+  }
 
 
  const handleAddToCart = ()=>{

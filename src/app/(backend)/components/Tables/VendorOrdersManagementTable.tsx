@@ -70,7 +70,7 @@ const VendorOrdersManagementTable = () => {
   const categories = catResults?.data || [];
   const totalOrders = orders?.length || 0;
 
-console.log(orders);
+
 
  
   useEffect(() => {

@@ -9,7 +9,7 @@ const VendorProfile = async () => {
 
     const user =  await getCurrentUser();
 
-    console.log(">>>",user?.vendorShops);
+   
     
     return (
         <div>

@@ -32,7 +32,7 @@ if(isLoading){
   return <>Loading...</>
 }
 
-console.log(cartsItemResult);
+
 
   return (
     <>

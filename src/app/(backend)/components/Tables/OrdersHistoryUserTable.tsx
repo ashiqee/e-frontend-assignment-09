@@ -61,7 +61,7 @@ const OrdersHistoryForUser = () => {
   const orders = results?.data || [];
   const totalShops = results?.data?.paginateData?.total || 0;
 
-  console.log(results);
+
   
 
   useEffect(() => {

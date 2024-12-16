@@ -34,7 +34,7 @@ export const registerUser = async (userData: FieldValues) => {
       );
   
       revalidateTag("users");
-      console.log("A>>",data);
+    
       
   
       return data;
