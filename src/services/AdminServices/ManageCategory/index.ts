@@ -26,7 +26,7 @@ export const getAllPublicCaterory = async () => {
     if (!res) {
       throw new Error("Failed to fetch users");
     }
-  
+
     return res.data;
   };
 

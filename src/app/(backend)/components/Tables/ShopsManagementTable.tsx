@@ -20,23 +20,22 @@ interface QueryState {
 const ShopsManagementTable = () => {
   const [query, setQuery] = useState<QueryState>({
     sortBy: 'createdAt',
-    sortOrder: 'asc',
+    sortOrder: 'desc',
     page: 1,
     limit: 10,
     searchTerm: '',
  });
 
-  const { data: results, isLoading } = useGetAllShops(query);
+  const { data: results, isLoading ,isFetched } = useGetAllShops(query);
   const [page, setPage] = useState(1); 
   const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
   const [sortBy, setSortBy] = useState('createdAt');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
  
 
-  
 
   useEffect(() => {
     // Update the query when page, limit, sortBy, or sortOrder changes
@@ -51,7 +50,7 @@ const ShopsManagementTable = () => {
 
 
   useEffect(() => {
-    // Update the query with the debounced searchTerm
+    
     setQuery((prev) => ({ ...prev, searchTerm: debouncedSearchTerm }));
   }, [debouncedSearchTerm]);
 
@@ -107,7 +106,7 @@ const ShopsManagementTable = () => {
       </div>
    {isLoading && <p>Loading...</p>}
 
-{shops.length > 0 &&  <>
+{isFetched &&  <>
 
 
   <Table aria-label="User Management Table">
