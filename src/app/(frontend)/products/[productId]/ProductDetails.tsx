@@ -124,7 +124,7 @@ const ProductDetails = ({ id }: { id: string }) => {
             <p className="flex gap-4 items-center text-3xl">
               TK {product?.price}
               <span className="text-gray-400 text-[16.5px] font-normal  line-through ">
-                Tk {product?.discount}
+                Tk {product?.discount+product?.price}
               </span>
             </p>
 {/* 
@@ -168,7 +168,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                 
                   </div>
 
-                  <Button className="  text-md hover:bg-white hover:scale-105 duration-1000 font-bold" onPress={handleAddToCart}>
+                  <Button className="  text-md hover:bg-sky-700/25 hover:scale-105 duration-1000 font-bold" onPress={handleAddToCart}>
                     Add To Cart
                   </Button>
                 </div>

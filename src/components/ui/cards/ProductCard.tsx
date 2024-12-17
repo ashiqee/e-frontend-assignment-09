@@ -112,7 +112,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
            <b className='`text-[12px] my-1.5'>{item?.name}</b></Link>
-           <p className="text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'> 500৳ </span></p>
+           <p className="text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'>{item.discount && item.price+item.discount+"৳"}  </span></p>
            </div>
             
           </CardFooter>

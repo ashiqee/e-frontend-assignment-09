@@ -20,9 +20,14 @@ export default function AllVendorShopCards({id}:{id:string}) {
     
     
     return (
-        <div>
-<h2 className="text-2xl">{shops.name}</h2>
-<div className="grid my-10 grid-cols-2 2xl:grid-cols-10 md:grid-cols-6 gap-4 items-center">
+       <div className=" w-full ">
+
+     <div className="flex flex-col p-2 shadow-lg justify-center items-center">
+     <Image src={shops?.logo} alt={shops.name} className="w-full  h-72 "/>
+     <h2 className="text-2xl xl:text-3xl font-bold">{shops.name}</h2>
+     </div>
+         <div className="container mx-auto">
+<div className="grid my-10 grid-cols-2 2xl:grid-cols-8 md:grid-cols-6 gap-4 items-center">
     {
         products?.map((product:any)=>(
             <div key={product.id.toString()}>
@@ -35,5 +40,6 @@ export default function AllVendorShopCards({id}:{id:string}) {
 </div>
 
         </div>
+       </div>
     );
 }

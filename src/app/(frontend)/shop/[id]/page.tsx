@@ -12,9 +12,8 @@ const VendorShop = async ({params}:{params:any}) => {
         <div>
        
 
-          <h3>All Products</h3>
         <AllVendorShopCards id={params?.id}/>
-         {/* <ProductTable products={data?.products}/> */}
+    
         </div>
     );
 };
