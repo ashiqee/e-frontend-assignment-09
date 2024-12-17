@@ -25,7 +25,7 @@ const DeleteCouponModal = ({
         if (!id) return; 
         const res = await deletACoupon(id)
 
-        console.log(res);
+    
         
       };
       

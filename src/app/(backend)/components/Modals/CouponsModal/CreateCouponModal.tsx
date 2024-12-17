@@ -26,8 +26,7 @@ const CreateCouponModal = ({
    
 
     const res = await createcoupons(data)
-  
-console.log(res);
+
 
     // Trigger loading state
     setIsOpen(false);

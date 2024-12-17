@@ -28,7 +28,6 @@ const OrderListModal = ({
   const updateProductMutation = useUpdateProduct()
 
 
-  console.log(exitsData);
   
 
 

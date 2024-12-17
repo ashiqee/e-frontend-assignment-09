@@ -41,7 +41,7 @@ const CouponManagementTable = () => {
   const debouncedSearchTerm = useDebounce(searchTerm);
   const [isAddOpen,setIsAddOpen]=useState(false)
 
-  console.log(results);
+ 
   
 
   useEffect(() => {

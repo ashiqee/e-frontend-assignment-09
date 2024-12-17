@@ -63,7 +63,6 @@ const OrdersHistoryForUser = () => {
   const orders = results?.data.data || [];
   const totalOrders = results?.data?.paginateData.total || 0;
 
-  console.log(results);
   
 
 

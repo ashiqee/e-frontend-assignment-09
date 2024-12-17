@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 const ResetPassword = () => {
 
     const handleSendPassword= async(data:any)=>{
-      console.log(data);
+     
       
       const res=   await resetPassword(data)
 
