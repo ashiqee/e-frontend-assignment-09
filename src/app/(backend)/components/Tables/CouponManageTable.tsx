@@ -1,15 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Tooltip } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
 
-import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
+
+import CategoriesDropDownAction from '../Dropdown/CategoriesDropDownAction';
+import CreateCategoriesModal from '../Modals/CategoriesModal/CreateCategoriesModal';
 
 import useDebounce from '@/hooks/useDebounce';
-import { useGetUserOrderHistory } from '@/hooks/orders.hook';
-import OrderListModal from '../Modals/OrdersListModal/OrderListModal';
-import { format } from "date-fns";
+import { useGetAllCategories } from '@/hooks/categories.hook';
+import CreateCouponModal from '../Modals/CouponsModal/CreateCouponModal';
+import CouponDropDownAction from '../Dropdown/CouponDropDownAction';
+import { useGetAllCoupons } from '@/hooks/coupon.hook';
 
 interface QueryState {
   sortBy?: string;
@@ -19,7 +22,7 @@ interface QueryState {
   searchTerm?: string;
 }
 
-const OrdersHistoryForUser = () => {
+const CouponManagementTable = () => {
   const [query, setQuery] = useState<QueryState>({
     sortBy: 'createdAt',
     sortOrder: 'asc',
@@ -28,7 +31,7 @@ const OrdersHistoryForUser = () => {
     searchTerm: '',
  });
 
-  const { data: results, isLoading } = useGetUserOrderHistory(query);
+  const { data: results, isLoading } = useGetAllCoupons(query);
   const [page, setPage] = useState(1); 
   const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
@@ -37,9 +40,8 @@ const OrdersHistoryForUser = () => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
   const [isAddOpen,setIsAddOpen]=useState(false)
-  const [orderItems,setOrderItems]=useState()
- 
 
+  console.log(results);
   
 
   useEffect(() => {
@@ -60,25 +62,26 @@ const OrdersHistoryForUser = () => {
   }, [debouncedSearchTerm]);
 
 
-  const orders = results?.data.data || [];
-  const totalOrders = results?.data?.paginateData.total || 0;
 
-  console.log(results);
-  
+  const categories = results?.data?.data || [];
 
+  // const categories = (results as {data: {categories: {data: any[]}}} )?.data?.data || [];
+
+ 
+  const totalCategories = results?.data?.paginateData?.total || 0;
 
   useEffect(() => {
     // Update total pages when results change
-    setTotal(Math.ceil(totalOrders / limit));
-  }, [totalOrders, limit]);
+    setTotal(Math.ceil(totalCategories / limit));
+  }, [totalCategories, limit]);
 
   return (
     <>
-     {
-            orderItems && <OrderListModal  exitsData={orderItems} setIsOpen={setOrderItems}/>
+      {
+            isAddOpen && <CreateCouponModal setIsOpen={setIsAddOpen} />
         }
-      <form className='md:flex justify-between'>
-      <div className='flex gap-2 items-center'>
+      <form className='md:flex justify-between justify-center'>
+       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
           name="searchTerm"
@@ -87,7 +90,9 @@ const OrdersHistoryForUser = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
- </div>
+
+        <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Coupon</Button>
+       </div>
         <div>
         <Dropdown>
           <DropdownTrigger>
@@ -115,46 +120,39 @@ const OrdersHistoryForUser = () => {
       </form>
    {isLoading && <p>Loading...</p>}
 
-{orders.length > 0 &&  <>
+{categories.length > 0 &&  <>
 
 
-  <Table aria-label="Vendor Shops Management Table">
+  <Table aria-label="Coupon Management Table">
         <TableHeader>
-          <TableColumn>Date & Time</TableColumn>
-          <TableColumn>Order ID</TableColumn>
-        
-          <TableColumn>Items List</TableColumn> 
-          <TableColumn>Total Items</TableColumn> 
-         
-          <TableColumn>Total Price</TableColumn> 
-          <TableColumn>Order Status</TableColumn>
-          <TableColumn>Payment Status</TableColumn>
+          <TableColumn>ID</TableColumn>
+          <TableColumn>Icon</TableColumn>
+          <TableColumn>Category Name</TableColumn> 
+          <TableColumn>Category Description</TableColumn> 
+          <TableColumn>Total Products</TableColumn> 
+          <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody >
-          {orders?.map((order: any, i: number) => (
-            <TableRow key={order.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
-              <TableCell>{format(new Date(order.createdAt), "dd/MM/yyyy hh:mm a")}</TableCell>
-              <TableCell>ORDER-ID-{order.id}</TableCell>
-             
+          {categories?.map((item: any, i: number) => (
+            <TableRow key={item.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
+              <TableCell>{item.id}</TableCell>
               <TableCell>
-
-                <Button variant='shadow' onClick={()=>setOrderItems(order.orderItems)}>SEE Order Items</Button>
+                <Image className="w-12 h-12 hover:scale-150" src={item.logo} />
               </TableCell>
-             
-              <TableCell> {order?.orderItems?.reduce((total:any, item:any) => total + item.quantity, 0)}</TableCell>
-           
+              <TableCell>{item.name}</TableCell>
               <TableCell>
-                {order.totalPrice}
-             
+                {item.description}
+               
               </TableCell>
-              <TableCell>{order.orderStatus}</TableCell>
+              <TableCell>{item.totalProducts}</TableCell>
+              
               <TableCell>
-                   
-                    {order.paymentStatus === "PAID" ?
-                   <Button className='p-2 bg-green-400/15'>PAID</Button> 
-                  : <Tooltip content="Pay Now"><Button>PENDING</Button></Tooltip>
-                  }
-             
+                    {/* action modal  */}
+              <CouponDropDownAction 
+              data={item}
+              id={item.id}
+              isDeleted={item.isDeleted}
+              />
               </TableCell>
             </TableRow>
           ))}
@@ -162,7 +160,7 @@ const OrdersHistoryForUser = () => {
       </Table>
       <div className="py-2  flex justify-between items-center">
         <p>
-          Total orders : {totalOrders}
+          Total Categories : {totalCategories}
         </p>
         <Pagination 
        
@@ -180,4 +178,4 @@ const OrdersHistoryForUser = () => {
   );
 };
 
-export default OrdersHistoryForUser;
+export default CouponManagementTable;

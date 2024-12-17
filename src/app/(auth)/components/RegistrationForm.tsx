@@ -70,7 +70,7 @@ setIsPending(true)
     } finally {
       // Trigger loading state
       userLoading(false);
-      router.push("/");
+      router.push("/login");
     }
   };
 

@@ -1,3 +1,4 @@
+import { Sparkles } from "lucide-react";
 import { FiFileText, FiDollarSign, FiSettings, FiShoppingCart, FiUser, FiShoppingBag, FiList, FiEye, FiClock, FiHeart, FiStar } from "react-icons/fi";
 
 export const roleBasedMenus = {
@@ -74,6 +75,11 @@ export const roleBasedMenus = {
       path: "/vendor/payments",
       label: "Payments",
       icon: <FiDollarSign />,
+    },
+    {
+      path: "/vendor/coupons",
+      label: "Coupons",
+      icon: <Sparkles />,
     },
     {
       path: "/vendor/reviews",

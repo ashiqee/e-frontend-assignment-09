@@ -2,6 +2,7 @@
 import Loading from "@/components/shared/Loading";
 import { useGetAllShopsForPublic } from "@/hooks/shops.hook";
 import { Image } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function TopShops() {
     const {data:results,isLoading}= useGetAllShopsForPublic();
@@ -22,8 +23,10 @@ export default function TopShops() {
 {
     shops?.slice(0,10).map((shop:any)=>(
         <div className="text-center flex flex-col justify-center items-center" key={shop.id.toString()}>
+            <Link href={`/shop/${shop.id}`}>
             <Image className=" mx-auto border border-blue-700/15 shadow-lg object-cover size-28" src={shop?.logo} alt={shop.name}/>
             <h2 className="text-sm">{shop.name}</h2>
+            </Link>
         </div>
     ))
 }

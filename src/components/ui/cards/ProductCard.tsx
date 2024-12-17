@@ -78,7 +78,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
           <Link href={`/products/${item.id}`}>
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
-              alt={item.name}
+              alt={item?.name}
               className="mx-auto rounded-none object-cover h-[160px] w-full  md:h-[240px]"
               radius="lg"
               shadow="sm"
@@ -106,12 +106,12 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
           </CardBody>
           <CardFooter className="text-small flex flex-col h-full justify-between  p-4 ">
             <h6 className='text-green-600/45 text-[12px] my-1 px-2 rounded-md bg-sky-200/15 font-light'>
-             {item.category.name}</h6>
+             {item?.category?.name}</h6>
            <div className='flex flex-col gap-1'>
            <Link href={`/products/${item.id}`}>
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
-           <b className='`text-[12px] my-1.5'>{item.name}</b></Link>
+           <b className='`text-[12px] my-1.5'>{item?.name}</b></Link>
            <p className="text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'> 500৳ </span></p>
            </div>
             
