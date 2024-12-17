@@ -41,7 +41,7 @@ const ProductsManagementTable = () => {
 
   const { data: catResults, isLoading:catLoading } = useGetAllCategoriesForPublic();
   const [page, setPage] = useState(1); 
-  const [limit] = useState(5); 
+  const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');

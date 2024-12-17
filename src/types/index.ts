@@ -29,7 +29,7 @@ export interface IRTextarea {
 
 export interface IUser{
   _id: string;
-  name: string;
+  fullName: string;
   role: string;
   email: string;
   status: string;

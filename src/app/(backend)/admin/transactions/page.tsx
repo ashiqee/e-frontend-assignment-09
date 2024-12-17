@@ -1,5 +1,12 @@
+import AdminTrOrdersHistory from "../../components/Tables/AdminTrOrdersHistoryTable";
+
+
 export default function TransactionsManage() {
     return (
-        <div>Transactions Management</div>
+        <div>Transactions History
+
+
+<AdminTrOrdersHistory/>
+        </div>
     );
 }

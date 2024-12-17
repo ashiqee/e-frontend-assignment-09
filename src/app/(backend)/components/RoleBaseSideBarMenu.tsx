@@ -55,6 +55,12 @@ export const roleBasedMenus = {
       icon: <FiShoppingBag />,
     },
     {
+      path: "/vendor/categories",
+      label: "Manage Categories",
+      icon: <FiList />,
+      description: "Add, edit, or delete product categories dynamically.",
+    },
+    {
       path: "/vendor/products",
       label: "Manage Products",
       icon: <FiShoppingCart />,

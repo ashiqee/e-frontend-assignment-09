@@ -19,7 +19,7 @@ interface QueryState {
 const UserManagementTable = () => {
   const [query, setQuery] = useState<QueryState>({
     sortBy: 'createdAt',
-    sortOrder: 'asc',
+    sortOrder: 'desc',
     page: 1,
     limit: 10,
     searchTerm: '',
@@ -57,6 +57,8 @@ const UserManagementTable = () => {
 
   const users = results?.data?.data || [];
   const totalUsers = results?.data?.paginateData?.total || 0;
+
+  
 
   useEffect(() => {
     // Update total pages when results change

@@ -35,10 +35,10 @@ const RegisterPage = () => {
         shadow="md"
       >
 
-        <CardBody className="p-10 min-w-[40vw]  mx-auto px-20 2xl:px-40">
-          <div className="flex items-center justify-center gap-20">
+        <CardBody className="md:p-10 md:min-w-[40vw]  mx-auto md:px-20 2xl:px-40">
+          <div className="md:flex items-center justify-center gap-20">
 
-          <div className="min-w-[20vw]  text-center pb-5">
+          <div className="md:min-w-[20vw] w-full text-center pb-5">
             <Link href={'/'}> <h2 className="text-3xl font-bold uppercase">Kidz Bazar</h2></Link>
             <small>All Kinds Of kids Shop</small>
             

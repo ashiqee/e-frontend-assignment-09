@@ -84,9 +84,10 @@ if(!user){
         </ul>
         <div className="mx-4 flex flex-col items-center">
             <Avatar className={ ` ${isOpen ? "md:size-20" : "md:size-8" } size-8 `} src={user?.profilePhoto}/>
-           <Link href={`/profile`}> <p>{user?.name}</p></Link>
+           <Link className="text-sm" href={`/profile`}> <p>{user?.role}</p></Link>
+           <Link href={`/profile`}> <p>{user?.fullName}</p></Link>
             <Link href={'/'}><h2 className="2xl:text-4xl md:text-xl  font-extrabold text-center my-6">Kidz Bazar</h2></Link>
-        <Button className="md:flex hidden float-end w-full" color="danger" onClick={()=>logout()}> <FiLogOut />{isOpen && "Logout"}</Button>
+        <Button className="md:flex  float-end w-full" color="danger" onClick={()=>logout()}> <FiLogOut />{isOpen && "Logout"}</Button>
       
        
         </div>

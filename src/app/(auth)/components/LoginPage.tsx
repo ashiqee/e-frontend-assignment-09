@@ -85,8 +85,8 @@ const LoginContent = () => {
 
               <TRForm
                 defaultValues={{
-                  email: "keyashiq@gmail.com",
-                  password: "SecurePassword123",
+                  email: "admin@gmail.com",
+                  password: "123456",
                 }}
                 resolver={zodResolver(loginValidation)}
                 onSubmit={onSubmit}

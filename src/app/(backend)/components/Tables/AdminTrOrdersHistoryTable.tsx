@@ -4,16 +4,12 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image,
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
 
-import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
-import ProductDropDownAction from '../Dropdown/ProductDropDownAction';
+import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
 
 import useDebounce from '@/hooks/useDebounce';
-import { useGetAllVendorMyShops } from '@/hooks/shops.hook';
-import { useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
-import { useGetAllProductsMyShops } from '@/hooks/products.hook';
-import OrderStatusChangeDropdown from '../Dropdown/OrderStatusChangeDropDown';
-import ShopSelectOption from '../Selects/ShopSelectOption';
-
+import { useGetAllUserOrderHistoryForAdmin, useGetUserOrderHistory } from '@/hooks/orders.hook';
+import OrderListModal from '../Modals/OrdersListModal/OrderListModal';
+import { format } from "date-fns";
 
 interface QueryState {
   sortBy?: string;
@@ -23,7 +19,7 @@ interface QueryState {
   searchTerm?: string;
 }
 
-const VendorOrdersManagementTable = () => {
+const AdminTrOrdersHistory = () => {
   const [query, setQuery] = useState<QueryState>({
     sortBy: 'createdAt',
     sortOrder: 'asc',
@@ -32,10 +28,7 @@ const VendorOrdersManagementTable = () => {
     searchTerm: '',
  });
 
-  const { data: vendorResults, isLoading: vendorLoading } = useGetAllVendorMyShops(query);
-  const { data: productsResults, isLoading } = useGetAllProductsMyShops(query);
-
-  const { data: catResults, isLoading:catLoading } = useGetAllCategoriesForPublic();
+  const { data: results, isLoading } = useGetAllUserOrderHistoryForAdmin(query);
   const [page, setPage] = useState(1); 
   const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
@@ -44,8 +37,10 @@ const VendorOrdersManagementTable = () => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
   const [isAddOpen,setIsAddOpen]=useState(false)
+  const [orderItems,setOrderItems]=useState()
+ 
 
-
+  
 
   useEffect(() => {
     // Update the query when page, limit, sortBy, or sortOrder changes
@@ -65,15 +60,13 @@ const VendorOrdersManagementTable = () => {
   }, [debouncedSearchTerm]);
 
 
+  const orders = results?.data.data || [];
+  const totalOrders = results?.data?.paginateData.total || 0;
 
-  const products = productsResults?.data?.vendorAllProducts || [];
-  const orders = vendorResults?.data?.orders || [];
-  const shops = vendorResults?.data?.shops || [];
-  const categories = catResults?.data || [];
-  const totalOrders = orders?.length || 0;
+  console.log(results);
+  
 
 
- 
   useEffect(() => {
     // Update total pages when results change
     setTotal(Math.ceil(totalOrders / limit));
@@ -81,8 +74,10 @@ const VendorOrdersManagementTable = () => {
 
   return (
     <>
-     
-      <form className='md:flex justify-between items-center'>
+     {
+            orderItems && <OrderListModal  exitsData={orderItems} setIsOpen={setOrderItems}/>
+        }
+      <form className='md:flex justify-between'>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -92,9 +87,7 @@ const VendorOrdersManagementTable = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-
-        {/* <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Product</Button> */}
-       </div>
+ </div>
         <div>
         <Dropdown>
           <DropdownTrigger>
@@ -113,66 +106,55 @@ const VendorOrdersManagementTable = () => {
             }}
           >
             <DropdownItem key="createdAt">Sort by Created At</DropdownItem>
-            <DropdownItem key="shop">Sort by Shop</DropdownItem>
+            <DropdownItem key="role">Sort by Status</DropdownItem>
             <DropdownItem key="asc">Ascending</DropdownItem>
             <DropdownItem key="desc">Descending</DropdownItem>
           </DropdownMenu>
         </Dropdown>
         </div>
       </form>
-
-      <div>
-        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
-      </div>
    {isLoading && <p>Loading...</p>}
 
 {orders.length > 0 &&  <>
 
-   
-  <Table aria-label="Products Management Table">
+
+  <Table aria-label="Vendor Shops Management Table">
         <TableHeader>
+          <TableColumn>Date & Time</TableColumn>
           <TableColumn>Order ID</TableColumn>
-          <TableColumn>Image</TableColumn>
-          <TableColumn>Product Name</TableColumn> 
-          <TableColumn>Customer Info</TableColumn> 
-          <TableColumn>Product Price</TableColumn> 
-          <TableColumn>Item Qty</TableColumn>
-          <TableColumn>Total Amount</TableColumn> 
-          <TableColumn>Payment Status</TableColumn>
+        
+          <TableColumn>Items List</TableColumn> 
+          <TableColumn>Total Items</TableColumn> 
+         
+          <TableColumn>Total Price</TableColumn> 
           <TableColumn>Order Status</TableColumn>
+          <TableColumn>Payment Status</TableColumn>
         </TableHeader>
         <TableBody >
           {orders?.map((order: any, i: number) => (
             <TableRow key={order.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
-              <TableCell>o_id-{order.id}</TableCell>
-              <TableCell>
-                <Image className="w-12 h-12 hover:scale-150" src={order.product.images[0]} />
-              </TableCell>
-              <TableCell>{order.product.name}</TableCell>
+              <TableCell>{format(new Date(order.createdAt), "dd/MM/yyyy hh:mm a")}</TableCell>
+              <TableCell>ORDER-ID-{order.id}</TableCell>
              
-              
               <TableCell>
-                {order.order.fullName}
-                <br />
-                {order.order.mobile}
-                <br />
-                {order.order.address}
+
+                <Button variant='shadow' onClick={()=>setOrderItems(order.orderItems)}>SEE Order Items</Button>
+              </TableCell>
+             
+              <TableCell> {order?.orderItems?.reduce((total:any, item:any) => total + item.quantity, 0)}</TableCell>
+           
+              <TableCell>
+                {order.totalPrice}
              
               </TableCell>
-              <TableCell>{order.order.paymentMethod}
-                <br />
-                {order.order.transactionId}
-               </TableCell>
-              <TableCell>{order.quantity}</TableCell>
-              <TableCell>{order.price * order.quantity}</TableCell>
-              <TableCell>{order.order.paymentStatus}</TableCell>
+              <TableCell>{order.orderStatus}</TableCell>
               <TableCell>
-                    {/* action modal  */}
-                    
-            <OrderStatusChangeDropdown 
-              status={order.orderStatus}
-              orderItemId={order.order.id}
-            />
+                   
+                    {order.paymentStatus === "PAID" ?
+                   <Button className='p-2 bg-green-400/15'>PAID</Button> 
+                  : <Button>PENDING</Button>
+                  }
+             
               </TableCell>
             </TableRow>
           ))}
@@ -180,7 +162,7 @@ const VendorOrdersManagementTable = () => {
       </Table>
       <div className="py-2  flex justify-between items-center">
         <p>
-          Total Products : {totalOrders}
+          Total orders : {totalOrders}
         </p>
         <Pagination 
        
@@ -198,4 +180,4 @@ const VendorOrdersManagementTable = () => {
   );
 };
 
-export default VendorOrdersManagementTable;
+export default AdminTrOrdersHistory;

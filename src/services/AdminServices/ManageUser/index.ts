@@ -15,6 +15,9 @@ export const getAllUsersForAdmin = async (query: Record<string, any>) => {
     throw new Error("Failed to fetch users");
   }
 
+  console.log(res.data,"Manage User");
+  
+
   return res.data;
 };
 

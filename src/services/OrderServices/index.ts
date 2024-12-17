@@ -45,6 +45,28 @@ export const createOrder = async (formData: FieldValues) => {
 
 
 
+  export const getAllUserOrdersHistoryForAdmin = async (query: Record<string, any>) => {
+
+    try {
+
+      const queryString = new URLSearchParams(query).toString()
+      
+      const res = await axiosInstance.get(`/orders/getAllOrders?${queryString}`);
+ 
+      // Check for successful response (status code 2xx)
+      if (res.status < 200 || res.status >= 300) {
+        throw new Error(`Failed to fetch carts, status: ${res.status}`);
+      }
+ 
+   
+      return res.data;
+ 
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+      throw new Error('Failed to fetch carts');
+    }
+ };
+
   export const getAllUserOrdersHistory = async (query: Record<string, any>) => {
 
     try {

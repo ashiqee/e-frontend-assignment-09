@@ -8,10 +8,9 @@
 # Kidz Bazar E-commerce
  
 ## Introduction
-
-## Project Overview
 Kidz Bazar E-commerce is an e-commerce platform designed for a seamless shopping experience for kids' products. The platform allows users to browse a variety of products, manage their shopping cart, and make secure payments. It provides a dynamic, user-friendly interface built with modern technologies for a smooth and engaging experience.
 
+## Project Overview
 The Kidz Bazar E-commerce project leverages Next.js for a fast and scalable frontend, Express for a flexible backend, Prisma for database management, and PostgreSQL for a reliable database solution. Key features include product listings, a shopping cart system, user authentication, and secure payment processing.
 ## Features
 - User Authentication: Secure login and registration using JWT-based authentication.
