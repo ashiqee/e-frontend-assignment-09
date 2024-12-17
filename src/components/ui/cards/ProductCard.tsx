@@ -75,7 +75,10 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
       <Card key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>
           <CardBody className="overflow-visible w-full relative p-0">
-          <Link href={`/products/${item.id}`}>
+{
+          
+  item?.flashSale && <p className='bg-red-700/75 p-1 text-sm absolute z-50 top-2 right-2 rounded-lg '>Flash Offer</p>
+}          <Link href={`/products/${item.id}`}>
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
               alt={item?.name}

@@ -7,9 +7,7 @@ import Link from "next/link";
 
 export default function TopProductsCategories() {
     const {data:results,isLoading}= useGetAllCategoriesForPublic();
-    console.log(results);
     
-
     if(isLoading){
         return <Loading/>
     }

@@ -61,10 +61,13 @@ export const siteConfig = {
       imgUrl:"https://htmldemo.net/kidol/kidol/assets/img/slider/3.jpg"
   },
     {
-      imgUrl:"https://i.pinimg.com/originals/72/0c/74/720c7457a6af70a649613d4b7b549994.png"
+      imgUrl:"https://new-ella-demo.myshopify.com/cdn/shop/files/slideshow-1.jpg?v=1632195167&width=1880"
   },
     {
-      imgUrl:"https://i.pinimg.com/originals/72/0c/74/720c7457a6af70a649613d4b7b549994.png"
+      imgUrl:"https://new-ella-demo.myshopify.com/cdn/shop/files/banner-jewelry.gif?v=1641367506&width=2000"
+  },
+    {
+      imgUrl:"https://new-ella-demo.myshopify.com/cdn/shop/files/banner-1.jpg?v=1655194043&width=1880"
   },
 ]
 };

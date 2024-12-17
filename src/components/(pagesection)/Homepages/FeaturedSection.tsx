@@ -21,7 +21,7 @@ const FeaturedSection =  () => {
         sortBy: 'createdAt',
         sortOrder: 'desc',
         page: 1,
-        limit: 6,
+        limit: 20,
         searchTerm: '',
         
      });
@@ -36,8 +36,8 @@ const products= flashSaleProduct?.data.flashSaleProduct || []
         <div className='md:my-20 md:flex gap-4 container mx-auto'>
             <Image className='h-full p-4 md:p-0 md:w-96 object-fit' src='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/flash-sale-design-template-de1ed8f28321fef5a13d120fb7911841_screen.jpg?ts=1637050530' />
  <div>
- <div className="gap-3 md:gap-4 grid grid-cols-2 sm:grid-cols-3 mx-4 md:mx-0">
-    {products.map((item:any, index:number) => (
+ <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 mx-4 md:mx-0">
+    {products?.slice(0,10).map((item:any, index:number) => (
      
       <ProductCard key={index} index={index} item={item} />
 

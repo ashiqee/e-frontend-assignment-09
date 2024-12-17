@@ -10,8 +10,7 @@ export default function VendorShopCards({id}:{id:string}) {
     const products= shops?.products;
     const ordersItem =products?.orderItems;
 
-    console.log(products);
-    
+   
     
     return (
         <div>
