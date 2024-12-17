@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
-import { createOrder, getAllUserOrdersHistory } from "@/services/OrderServices";
+import { createOrder, createPaymentforOrder, getAllUserOrdersHistory } from "@/services/OrderServices";
 
 
 
@@ -22,6 +22,39 @@ export const useCreateOrder = () => {
         queryClient.invalidateQueries({ queryKey: ['orders'] }); // Invalidate the 'carts' cache to trigger a refetch
         queryClient.invalidateQueries({ queryKey: ['carts'] }); 
         router.push('/order-success')
+      },
+      onError: (error: any) => {
+        toast.error(error.message || 'Failed to create order');
+      },
+    });
+  };
+
+
+export const useCreateOrderWithPayment = () => {
+  const router = useRouter()
+    const queryClient = useQueryClient();
+  
+    return useMutation({
+      mutationKey: ['orders'], // Using 'orders' as the mutation key
+      mutationFn: async (formData: FieldValues) => {
+        const res = await createPaymentforOrder(formData); // Call your addToCart API function
+         
+        console.log(res,"HOOK");
+        
+        if (res.success) {
+  
+          toast.success(res.message);
+          router.push(res.data.payment_url)
+          
+        queryClient.invalidateQueries({ queryKey: ['orders'] }); // Invalidate the 'carts' cache to trigger a refetch
+        queryClient.invalidateQueries({ queryKey: ['carts'] }); 
+        }
+        return res;
+      },
+      onSuccess: () => {
+       
+       
+       
       },
       onError: (error: any) => {
         toast.error(error.message || 'Failed to create order');

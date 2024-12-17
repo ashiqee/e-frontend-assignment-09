@@ -3,6 +3,7 @@ import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 import axiosInstance from "@/lib/AxiosInstance";
+import nexiosInstance from "@/config/naxios.config";
 
 
 
@@ -24,7 +25,25 @@ export const createOrder = async (formData: FieldValues) => {
       throw new Error(error);
     }
   };
+
+
+
+  export const createPaymentforOrder = async (formData: FieldValues) => {
+    try {
+   
+      
+      const res = await axiosInstance.post("/orders/createPayOrder", formData);
   
+
+  
+      return res.data;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  };
+
+
+
 
   export const getAllUserOrdersHistory = async () => {
     try {

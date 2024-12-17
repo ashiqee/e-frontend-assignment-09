@@ -5,16 +5,18 @@ import { ListOrdered } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useCreateOrder } from "@/hooks/orders.hook";
+import { useCreateOrder, useCreateOrderWithPayment } from "@/hooks/orders.hook";
 import TRTextarea from "@/components/forms/TRTextarea";
 import TRInput from "@/components/forms/TRInput";
 import TRForm from "@/components/forms/TRFrom";
+
 
 export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) {
     const router = useRouter()
     const [payment, setPaymentMethod] = useState("cashOnDelivery");
     const [discount, setDiscount] = useState(0);
     const createOrderMutation = useCreateOrder()
+    const createPaymenwithOrder = useCreateOrderWithPayment()
     
     const totalPrice = cartItems.subtotal - discount;
 
@@ -27,22 +29,24 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
             quantity: item.quantity,
             price: item.product.price,
         }));
-            const orderData = {
-
+           
+        
+        const orderData = {
                    order: {
                     cartItems:formattedCartItems,
                     totalPrice: totalPrice,
-                    fullName: data.name,
-                    mobile: data.contactNumber,
-                    address: data.address,
+                    fullName:  data.name || user.fullName,
+                    mobile: data.contactNumber  || user.contactNumber,
+                    address: data.address || user.address ,
                     paymentMethod: payment,
                    }
             }
 
-            formData.append("data",JSON.stringify(orderData));
+            formData.append("data", JSON.stringify(orderData));
 
-            createOrderMutation.mutate(formData)
+          {payment==="payWithAmarPay" ?  createPaymenwithOrder.mutate(formData) :  createOrderMutation.mutate(formData) }
      
+        
     }
     
     return (
@@ -134,7 +138,7 @@ onSubmit={onSubmit}
          Confirm Order
         </Button>
           
-          : <Button color="warning" onPress={()=>router.push("/payment")}>
+          : <Button color="warning" type="submit" onClick={onSubmit} >
 
           <ListOrdered /> Pay Now
           
