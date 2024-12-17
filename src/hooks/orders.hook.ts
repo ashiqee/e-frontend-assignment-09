@@ -35,18 +35,16 @@ export const useCreateOrderWithPayment = () => {
     const queryClient = useQueryClient();
   
     return useMutation({
-      mutationKey: ['orders'], // Using 'orders' as the mutation key
+      mutationKey: ['orders'],
       mutationFn: async (formData: FieldValues) => {
-        const res = await createPaymentforOrder(formData); // Call your addToCart API function
+        const res = await createPaymentforOrder(formData); 
          
-        console.log(res,"HOOK");
-        
         if (res.success) {
   
           toast.success(res.message);
           router.push(res.data.payment_url)
           
-        queryClient.invalidateQueries({ queryKey: ['orders'] }); // Invalidate the 'carts' cache to trigger a refetch
+        queryClient.invalidateQueries({ queryKey: ['orders'] }); 
         queryClient.invalidateQueries({ queryKey: ['carts'] }); 
         }
         return res;
@@ -65,10 +63,10 @@ export const useCreateOrderWithPayment = () => {
 
 
 
-  export const useGetUserOrderHistory = () => {
+  export const useGetUserOrderHistory = (query) => {
     return useQuery({
-      queryKey: ['orders'], // Include query parameters in the key
-      queryFn: () => getAllUserOrdersHistory(),
+      queryKey: ['orders',query], // Include query parameters in the key
+      queryFn: () => getAllUserOrdersHistory(query),
       staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
     });
   };

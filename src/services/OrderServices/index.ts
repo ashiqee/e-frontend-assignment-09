@@ -45,9 +45,13 @@ export const createOrder = async (formData: FieldValues) => {
 
 
 
-  export const getAllUserOrdersHistory = async () => {
+  export const getAllUserOrdersHistory = async (query: Record<string, any>) => {
+
     try {
-      const res = await axiosInstance.get('/orders/getUserOrders');
+
+      const queryString = new URLSearchParams(query).toString()
+      
+      const res = await axiosInstance.get(`/orders/getUserOrders?${queryString}`);
  
       // Check for successful response (status code 2xx)
       if (res.status < 200 || res.status >= 300) {

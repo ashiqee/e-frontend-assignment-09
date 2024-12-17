@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import { ArrowDownWideNarrowIcon } from 'lucide-react';
 
 
@@ -8,6 +8,8 @@ import CreateVendorShopModal from '../Modals/ShopsModal/CreateVendorShopModal';
 
 import useDebounce from '@/hooks/useDebounce';
 import { useGetUserOrderHistory } from '@/hooks/orders.hook';
+import OrderListModal from '../Modals/OrdersListModal/OrderListModal';
+import { format } from "date-fns";
 
 interface QueryState {
   sortBy?: string;
@@ -26,15 +28,16 @@ const OrdersHistoryForUser = () => {
     searchTerm: '',
  });
 
-  const { data: results, isLoading } = useGetUserOrderHistory();
+  const { data: results, isLoading } = useGetUserOrderHistory(query);
   const [page, setPage] = useState(1); 
-  const [limit] = useState(2); 
+  const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
   const [isAddOpen,setIsAddOpen]=useState(false)
+  const [orderItems,setOrderItems]=useState()
  
 
   
@@ -57,24 +60,24 @@ const OrdersHistoryForUser = () => {
   }, [debouncedSearchTerm]);
 
 
+  const orders = results?.data.data || [];
+  const totalOrders = results?.data?.paginateData.total || 0;
 
-  const orders = results?.data || [];
-  const totalShops = results?.data?.paginateData?.total || 0;
-
-
+  console.log(results);
   
+
 
   useEffect(() => {
     // Update total pages when results change
-    setTotal(Math.ceil(totalShops / limit));
-  }, [totalShops, limit]);
+    setTotal(Math.ceil(totalOrders / limit));
+  }, [totalOrders, limit]);
 
   return (
     <>
      {
-            isAddOpen && <CreateVendorShopModal setIsOpen={setIsAddOpen} />
+            orderItems && <OrderListModal  exitsData={orderItems} setIsOpen={setOrderItems}/>
         }
-      <form className='md:flex justify-between justify-center'>
+      <form className='md:flex justify-between'>
       <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"
@@ -117,39 +120,41 @@ const OrdersHistoryForUser = () => {
 
   <Table aria-label="Vendor Shops Management Table">
         <TableHeader>
-          <TableColumn>ID</TableColumn>
-          <TableColumn>Logo</TableColumn>
-          <TableColumn>Shop Name</TableColumn> 
-          <TableColumn>Total Products</TableColumn> 
-          <TableColumn>Total Orders</TableColumn>
-          <TableColumn>Total Followers</TableColumn> 
+          <TableColumn>Date & Time</TableColumn>
+          <TableColumn>Order ID</TableColumn>
+        
+          <TableColumn>Items List</TableColumn> 
+          <TableColumn>Total Items</TableColumn> 
+         
+          <TableColumn>Total Price</TableColumn> 
           <TableColumn>Order Status</TableColumn>
           <TableColumn>Payment Status</TableColumn>
         </TableHeader>
         <TableBody >
           {orders?.map((order: any, i: number) => (
             <TableRow key={order.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
-              <TableCell>{(page - 1) * limit + i + 1}</TableCell>
-              <TableCell>
-                <Image className="w-12 h-12 hover:scale-150" src={order?.orderItems?.product?.images[0]} />
-              </TableCell>
-              <TableCell>OrdetItems</TableCell>
+              <TableCell>{format(new Date(order.createdAt), "dd/MM/yyyy hh:mm a")}</TableCell>
+              <TableCell>ORDER-ID-{order.id}</TableCell>
              
-              <TableCell>{order.totalProducts}</TableCell>
-              <TableCell>{order.totalOrders}</TableCell>
               <TableCell>
-                {order.totalFollorwers}
+
+                <Button variant='shadow' onClick={()=>setOrderItems(order.orderItems)}>SEE Order Items</Button>
+              </TableCell>
+             
+              <TableCell> {order?.orderItems?.reduce((total:any, item:any) => total + item.quantity, 0)}</TableCell>
+           
+              <TableCell>
+                {order.totalPrice}
              
               </TableCell>
               <TableCell>{order.orderStatus}</TableCell>
               <TableCell>
-                    {/* action modal  */}
-                    {order.paymentStatus}
-              {/* <VendororderDropDownAction 
-              id={order.id}
-              isDeleted={order.isDeleted}
-              data={order}
-              /> */}
+                   
+                    {order.paymentStatus === "PAID" ?
+                   <Button className='p-2 bg-green-400/15'>PAID</Button> 
+                  : <Button>PENDING</Button>
+                  }
+             
               </TableCell>
             </TableRow>
           ))}
@@ -157,7 +162,7 @@ const OrdersHistoryForUser = () => {
       </Table>
       <div className="py-2  flex justify-between items-center">
         <p>
-          Total orders : {totalShops}
+          Total orders : {totalOrders}
         </p>
         <Pagination 
        
