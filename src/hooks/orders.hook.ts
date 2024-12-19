@@ -39,9 +39,11 @@ export const useCreateOrderWithPayment = () => {
       mutationFn: async (formData: FieldValues) => {
         const res = await createPaymentforOrder(formData); 
          
+        console.log(res.data);
         if (res.success) {
   
           toast.success(res.message);
+          
           router.push(res.data.payment_url)
           
         queryClient.invalidateQueries({ queryKey: ['orders'] }); 

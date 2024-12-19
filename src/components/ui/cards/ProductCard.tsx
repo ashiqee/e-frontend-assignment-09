@@ -77,7 +77,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
           <CardBody className="overflow-visible w-full relative p-0">
 {
           
-  item?.flashSale && <p className='bg-red-700/75 p-1 text-sm absolute z-50 top-2 right-2 rounded-lg '>Flash Offer</p>
+  item?.flashSale && <p className='bg-red-700/75 p-1 text-sm absolute z-20 top-2 right-2 rounded-lg '>Flash Offer</p>
 }          <Link href={`/products/${item.id}`}>
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image

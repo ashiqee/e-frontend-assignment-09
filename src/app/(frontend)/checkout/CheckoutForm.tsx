@@ -44,7 +44,9 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
 
             formData.append("data", JSON.stringify(orderData));
 
-          {payment==="payWithAmarPay" ?  createPaymenwithOrder.mutate(formData) :  createOrderMutation.mutate(formData) }
+          {payment === "payWithAmarPay" ?  createPaymenwithOrder.mutate(formData) :  createOrderMutation.mutate(formData) }
+
+          return
      
         
     }

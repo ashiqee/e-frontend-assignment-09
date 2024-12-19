@@ -62,14 +62,14 @@ const CartsModal = ({
   return (
     <>
    <div className="absolute bottom-0 z-50">
-   <div className="fixed  top-0  z-40 inset-0 bg-slate-500/35 flex  w-full bg-opacity-75  justify-end items-center ">
-        <div className="md:w-76 w-full p-3">
+   <div className="fixed  top-0   z-40 inset-0 bg-slate-500/35 flex  w-full bg-opacity-75  justify-end items-center">
+        <div className="md:w-76 w-full flex justify-end ">
           <div
-            className=" relative  z-40 md:min-w-3xl md:max-w-3xl flex flex-col justify-between mx-auto md:min-h-screen my-auto 
-         rounded-xl md:p-10 p-2 overflow-hidden overflow-y-auto 
-          bg-gray-900  text-white text-center"
+            className=" relative right-0 z-40 max-w-96 flex flex-col justify-between  md:min-h-screen my-auto 
+         rounded-xl md:p-4 p-2 overflow-hidden overflow-y-auto 
+          bg-gray-900   text-center"
           >
-            <div ref={modalRef} className="space-y-2  flex flex-col md:max-w-[20vw] justify-center items-center">
+            <div ref={modalRef} className="space-y-2  flex flex-col md:max-w-[20vw] md:justify-end justify-center items-center">
               <h3 className="text-2xl py-4">Carts List</h3>
 
 <Table removeWrapper  aria-label="Cart Product collection table">
