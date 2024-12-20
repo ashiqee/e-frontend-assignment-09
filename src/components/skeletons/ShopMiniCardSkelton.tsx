@@ -2,9 +2,9 @@ import React from 'react';
 import {Card, Skeleton} from "@nextui-org/react";
 
 
-const CategoryCardSkeleton = () => {
+const ShopMiniCardSkeleton = () => {
     return (
-        <Card className="w-full min-w-16 h-[120px] space-y-5 p-4" radius="lg">
+        <Card className="w-full min-w-28 h-[200px] space-y-5 p-4" radius="lg">
             <Skeleton className="w-3/5 rounded-lg">
             <div className="h-3 w-3/5 rounded-lg bg-default-200" />
           </Skeleton>
@@ -21,4 +21,4 @@ const CategoryCardSkeleton = () => {
     );
 };
 
-export default CategoryCardSkeleton;
+export default ShopMiniCardSkeleton;
