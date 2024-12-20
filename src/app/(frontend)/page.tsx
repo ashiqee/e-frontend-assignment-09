@@ -23,25 +23,26 @@ export default async function Home() {
 
     </section>
     <section className=" md:px-6">
-    <Suspense fallback={<p>Loading Feateteu</p>}>
+ 
 <FeaturedSection />
-    </Suspense>
+  
     </section>
     <section className=" md:px-6">
-    <Suspense fallback={<p>Loading Shops</p>}>
+  
 <TopShops />
-</Suspense>
+
     </section>
     <section className=" md:px-6">
-    <Suspense fallback={<p>Loading All</p>}>
-<AllProductSection />
-</Suspense>
-    </section>
-    <section className=" md:px-6">
-    <Suspense fallback={<p>Loading cat</p>}>
+
 <TopProductsCategories />
-</Suspense>
+
     </section>
+    <section className=" md:px-6">
+
+<AllProductSection />
+
+    </section>
+ 
     </>
   );
 }

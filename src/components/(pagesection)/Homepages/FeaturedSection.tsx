@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import ProductCard from '@/components/ui/cards/ProductCard';
 import { useGetAllProductsForPublic } from '@/hooks/products.hook';
+import ProductCardSkeleton from '@/components/skeletons/ProductssSkeleton';
 
 
 interface QueryState {
@@ -37,7 +38,14 @@ const products= flashSaleProduct?.data.flashSaleProduct || []
             <Image className='h-full p-4 md:p-0 md:w-96 object-fit' src='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/flash-sale-design-template-de1ed8f28321fef5a13d120fb7911841_screen.jpg?ts=1637050530' />
  <div>
  <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 mx-4 md:mx-0">
-    {products?.slice(0,10).map((item:any, index:number) => (
+    {
+    
+    isLoading
+    ? Array.from({ length: 4 }).map((_, index) => (
+        <ProductCardSkeleton key={index} />
+      ) ):
+    
+    products?.slice(0,10).map((item:any, index:number) => (
      
       <ProductCard key={index} index={index} item={item} />
 

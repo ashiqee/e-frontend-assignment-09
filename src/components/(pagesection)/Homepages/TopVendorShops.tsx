@@ -1,5 +1,6 @@
 'use client'
 import Loading from "@/components/shared/Loading";
+import CategoryCardSkeleton from "@/components/skeletons/CategoriesSkeleton";
 import { useGetAllShopsForPublic } from "@/hooks/shops.hook";
 import { Button, Image } from "@nextui-org/react";
 import Link from "next/link";
@@ -7,9 +8,7 @@ import Link from "next/link";
 export default function TopShops() {
     const {data:results,isLoading}= useGetAllShopsForPublic();
 
-    if(isLoading){
-        return <Loading/>
-    }
+  
 
     const shops = results?.data.data;
     
@@ -21,6 +20,11 @@ export default function TopShops() {
     
     
 {
+     isLoading
+     ? Array.from({ length: 10 }).map((_, index) => (
+         <CategoryCardSkeleton key={index} />
+       ) ):
+
     shops?.slice(0,10).map((shop:any)=>(
         <div className="text-center flex flex-col justify-center items-center" key={shop.id.toString()}>
             <Link href={`/shop/${shop.id}`}>

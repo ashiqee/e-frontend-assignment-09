@@ -28,11 +28,13 @@ import {
   Logo,
 } from "@/components/icons";
 import { useGetCurrentUser } from "@/hooks/users.hook";
+import { Suspense } from "react";
+import ProfileSkeleton from "./skeletons/ProfileSkeleton";
 
 
 
 export const Navbar =  () => {
- const {data:user}= useGetCurrentUser()
+ const {data:user,isLoading}= useGetCurrentUser()
 
     
     
@@ -90,7 +92,14 @@ export const Navbar =  () => {
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
       {
-        user ? <ProfileDropDown user={user}/> :<>
+        user ? <>{ isLoading ? <ProfileSkeleton/> :
+        
+<ProfileDropDown user={user}/> 
+        }
+        
+        </>
+
+      :<>
             <Link  className="flex gap-2 items-center p-2 px-4 bg-slate-500/5
              hover:bg-slate-500/25 rounded-xl" 
               href={'/login'}>

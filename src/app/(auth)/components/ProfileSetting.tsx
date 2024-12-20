@@ -68,7 +68,7 @@ const updatedData= {
 
   return (
     <div className="max-w-xl my-auto mx-auto p-6 bg-white/5 shadow rounded-lg">
-        {userLoading&& <Loading/>}
+        {userLoading && <Loading/>}
       <h1 className="text-2xl font-bold mb-4">Profile Settings</h1>
 
       <div className="space-y-4">
