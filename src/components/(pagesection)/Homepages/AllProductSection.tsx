@@ -29,7 +29,6 @@ const AllProductSection = () => {
   const { data: flashSaleProduct, isLoading } = useGetAllProductsForPublic(query);
   const router = useRouter();
 
-  // Fetch more products on page change
   useEffect(() => {
     if (flashSaleProduct?.data.products) {
       setProducts((prev) => [...prev, ...flashSaleProduct.data.products]);
@@ -37,7 +36,6 @@ const AllProductSection = () => {
     }
   }, [flashSaleProduct]);
 
-  // Handle scrolling
   const handleScroll = useCallback(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
@@ -45,12 +43,12 @@ const AllProductSection = () => {
       setIsFetching(true);
       setQuery((prev) => ({
         ...prev,
-        page: (prev.page || 1) + 1, // Increment the page number
+        page: (prev.page || 1) + 1, 
       }));
     }
   }, [isFetching, isLoading]);
 
-  // Add and clean up the scroll event listener
+ 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);

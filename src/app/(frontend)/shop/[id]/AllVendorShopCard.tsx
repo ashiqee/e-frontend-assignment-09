@@ -1,5 +1,6 @@
 'use client'
 import Loading from "@/components/shared/Loading";
+import ProductCardSkeleton from "@/components/skeletons/ProductssSkeleton";
 import ProductCard from "@/components/ui/cards/ProductCard";
 import { useGetAllShopProduct, useGetAllVendorShopsOrders } from "@/hooks/shops.hook";
 import { Image } from "@nextui-org/react";
@@ -29,6 +30,10 @@ export default function AllVendorShopCards({id}:{id:string}) {
          <div className="container mx-auto">
 <div className="grid my-10 grid-cols-2 2xl:grid-cols-8 md:grid-cols-6 gap-4 items-center">
     {
+         isLoading
+         ? Array.from({ length: 10 }).map((_, index) => (
+             <ProductCardSkeleton key={index} />
+           ) ):
         products?.map((product:any)=>(
             <div key={product.id.toString()}>
                 <ProductCard item={product} index={product.id.toString()}/>
