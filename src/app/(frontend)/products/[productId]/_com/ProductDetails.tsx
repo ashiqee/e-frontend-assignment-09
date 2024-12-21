@@ -18,6 +18,7 @@ import { ShoppingCart } from "lucide-react";
 import { Avatar } from "@nextui-org/react";
 import Link from "next/link";
 import ProductCard from "@/components/ui/cards/ProductCard";
+import ReviewsSection from "./ReviewsSection";
 
 const Skeleton = ({ className }: { className?: string }) => (
   <div className={`bg-gray-300 animate-pulse ${className}`} />
@@ -85,6 +86,15 @@ const ProductDetails = ({ id }: { id: string }) => {
     });
   };
 
+
+
+  const reviews = [
+    { username: "Alice", rating: 5, comment: "Fantastic quality!" },
+    { username: "Bob", rating: 4, comment: "Really liked it!" },
+    { username: "Charlie", rating: 3, comment: "Average experience." },
+  ];
+
+
   return (
     <div className="mx-4 md:mx-0">
       <section className="md:flex gap-6">
@@ -130,8 +140,25 @@ const ProductDetails = ({ id }: { id: string }) => {
             </p>
             <div className="flex gap-4 items-center">
               <div>
-                <p>Quantity</p>
-                <div className="flex gap-4 mt-2 items-center">
+                
+                <div>
+                <div className="max-w-4xl space-y-3 ">
+
+
+                 
+                 <p> 
+                  Description:
+                  <br />
+                  {product.description}</p>
+                  
+                  <p >
+                  Shop Details: <Link href={`/shop/${product?.vendorShop?.id}`} className="flex mt-2 gap-2 items-center"> 
+                 <Avatar size="sm" src={product?.vendorShop?.logo }/> {product?.vendorShop?.name}</Link></p>
+
+                </div>
+                </div>
+              
+                <div className="flex gap-4 mt-4 items-center">
                   <div className="flex items-center text-xl font-bold gap-4 border-[0.1px] border-primary/45 rounded-md  ">
                     <button
                     className="bg-slate-400/5 p-1.5 px-4"
@@ -152,32 +179,14 @@ const ProductDetails = ({ id }: { id: string }) => {
                     Add To Cart
                   </Button>
                 </div>
-                <div>
-                <div className="max-w-4xl space-y-3 my-6">
-
-
-                 <p >Shop Details: <Link href={`/shop/${product?.vendorShop?.id}`} className="flex mt-2 gap-2 items-center"> 
-                 <Avatar size="sm" src={product?.vendorShop?.logo }/> {product?.vendorShop?.name}</Link></p>
-                 <p> 
-                  Description:
-                  <br />
-                  {product.description}</p>
-                  
-
-
-                </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
       <section className="container my-10 mx-auto">
-       <h3 className="text-2xl">
-       Customer Reviews
-
-      
-       </h3>
+       
+       <ReviewsSection reviews={reviews}/>
 
       </section>
       <section className="container my-10 mx-auto">
