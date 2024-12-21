@@ -84,7 +84,7 @@ const CreateProductModal = ({
              <h2 className="text-xl font-semibold">Add New Product</h2>
              
              <TRForm onSubmit={onSubmit}>
-  <div className="py-1.5 flex gap-4">
+  <div className="py-1.5 text-white flex gap-4">
     <TRInput isRequired label="Product Name" name="name" type="text" />
   
   </div>

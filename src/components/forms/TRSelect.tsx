@@ -36,12 +36,13 @@ const TRSelect = ({
         isInvalid={!!errors?.[name]}
         label={label}
         size={size}
-        
+        className='text-white'
+        color='default'
         validationState={errors?.[name] ? 'invalid' : 'valid'}
         variant={variant}
       >
         {options.map((option) => (
-          <SelectItem key={option.value} value={option.value.toString()}>
+          <SelectItem  key={option.value} value={option.value.toString()}>
             {option.label}
           </SelectItem>
         ))}

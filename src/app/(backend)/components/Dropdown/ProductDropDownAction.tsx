@@ -29,7 +29,7 @@ const ProductDropDownAction = ({id,data,shops,categories}:
         <>
         <Dropdown>
           <DropdownTrigger>
-            <button className="px-4 py-2 flex gap-2 rounded-md text-white ">
+            <button className="px-4 py-2 flex gap-2 rounded-md  ">
             <EllipsisVertical />
             </button>
           </DropdownTrigger>

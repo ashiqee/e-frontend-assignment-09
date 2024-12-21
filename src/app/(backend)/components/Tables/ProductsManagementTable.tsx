@@ -129,7 +129,7 @@ const ProductsManagementTable = () => {
         <div>
         <Dropdown>
           <DropdownTrigger>
-            <button className="px-4 py-2 flex gap-2 border-1 rounded-md text-white ">
+            <button className="px-4 py-2 flex gap-2 border-1 rounded-md dark:text-white ">
             <ArrowDownWideNarrowIcon/> Sort By: {sortBy} ({sortOrder}) 
             </button>
           </DropdownTrigger>
@@ -174,7 +174,7 @@ const ProductsManagementTable = () => {
         </TableHeader>
         <TableBody >
           {products?.map((product: any, i: number) => (
-            <TableRow key={product.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
+            <TableRow key={product.id} className='bg-slate-800/5 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
               <TableCell>{(page - 1) * limit + i + 1}</TableCell>
               <TableCell>
                 <Image className="w-12 h-12 hover:scale-150" src={product.images[0]} />
@@ -193,7 +193,7 @@ const ProductsManagementTable = () => {
                
                 <button onClick={()=>handleStatusChange(!product.flashSale,product.id)} className={`
               ${product.flashSale ? "bg-red-600":"bg-slate-400/15"}
-              px-1 py-1 flex gap-2 border-1 rounded-md text-white`}>
+              px-1 py-1 flex gap-2 border-1 rounded-md `}>
             {product.flashSale ? "Running":"Not running"}
             </button>
               </TableCell>
