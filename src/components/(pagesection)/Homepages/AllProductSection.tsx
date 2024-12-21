@@ -20,35 +20,50 @@ const AllProductSection = () => {
     sortBy: 'createdAt',
     sortOrder: 'asc',
     page: 1,
-    limit: 12,
+    limit: 12, // Default limit
     searchTerm: '',
   });
 
   const [products, setProducts] = useState<any[]>([]);
   const [isFetching, setIsFetching] = useState(false);
+
+  // Fetch product data and total count
   const { data: flashSaleProduct, isLoading } = useGetAllProductsForPublic(query);
+  const totalCount = flashSaleProduct?.data?.paginateData?.total || 0; // Assume totalCount is available in API response
   const router = useRouter();
 
+  // Update product list
   useEffect(() => {
     if (flashSaleProduct?.data.products) {
-      setProducts((prev) => [...prev, ...flashSaleProduct.data.products]);
+      setProducts((prev) => {
+        const newProducts = flashSaleProduct.data.products.filter(
+          (product: any) => !prev.some((p: any) => p.id === product.id) // Prevent duplicates
+        );
+        return [...prev, ...newProducts];
+      });
       setIsFetching(false);
     }
   }, [flashSaleProduct]);
 
+  // Infinite scroll handler
   const handleScroll = useCallback(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight - 200 && !isFetching && !isLoading) {
+    if (
+      scrollTop + clientHeight >= scrollHeight - 200 &&
+      !isFetching &&
+      !isLoading &&
+      products.length < totalCount
+    ) {
       setIsFetching(true);
       setQuery((prev) => ({
         ...prev,
-        page: (prev.page || 1) + 1, 
+        page: prev.page ? prev.page + 1 : 1, // Increment page
+        limit: (prev.limit || 12) + 12, // Increment limit
       }));
     }
-  }, [isFetching, isLoading]);
+  }, [isFetching, isLoading, products.length, totalCount]);
 
- 
+  // Attach scroll event listener
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -60,15 +75,22 @@ const AllProductSection = () => {
       <div>
         <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 mx-4 md:mx-0">
           {products.map((item: any, index: number) => (
-            <ProductCard key={index} index={index} item={item} />
+            <ProductCard key={item.id || index} index={index} item={item} />
           ))}
-          {isLoading || isFetching
-            ? Array.from({ length: query.limit || 12 }).map((_, index) => (
-                <ProductCardSkeleton key={`skeleton-${index}`} />
-              ))
-            : null}
+          {/* Show skeletons only when loading or fetching */}
+          {(isLoading || isFetching) &&
+            products.length < totalCount+1 && // Stop skeletons when all products are loaded
+            Array.from({ length: 12 }).map((_, index) => (
+              <ProductCardSkeleton key={`skeleton-${index}`} />
+            ))}
         </div>
       </div>
+      {isFetching && products.length < totalCount && (
+        <p className="text-center text-gray-500 mt-4">Loading more products...</p>
+      )}
+      {products.length >= totalCount && (
+        <p className="text-center text-gray-500 mt-4">All products are loaded.</p>
+      )}
     </div>
   );
 };
