@@ -34,8 +34,9 @@ const ProductDetails = ({ id }: { id: string }) => {
   const [parchaseQty, setParchaseQty] = useState(1);
   const queryClient = useQueryClient();
   const router = useRouter();
-  const product = result?.data?.product;
-  const relatedProducts = result?.data?.similarProducts;
+  const product = result?.data?.product ;
+  const reviews = result?.data?.product?.reviews || [];
+  const relatedProducts = result?.data?.similarProducts || [];
 
   const [previewImg, setPreviewImg] = useState(product?.images?.[0] || emptyImg);
 
@@ -88,12 +89,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 
 
 
-  const reviews = [
-    { username: "Alice", rating: 5, comment: "Fantastic quality!" },
-    { username: "Bob", rating: 4, comment: "Really liked it!" },
-    { username: "Charlie", rating: 3, comment: "Average experience." },
-  ];
-
+ 
 
   return (
     <div className="mx-4 md:mx-0">

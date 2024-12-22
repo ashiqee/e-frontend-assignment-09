@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TRForm from "@/components/forms/TRFrom";
 import TRInput from "@/components/forms/TRInput";
 import TRTextarea from "@/components/forms/TRTextarea";
+import { addReview } from "@/services/ReviewServices";
 
 // Star Rating Component
 const StarRatingInput = ({
@@ -57,7 +58,7 @@ const ReviewSubmitModal = ({
  
   
 
-  const handleAddReview = (data:any) => {
+  const handleAddReview = async (data:any) => {
 console.log(exitsData);
 
 
@@ -67,9 +68,14 @@ console.log(exitsData);
       productId: exitsData,
     }
     
-    console.log("Submitted Review:", reviewData);
+
+    const res = await addReview(reviewData)
+
+    console.log("Submitted Review:", res);
     setIsOpen(false); 
     setIsAllOpen(false)
+
+
   };
 
   return (

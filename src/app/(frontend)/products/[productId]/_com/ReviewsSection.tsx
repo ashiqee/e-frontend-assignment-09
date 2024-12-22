@@ -1,7 +1,10 @@
+import { Avatar } from "@nextui-org/react";
+
 interface Review {
-  username: string;
+  user: any;
   rating: number;
   comment: string;
+  createdAt:string;
 }
 
 const ReviewsSection = ({ reviews }: { reviews: Review[] }) => {
@@ -28,8 +31,16 @@ const ReviewsSection = ({ reviews }: { reviews: Review[] }) => {
           >
             {/* Username */}
            <div className="flex justify-between items-center">
-           <h4 className="text-md font-medium">{review.username}</h4>
-           <h4 className="text-md font-medium">{"21/12/2024"}</h4>
+      <div className="flex gap-2">
+        <Avatar src={review.user.profilePhoto} />
+      <h4 className="text-md font-medium">{review.user.fullName}</h4>
+      </div>
+      <h4 className="text-sm font-medium">
+          {new Intl.DateTimeFormat('en-US', {
+               dateStyle: 'medium',
+               timeStyle: 'short',
+            }).format(new Date(review.createdAt))}
+</h4>
            </div>
             {/* Rating */}
             <div className="flex items-center my-2">

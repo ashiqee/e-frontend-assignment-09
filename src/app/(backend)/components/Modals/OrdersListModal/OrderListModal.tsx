@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/react";
 import ReviewSubmitModal from "./ReviewSubmitModal";
+import Link from "next/link";
 
 
 
@@ -72,10 +73,12 @@ const OrderListModal = ({
         
         
         <p>{item.id}</p>
-      <Image className="size-20" src={item?.product?.images[0]} />
+    <div className="relative">
+    <Image className="size-20 " src={item?.product?.images[0]} />
+    <h2 className="absolute top-0 -right-0 z-40 text-red-600 font-bold text-xl bg-slate-600/75 p-1 px-3 rounded-full">{item?.quantity}</h2>
+    </div>
 
-<h2>{item?.product?.name}</h2>
-<h2>{item?.quantity}</h2>
+<Link href={`/products/${item?.product?.id}`}><h2>{item?.product?.name}</h2></Link>
 <h2>BDT {item?.price}</h2>
 <Button onPress={()=>handleReviewModal(item.productId)} variant="bordered">Give Review</Button>
       </div>
