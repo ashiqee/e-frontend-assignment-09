@@ -9,6 +9,7 @@ import Loading from "../Loading";
 
 import { useGetCartsItems } from "@/hooks/carts.hook";
 import { getCurrentUser } from "@/services/AuthService";
+import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
 
 export default function CartBar() {
     const router = useRouter()
@@ -30,9 +31,7 @@ export default function CartBar() {
       checkUserRole();
     }, []); 
   
-    if (isLoading) {
-      return <Loading />;
-    }
+ 
   
     if (!isCustomer) {
       
@@ -43,15 +42,18 @@ export default function CartBar() {
     return (
         <>
        
-        <Button
-            className="text-sm font-normal text-default-600 bg-default-100"
-            variant="flat"
-            
-            onClick={()=>router.push("/cart")}
-          >
-                <span className="text-pink-700 font-bold text-lg">{cartItemQty}</span>
-           <ShoppingCart/>
-          </Button>
+        {
+
+          isLoading ?  <> <ProfileSkeleton/> </> : <Button
+          className="text-sm font-normal text-default-600 bg-default-100"
+          variant="flat"
+          
+          onClick={()=>router.push("/cart")}
+        >
+              <span className="text-pink-700 font-bold text-lg">{cartItemQty}</span>
+         <ShoppingCart/>
+        </Button>
+        }
 
 
 

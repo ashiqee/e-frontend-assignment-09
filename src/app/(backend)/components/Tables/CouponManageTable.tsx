@@ -80,7 +80,7 @@ const CouponManagementTable = () => {
       {
             isAddOpen && <CreateCouponModal setIsOpen={setIsAddOpen} />
         }
-      <form className='md:flex justify-between justify-center'>
+      <form className='md:flex justify-between '>
        <div className='flex gap-2 items-center'>
        <Input
           className="max-w-60 py-3"

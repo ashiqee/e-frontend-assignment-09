@@ -20,4 +20,17 @@ export const addReview = async (data: any) => {
     return res.data;
     }catch(error:any){throw new Error(error)}
   };
+
+
+export const getMyReviews = async () => {
+      
+    try{
+       
+    const res = await axiosInstance.get('/review/');
+  
+    revalidateTag("products");
+  
+    return res.data;
+    }catch(error:any){throw new Error(error)}
+  };
   
