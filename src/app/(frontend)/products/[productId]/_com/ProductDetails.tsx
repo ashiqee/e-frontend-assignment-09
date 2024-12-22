@@ -99,7 +99,7 @@ const ProductDetails = ({ id }: { id: string }) => {
     <div className="mx-4 md:mx-0">
       <section className="md:flex gap-6">
         <div className="md:flex flex md:flex-row flex-col-reverse gap-3">
-          <div className="px-4 md:w-[160px] md:h-[600px]">
+          <div className="md:px-3 w-16 md:w-[160px] md:h-[600px]">
             {product.images.map((img: string, i: number) => (
               <Image
                 key={i}
@@ -125,10 +125,10 @@ const ProductDetails = ({ id }: { id: string }) => {
           </div>
         </div>
 
-        <div className="h-[600px] w-full overflow-hidden">
+        <div className="md:h-[600px] mb-10 md:mb-0 w-full overflow-hidden">
           <div className="space-y-3 mt-5 md:mt-0">
-            <h1 className="md:text-4xl text-xl font-bold">{product?.name.slice(0, 60)}</h1>
-            <p className="flex gap-4 items-center text-3xl">
+            <h1 className="md:text-4xl text-xl font-bold">{product?.name.slice(0, 70)}</h1>
+            <p className="flex gap-4 items-center text-xl md:text-3xl">
               TK {product?.price}
             
               <span className="text-gray-400 text-[16.5px] font-normal line-through">
@@ -138,7 +138,7 @@ const ProductDetails = ({ id }: { id: string }) => {
             <p className="flex gap-4 items-center text-sm">
             Category: {product?.category?.name}
             </p>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 text-sm items-center">
               <div>
                 
                 <div>
@@ -146,14 +146,16 @@ const ProductDetails = ({ id }: { id: string }) => {
 
 
                  
-                 <p> 
+                 <p className="text-sm"> 
                   Description:
                   <br />
                   {product.description}</p>
                   
-                  <p >
-                  Shop Details: <Link href={`/shop/${product?.vendorShop?.id}`} className="flex mt-2 gap-2 items-center"> 
-                 <Avatar size="sm" src={product?.vendorShop?.logo }/> {product?.vendorShop?.name}</Link></p>
+                  <div>
+                  Shop Details: <Link href={`/shop/${product?.vendorShop?.id}`} className="flex mt-2 px-2 bg-slate-950/15 rounded-md w-fit p-2 gap-2 items-center"> 
+                 <Avatar size="sm" src={product?.vendorShop?.logo }/> {product?.vendorShop?.name}</Link>
+                 
+                 </div>
 
                 </div>
                 </div>
@@ -161,14 +163,14 @@ const ProductDetails = ({ id }: { id: string }) => {
                 <div className="flex gap-4 mt-4 items-center">
                   <div className="flex items-center text-xl font-bold gap-4 border-[0.1px] border-primary/45 rounded-md  ">
                     <button
-                    className="bg-slate-400/5 p-1.5 px-4"
+                    className="bg-slate-400/5 p-1 px-4"
                       onClick={() => setParchaseQty((prevQty) => Math.max(1, prevQty - 1))}
                     >
                       -
                     </button>
                     <p>{parchaseQty}</p>
                     <button 
-                     className="bg-slate-400/5 p-1.5 px-4"
+                     className="bg-slate-400/5 p-1 px-4"
                     onClick={() => setParchaseQty(parchaseQty + 1)}>+</button>
                   </div>
                   <Button
@@ -184,7 +186,7 @@ const ProductDetails = ({ id }: { id: string }) => {
           </div>
         </div>
       </section>
-      <section className="container my-10 mx-auto">
+      <section className="container md:my-10 mx-auto">
        
        <ReviewsSection reviews={reviews}/>
 
@@ -196,7 +198,7 @@ const ProductDetails = ({ id }: { id: string }) => {
       
        </h3>
 
-       <div className="grid grid-cols-6 mt-5 gap-4">
+       <div className="grid grid-cols-2 md:grid-cols-6 mt-5 gap-4">
        {
           relatedProducts?.map((product:any)=>(
             <ProductCard key={product.id} index={product.id} item={product}/>

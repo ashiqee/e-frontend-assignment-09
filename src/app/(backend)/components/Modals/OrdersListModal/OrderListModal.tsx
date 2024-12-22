@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-
-
-import TRForm from "@/components/forms/TRFrom";
-import TRInput from "@/components/forms/TRInput";
-import TRTextarea from "@/components/forms/TRTextarea";
-import TRSelect from "@/components/forms/TRSelect";
-import { useUpdateProduct } from "@/hooks/products.hook";
 import { Image } from "@nextui-org/react";
+import ReviewSubmitModal from "./ReviewSubmitModal";
 
 
 
@@ -16,16 +9,30 @@ const OrderListModal = ({
   exitsData,
   setIsOpen,
  
+ 
+ 
 }: {
   
   exitsData:any;
    
   setIsOpen: any;
  
-}) => {
-  const [images, setImages] = useState<File[]>([]);
  
-  const updateProductMutation = useUpdateProduct()
+ 
+}) => {
+  const [reviewfromOpen,setReviewForm] = useState(false)
+  const [productIdForReview,setProductId] = useState('')
+
+ 
+ 
+
+  const handleReviewModal =(id:string)=>{
+    setProductId(id)
+    setReviewForm(true)
+   
+   
+  }
+
 
 
   
@@ -35,7 +42,10 @@ const OrderListModal = ({
   
   return (
     <>
-   <div className="absolute z-50">
+    {
+            reviewfromOpen && <ReviewSubmitModal   exitsData={productIdForReview} setIsAllOpen={setIsOpen} setIsOpen={setReviewForm}/>
+        }
+   <div className="absolute z-40">
    <div className="fixed   z-40 inset-0 bg-slate-500/35 flex flex-col w-full bg-opacity-75  justify-center items-center ">
         <div className="md:max-w-[70vw] ">
          
@@ -67,7 +77,7 @@ const OrderListModal = ({
 <h2>{item?.product?.name}</h2>
 <h2>{item?.quantity}</h2>
 <h2>BDT {item?.price}</h2>
-<Button variant="bordered">Give Review</Button>
+<Button onPress={()=>handleReviewModal(item.productId)} variant="bordered">Give Review</Button>
       </div>
     ))
    }

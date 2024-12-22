@@ -11,7 +11,7 @@ const ReviewsSection = ({ reviews }: { reviews: Review[] }) => {
       : 0;
 
   return (
-    <div className="p-6  shadow-md rounded-md">
+    <div className="md:p-6  shadow-md rounded-md">
       {/* Average Rating */}
       <h3 className="text-xl font-bold mb-4">Customer Reviews</h3>
       <p className="text-lg font-semibold mb-6">
