@@ -5,6 +5,7 @@ import { FaStar, FaRegStar } from "react-icons/fa";
 
 import CreateCouponModal from '../Modals/CouponsModal/CreateCouponModal';
 import CouponDropDownAction from '../Dropdown/CouponDropDownAction';
+import Link from 'next/link';
 
 
 
@@ -18,10 +19,6 @@ const ReviewsHistoryTable = ({reviewData}:{reviewData:any}) => {
 
   
 
-
-
-  console.log(reviewData);
-  
 
   return (
     <>
@@ -46,9 +43,13 @@ const ReviewsHistoryTable = ({reviewData}:{reviewData:any}) => {
             <TableRow key={item.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
               <TableCell>{item.id}</TableCell>
               <TableCell>
-                <Image className="w-12 h-12 hover:scale-150" src={item.product.images[0]} />
+               <Link href={`/products/${item.product.id}`}> <Image className="w-12 h-12 hover:scale-150" src={item.product.images[0]} /></Link>
               </TableCell>
-              <TableCell>{item.product.name}</TableCell>
+              <TableCell>
+              <Link href={`/products/${item.product.id}`}>
+                {item.product.name}
+                </Link> 
+                </TableCell>
               <TableCell className='flex gap-1 items-center py-5'>
   {Array.from({ length: 5 }, (_, index) => (
     <span className='' key={index}>
@@ -60,7 +61,7 @@ const ReviewsHistoryTable = ({reviewData}:{reviewData:any}) => {
     </span>
   ))}
 </TableCell>
-              <TableCell>{item.comment}</TableCell>
+              <TableCell>{item.comment?.slice(0,50)}</TableCell>
               
               <TableCell>
                     {/* action modal  */}

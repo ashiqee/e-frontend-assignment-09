@@ -23,6 +23,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
   const [isOpen,setIsOpen]=useState(false);
   const router = useRouter()
 
+console.log(item);
 
 
       const handleIsHover = (i:any)=>{
@@ -74,15 +75,15 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
 }
       <Card key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>
-          <CardBody className="overflow-visible w-full relative p-0">
+          <CardBody className="overflow-visible  w-full relative p-0">
 {
           
-  item?.flashSale && <p className='bg-red-700/75 p-1 text-sm absolute z-20 top-2 right-2 rounded-lg '>Flash Offer</p>
+  item?.flashSale && <p className='bg-red-900/65 p-1 text-[10px] animate-pulse absolute z-20 bottom-0 right-0 rounded-sm '>Flash Offer</p>
 }          <Link href={`/products/${item.id}`}>
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
               alt={item?.name}
-              className="mx-auto rounded-none object-cover h-[160px] w-full  md:h-[240px]"
+              className="mx-auto min-w-60 rounded-none object-cover h-[160px] w-full  md:h-[240px]"
               radius="lg"
               shadow="sm"
               src={item.images[0]}

@@ -37,7 +37,7 @@ export default function TopShops() {
 }
   
     </div>   
-    <Link href={"/shop/all-shops"}><Button className="my-5" variant="bordered">See all shop</Button></Link>
+    <Link href={"/shop"}><Button className="my-5" variant="bordered">See all shop</Button></Link>
        </div>
     );
 }

@@ -31,7 +31,7 @@ interface ISPost {
 
 
 const DebounceSearch = () => {
-    const {mutate:handleSearch,data,isPending,isSuccess}= useSearchItems()
+    const {mutate:handleSearch,data,isPending,isSuccess,}= useSearchItems()
     const {register,handleSubmit,watch,reset}= useForm()
     const [ searchResult,setSearchResult]=useState<ISearchResult[]|[]>([])
     
@@ -66,7 +66,7 @@ const searchTerm = useDebounce(watch('search'))
     },[isPending,isSuccess,data,searchTerm])
 
     return (
-        <div>
+        <div className='w-full'>
             <form onSubmit={handleSubmit(onSubmit)}>
             <Input
             {...register("search")}
@@ -74,18 +74,20 @@ const searchTerm = useDebounce(watch('search'))
       classNames={{
         inputWrapper: "bg-default-100",
         input: "text-sm",
+      
         
       }}
       labelPlacement="outside"
       placeholder="Search..."
       startContent={
-        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+        <SearchIcon className="text-base text-default-400 pointer-events-none  flex-shrink-0" />
       }
       type="search"
     />
     </form>
+    {isPending  && <p className='absolute top-16 bg-gray-600/45 w-60 rounded-lg p-4 '>Loading...</p>}
 
-{searchResult.length > 0 && <SearchPostModal postData={postsData} reset={reset} setIsOpen={setSearchResult}/>}
+{searchResult.length > 0  && <SearchPostModal postData={postsData}  reset={reset} setIsOpen={setSearchResult}/>}
         </div>
     );
 };

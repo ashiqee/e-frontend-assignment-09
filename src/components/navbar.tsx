@@ -121,7 +121,7 @@ export const Navbar =  () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {searchInput}
+      <DebounceSearch/>
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>

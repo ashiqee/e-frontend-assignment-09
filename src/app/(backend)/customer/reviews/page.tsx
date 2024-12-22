@@ -16,7 +16,7 @@ export default async function ReviewsManage() {
         
         
         
-
+<h2 className="text-xl mb-10">Reviws History</h2>
         <ReviewsHistoryTable reviewData={data}/>
         
         </>

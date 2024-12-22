@@ -1,4 +1,5 @@
 import AllShopProducts from "../_components/pages/shoppage/AllShopProduct";
+import AllShops from "./all-shops/AllShops";
 
 
 export default async function ShopPage() {
@@ -12,7 +13,7 @@ export default async function ShopPage() {
   return (
     <>
     
-    <AllShopProducts/>
+    <AllShops/>
   
   </>
     

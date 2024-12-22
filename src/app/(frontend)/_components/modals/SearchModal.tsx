@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 const SearchPostModal = ({
   postData,
   setIsOpen,
-  reset
+  reset,
+  
 }: {
   postData: any;
   setIsOpen: any;
   reset:any
+ 
 }) => {
   const router = useRouter();
 
@@ -22,13 +24,15 @@ const SearchPostModal = ({
 
   return (
     <>
-      <div className="fixed   z-40 inset-0 bg-slate-500/35 top-16 w-full bg-opacity-75  justify-center items-center ">
-        <div className="w-[40vw]">
+      <div className="fixed   z-50 inset-0 bg-slate-500/35 top-16 w-full bg-opacity-75  justify-center items-center ">
+        <div className="md:w-[40vw] px-2">
+          
           <div
             className=" relative  z-40 min-w-3xl max-w-3xl mx-auto max-h-[90vh] my-auto 
          rounded-xl p-10 overflow-hidden overflow-y-auto 
           bg-gray-900  text-white "
           >
+           
             <div className="grid grid-cols-1 gap-4">
               {postData?.map((post: any) => (
                 <div

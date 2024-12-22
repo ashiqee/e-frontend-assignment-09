@@ -14,19 +14,19 @@ export const siteConfig = {
     },
    
     {
-      label: "Blog",
-      href: "/blog",
+      label: "Products",
+      href: "/products",
     },
    
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
       label: "Dashboard",
       href: "/dashboard",
+    },
+    {
+      label: "Products",
+      href: "/products",
     },
     {
       label: "Shop",
