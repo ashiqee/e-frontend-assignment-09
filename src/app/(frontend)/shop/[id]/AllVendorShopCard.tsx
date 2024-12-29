@@ -48,9 +48,9 @@ export default function AllVendorShopCards({id}:{id:string}) {
    <div>
    <h2 className="text-2xl xl:text-3xl font-bold">{shops?.name}</h2>
    <p className="text-sm pt-2">{shops?.description}</p>
-   <div className="flex gap-3 items-center">
-   <p className=" flex items-center gap-2 md:hidden text-sm p-1 my-2 md:p-4 rounded-md"><Stars size={14}/> 1000</p>
-   <Button size="sm" className="bg-slate-300/15   mx-auto" onClick={handleFollowToggle}>
+   <div className="flex gap-3 md:hidden items-center">
+   <p className=" flex items-center gap-2  text-sm p-1 my-2 md:p-4 rounded-md"><Stars size={14}/> 1000</p>
+   <Button size="sm" className="dark:bg-slate-300/15 bg-slate-900/15   mx-auto" onClick={handleFollowToggle}>
         {isFollowing ? 'Unfollow' : 'Follow Now'}
       </Button>
    </div>
@@ -60,7 +60,7 @@ export default function AllVendorShopCards({id}:{id:string}) {
    <div className="space-y-3 max-w-44 flex-end hidden md:flex w-full  flex-col justify-end md:justify-center">
       <p className="bg-slate-300/15  text-sm p-2 md:p-4 rounded-md">Total Followers: 1000</p>
       {/* Conditional rendering based on isFollowing */}
-      <Button size="sm" className="bg-slate-300/15   mx-auto" onClick={handleFollowToggle}>
+      <Button size="sm" className="dark:bg-slate-300/15 bg-sky-800 text-white  mx-auto" onClick={handleFollowToggle}>
         {isFollowing ? 'Unfollow' : 'Follow Now'}
       </Button>
     </div>

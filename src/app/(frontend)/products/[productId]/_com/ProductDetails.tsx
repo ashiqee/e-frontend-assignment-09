@@ -81,16 +81,16 @@ const ProductDetails = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="">
+    <div className=" ">
       <section className="md:flex gap-6">
         {/* Product Images */}
-        <div className="md:flex flex md:flex-row flex-col-reverse gap-3">
-          <div className="md:px-3 w-16 md:w-[160px] md:h-[600px]">
+        <div className="md:flex flex md:flex-row flex-col-reverse gap-2">
+          <div className="md:px-1 w-16  md:w-[155px] md:h-[600px]">
             {product.images.map((img: string, i: number) => (
               <Image
                 key={i}
                 alt={product.name}
-                className={`rounded-md shadow-md mb-4 ${previewImg === img && "border-primary border-2"}`}
+                className={`rounded-md w-full shadow-md mb-4 ${previewImg === img && "border-primary border-2"}`}
                 height={120}
                 src={img}
                 width={120}
@@ -98,10 +98,10 @@ const ProductDetails = ({ id }: { id: string }) => {
               />
             ))}
           </div>
-          <div className="overflow-hidden md:min-w-[600px] md:h-[600px]">
+          <div className="overflow-hidden  md:w-[800px] md:h-[600px]">
             <Image
               alt={product.name}
-              className="rounded-md hover:scale-125 duration-1000 w-full h-full shadow-md"
+              className="rounded-md object-cover hover:scale-125 duration-1000 w-full h-full shadow-md"
               height={1200}
               src={previewImg}
               width={1200}
