@@ -84,21 +84,28 @@ const VendorOrdersManagementTable = () => {
      
       <form className='md:flex justify-between items-center'>
       <div className='flex gap-2 items-center'>
+    
+
+      <div className='w-full'>
+        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
+      </div>
+       </div>
+        <div className='flex gap-2 items-center'>
+
+       <div>
        <Input
-          className="max-w-60 py-3"
+          className="max-w-60 py-3 "
           name="searchTerm"
           placeholder="Search here..."
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-
-        {/* <Button className="  px-6"  onClick={()=>setIsAddOpen(true)}>Add New Product</Button> */}
        </div>
-        <div>
-        <Dropdown>
+       <div className=' '>
+       <Dropdown>
           <DropdownTrigger>
-            <button className="px-4 py-2 flex gap-2 border-1 rounded-md text-white ">
+            <button className="md:px-2 py-2 flex gap-2 border-1 rounded-md ">
             <ArrowDownWideNarrowIcon/> Sort By: {sortBy} ({sortOrder}) 
             </button>
           </DropdownTrigger>
@@ -118,12 +125,11 @@ const VendorOrdersManagementTable = () => {
             <DropdownItem key="desc">Descending</DropdownItem>
           </DropdownMenu>
         </Dropdown>
+       </div>
         </div>
       </form>
 
-      <div>
-        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
-      </div>
+      
    {isLoading && <p>Loading...</p>}
 
 {orders.length > 0 &&  <>

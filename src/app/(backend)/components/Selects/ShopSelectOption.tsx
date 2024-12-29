@@ -16,9 +16,8 @@ type ShopSelectOptionProps = {
 
 export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProps) {
   const {data:result,isLoading}=useGetCurrentUser();
-  if(isLoading){
-    return <Loading/>
-  }
+
+  if(isLoading) return <Loading/>
   const shops = result?.vendorShops;
   
   const handleClearSearch = ()=>{
@@ -27,15 +26,15 @@ export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProp
   
   
   return (
-    <div className="flex gap-4  items-center">
+    <div className="flex gap-2  w-full items-center">
     <Select
       classNames={{
-        base: "max-w-xs",
+        base: "w-60",
         trigger: "h-12",
       }}
       items={shops}
       label="Select Shop"
-      labelPlacement="outside"
+      
       placeholder="Select a shop"
       onSelectionChange={(selectedKey) => {
         const selectedShop = shops.find((shop:any) => shop.id.toString() === selectedKey);
@@ -80,7 +79,7 @@ export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProp
         </SelectItem>
       ))}
     </Select>
-    <button onClick={handleClearSearch}>Clear filter</button>
+    <button className="text-sm text-red-500 " onClick={handleClearSearch}>Clear filter</button>
     </div>
   );
 }
