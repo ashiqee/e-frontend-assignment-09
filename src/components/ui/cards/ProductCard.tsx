@@ -73,9 +73,9 @@ console.log(item);
     {
   isOpen && <><CartsModal cartsData={""} id="" isOpen={isOpen} setIsOpen={setIsOpen}/></>
 }
-      <Card key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
+      <Card className='shadow-md max-w-40  md:max-w-full mx-auto hover:shadow-xl' key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>
-          <CardBody className="overflow-visible  w-full relative p-0">
+          <CardBody className="overflow-visible shadow-md hover:shadow-xl w-full relative p-0">
 {
           
   item?.flashSale && <p className='bg-red-900/65 p-1 text-[10px] animate-pulse absolute z-20 bottom-0 right-0 rounded-sm '>Flash Offer</p>
@@ -108,15 +108,15 @@ console.log(item);
     </motion.button>
     )}
           </CardBody>
-          <CardFooter className="text-small flex flex-col h-full justify-between  p-4 ">
-            <h6 className='text-green-600/45 text-[12px] my-1 px-2 rounded-md bg-sky-200/15 font-light'>
+          <CardFooter className="text-small border border-black/10 flex flex-col h-full justify-between  p-4 ">
+            <h6 className='text-green-300/75 text-[8px] my-1 px-1 rounded bg-sky-200/15 font-light'>
              {item?.category?.name}</h6>
            <div className='flex flex-col gap-1'>
            <Link href={`/products/${item.id}`}>
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
-           <b className='`text-[12px] my-1.5'>{item?.name}</b></Link>
-           <p className="text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'>{item.discount && item.price+item.discount+"৳"}  </span></p>
+           <b className='`md:text-[12px] text-[10px] my-1.5'>{item?.name}</b></Link>
+           <p className="md:text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'>{item.discount && item.price+item.discount+"৳"}  </span></p>
            </div>
             
           </CardFooter>

@@ -27,11 +27,7 @@ export default async function Home() {
 <FeaturedSection />
   
     </section>
-    <section className=" md:px-6">
-  
-<TopShops />
-
-    </section>
+    
     <section className=" md:px-6">
 
 <TopProductsCategories />

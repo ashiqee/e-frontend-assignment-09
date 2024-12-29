@@ -28,9 +28,9 @@ export default function TopProductsCategories() {
             <CategoryCardSkeleton key={index} />
           ) ):
 
-    categories?.slice(0,10).map((cat:any)=>(
-        <div className="text-center flex flex-col h-28 p-6 shadow hover:shadow-2xl rounded-lg justify-center items-center" key={cat.id.toString()}>
-            <Link href={`/shop?searchTerm=${cat.name}`}><Image className="w-20 h-20 mx-auto   shadow-lg object-cover " src={cat?.image} alt={cat.name}/>
+    categories?.slice(0,14).map((cat:any)=>(
+        <div className="text-center bg-gray-300/45 dark:bg-slate-600/25 flex flex-col h-28 p-6 shadow hover:shadow-2xl rounded-lg justify-center items-center" key={cat.id.toString()}>
+            <Link className="flex flex-col justify-center items-center" href={`/shop?searchTerm=${cat.name}`}><Image className="w-14 h-14  mx-auto   shadow-lg object-cover " src={cat?.image} alt={cat.name}/>
             <h2 className="text-[12px] text-center">{cat.name}</h2></Link>
         </div>
     ))

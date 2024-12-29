@@ -9,6 +9,7 @@
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
+		"@headlessui/react": "^2.2.0",
 		"@hookform/resolvers": "^3.9.1",
 		"@nextui-org/button": "2.0.38",
 		"@nextui-org/code": "2.0.33",
@@ -26,6 +27,8 @@
 		"@react-aria/visually-hidden": "3.8.12",
 		"@reduxjs/toolkit": "^2.3.0",
 		"@tanstack/react-query": "^5.56.2",
+		"@types/react-image-magnify": "^2.7.4",
+		"@types/react-slick": "^0.23.13",
 		"axios": "^1.7.7",
 		"clsx": "2.1.1",
 		"date-fns": "^4.1.0",
@@ -40,6 +43,9 @@
 		"react-dom": "18.3.1",
 		"react-hook-form": "^7.53.0",
 		"react-icons": "^5.4.0",
+		"react-image-magnify": "^2.7.4",
+		"react-slick": "^0.30.3",
+		"slick-carousel": "^1.8.1",
 		"sonner": "^1.7.1",
 		"swiper": "^11.1.14",
 		"zod": "^3.23.8"
