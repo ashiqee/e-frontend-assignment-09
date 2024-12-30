@@ -59,9 +59,9 @@ const AllShopProducts = () => {
     const products = (productResults as { data: { products: any[] } })?.data?.products || [];
 
     return (
-        <section className="mx-8 my-10 md:flex gap-6">
+        <section className="container mx-auto my-10 md:flex gap-6">
 
-<div className='-translate-x-64 z-50 duration-500 hover:-translate-x-10 fixed '>
+<div className=''>
 <ShopSidebar/>
 </div>
 
@@ -72,7 +72,7 @@ const AllShopProducts = () => {
         isLoading ? (
             <div>Loading...</div>
         ) : (
-            <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-6 mx-4 md:mx-0">
+            <div className="gap-3 md:gap-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-5 mx-4 md:mx-0">
             {products.map((item:any, index:number) => (
              
               <ProductCard key={index} index={index} item={item} />

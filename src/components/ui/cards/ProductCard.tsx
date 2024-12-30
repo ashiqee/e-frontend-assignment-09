@@ -73,7 +73,7 @@ console.log(item);
     {
   isOpen && <><CartsModal cartsData={""} id="" isOpen={isOpen} setIsOpen={setIsOpen}/></>
 }
-      <Card className='shadow-md max-w-40  md:max-w-full mx-auto hover:shadow-xl' key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
+      <Card className='shadow-md w-full mx-auto hover:shadow-xl' key={index} isPressable shadow="sm" onMouseOut={()=>setIsHover(null)}
        onMouseOver={()=>handleIsHover(index)} onPress={() => console.log("item pressed")}>
           <CardBody className="overflow-visible shadow-md hover:shadow-xl w-full relative p-0">
 {
