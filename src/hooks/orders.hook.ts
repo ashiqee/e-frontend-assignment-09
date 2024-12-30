@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
-import { createOrder, createPaymentforOrder, getAllUserOrdersHistory, getAllUserOrdersHistoryForAdmin } from "@/services/OrderServices";
+import { createOrder, createPaymentforOrder, getAllUserOrdersHistory, getAllUserOrdersHistoryForAdmin, getAllVendorOrdersHistory } from "@/services/OrderServices";
 
 
 
@@ -69,6 +69,14 @@ export const useCreateOrderWithPayment = () => {
     return useQuery({
       queryKey: ['orders',query], // Include query parameters in the key
       queryFn: () => getAllUserOrdersHistory(query),
+      staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    });
+  };
+
+  export const useGetVendorOrderHistory = (query: Record<string, any>) => {
+    return useQuery({
+      queryKey: ['orders',query], // Include query parameters in the key
+      queryFn: () => getAllVendorOrdersHistory(query),
       staleTime: 1000 * 60 * 5, // Cache data for 5 minutes
     });
   };

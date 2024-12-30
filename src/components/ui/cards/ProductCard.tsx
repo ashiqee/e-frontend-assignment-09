@@ -108,14 +108,14 @@ console.log(item);
     </motion.button>
     )}
           </CardBody>
-          <CardFooter className="text-small border border-black/10 flex flex-col h-full justify-between  p-4 ">
-            <h6 className='text-green-300/75 text-[8px] my-1 px-1 rounded bg-sky-200/15 font-light'>
+          <CardFooter className="text-small border border-black/10 flex flex-col h-full justify-between  py-3">
+            <h6 className='text-green-300/75 text-[8px] hidden my-1 px-1 rounded bg-sky-200/15 font-light'>
              {item?.category?.name}</h6>
            <div className='flex flex-col gap-1'>
            <Link href={`/products/${item.id}`}>
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
-           <b className='`md:text-[12px] text-[10px] my-1.5'>{item?.name}</b></Link>
+           <p className='md:text-[14px] font-light text-[10px] my-1.5'>{item?.name.slice(0,30)}</p></Link>
            <p className="md:text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'>{item.discount && item.price+item.discount+"৳"}  </span></p>
            </div>
             

@@ -16,6 +16,9 @@ export const createOrder = async (formData: FieldValues) => {
           "Content-Type": "multipart/form-data",
         },
       });
+     
+      
+      
   
       revalidateTag("orders");
       
@@ -74,6 +77,29 @@ export const createOrder = async (formData: FieldValues) => {
       const queryString = new URLSearchParams(query).toString()
       
       const res = await axiosInstance.get(`/orders/getUserOrders?${queryString}`);
+ 
+      // Check for successful response (status code 2xx)
+      if (res.status < 200 || res.status >= 300) {
+        throw new Error(`Failed to fetch carts, status: ${res.status}`);
+      }
+ 
+   
+      return res.data;
+ 
+    } catch (error) {
+      console.error("Error fetching cart items:", error);
+      throw new Error('Failed to fetch carts');
+    }
+ };
+
+
+  export const getAllVendorOrdersHistory = async (query: Record<string, any>) => {
+
+    try {
+
+      const queryString = new URLSearchParams(query).toString()
+      
+      const res = await axiosInstance.get(`/orders/getAllVendorOrders?${queryString}`);
  
       // Check for successful response (status code 2xx)
       if (res.status < 200 || res.status >= 300) {

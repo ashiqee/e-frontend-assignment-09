@@ -11,7 +11,7 @@ type Shop = {
 
 type ShopSelectOptionProps = {
   shops: Shop[];
-  setSearchTerm: (term: string) => void;
+  setSearchTerm: any;
 };
 
 export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProps) {
@@ -20,9 +20,7 @@ export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProp
   if(isLoading) return <Loading/>
   const shops = result?.vendorShops;
   
-  const handleClearSearch = ()=>{
-    setSearchTerm('')
-  }
+
   
   
   return (
@@ -34,6 +32,7 @@ export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProp
       }}
       items={shops}
       label="Select Shop"
+      labelPlacement="outside"
       
       placeholder="Select a shop"
       onSelectionChange={(selectedKey) => {
@@ -45,9 +44,9 @@ export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProp
         const selectedShop = shops.find((shop:any) => shop.id.toString() === selectedKey);
         if (selectedShop) {
             
-          setSearchTerm(selectedShop.name);
+          setSearchTerm(selectedShop.id);
         }else{
-          setSearchTerm('')
+          setSearchTerm(0)
         }
 
         if (selectedShop) {
@@ -79,7 +78,7 @@ export default function ShopSelectOption({ setSearchTerm }: ShopSelectOptionProp
         </SelectItem>
       ))}
     </Select>
-    <button className="text-sm text-red-500 " onClick={handleClearSearch}>Clear filter</button>
+   
     </div>
   );
 }

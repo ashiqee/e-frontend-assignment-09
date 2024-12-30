@@ -20,6 +20,11 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
     
     const totalPrice = cartItems.subtotal - discount;
 
+   
+
+
+
+
     const onSubmit = (data:any)=>{
 
         const formData = new FormData()
@@ -28,8 +33,12 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
             productId: item.productId,
             quantity: item.quantity,
             price: item.product.price,
+            vendorShopId: item.product.vendorShopId,
         }));
            
+
+        console.log(formattedCartItems);
+        
         
         const orderData = {
                    order: {
@@ -39,6 +48,7 @@ export default function CheckoutForm({cartItems,user}:{cartItems:any,user:any}) 
                     mobile: data.contactNumber  || user.contactNumber,
                     address: data.address || user.address ,
                     paymentMethod: payment,
+                    
                    }
             }
 

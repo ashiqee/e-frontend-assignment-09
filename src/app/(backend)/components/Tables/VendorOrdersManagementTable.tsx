@@ -13,6 +13,8 @@ import { useGetAllCategoriesForPublic } from '@/hooks/categories.hook';
 import { useGetAllProductsMyShops } from '@/hooks/products.hook';
 import OrderStatusChangeDropdown from '../Dropdown/OrderStatusChangeDropDown';
 import ShopSelectOption from '../Selects/ShopSelectOption';
+import ImagePopupModal from '../Modals/ProductsModal/ImagePopupModal';
+import { useGetVendorOrderHistory } from '@/hooks/orders.hook';
 
 
 interface QueryState {
@@ -33,17 +35,19 @@ const VendorOrdersManagementTable = () => {
  });
 
   const { data: vendorResults, isLoading: vendorLoading } = useGetAllVendorMyShops(query);
-  const { data: productsResults, isLoading } = useGetAllProductsMyShops(query);
+  const  {data: orderResults, isLoading:orderLoading} =useGetVendorOrderHistory(query);
 
-  const { data: catResults, isLoading:catLoading } = useGetAllCategoriesForPublic();
+  const shops = vendorResults?.data?.shops || [];
   const [page, setPage] = useState(1); 
   const [limit] = useState(10); 
   const [total, setTotal] = useState(0); 
+  const [shopId, setShopId] = useState(shops[0]?.id); 
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const debouncedSearchTerm = useDebounce(searchTerm);
-  const [isAddOpen,setIsAddOpen]=useState(false)
+  const [isPopupModalOpen,setIsPopupModalOpen]=useState(false)
+  const [isPopupImage,setIsPopupImage]=useState('')
 
 
 
@@ -55,8 +59,9 @@ const VendorOrdersManagementTable = () => {
       limit,
       sortBy,
       sortOrder,
+      shopId
     }));
-  }, [page, limit, sortBy, sortOrder]);
+  }, [page, limit, sortBy, sortOrder,shopId]);
 
 
   useEffect(() => {
@@ -65,13 +70,15 @@ const VendorOrdersManagementTable = () => {
   }, [debouncedSearchTerm]);
 
 
+  console.log(orderResults?.data?.paginateData?.total);
+  
 
-  const products = productsResults?.data?.vendorAllProducts || [];
-  const orders = vendorResults?.data?.orders || [];
-  const shops = vendorResults?.data?.shops || [];
-  const categories = catResults?.data || [];
-  const totalOrders = orders?.length || 0;
+  const orders = orderResults?.data?.data || [];
 
+  const totalOrders = orderResults?.data?.paginateData?.total || 0;
+
+
+  
 
  
   useEffect(() => {
@@ -79,15 +86,25 @@ const VendorOrdersManagementTable = () => {
     setTotal(Math.ceil(totalOrders / limit));
   }, [totalOrders, limit]);
 
+  
+  const handlePopupModalOpen = (imgUrl:string) => {
+    setIsPopupModalOpen(true);
+    setIsPopupImage(imgUrl)
+
+    
+  }
+  
+
   return (
     <>
      
       <form className='md:flex justify-between items-center'>
-      <div className='flex gap-2 items-center'>
+      <div className=' flex gap-2 items-center'>
     
 
-      <div className='w-full'>
-        <ShopSelectOption shops={shops} setSearchTerm={setSearchTerm}/>
+      <div className='flex g items-center border bg-black/5 rounded-md p-1'>
+        <ShopSelectOption shops={shops}  setSearchTerm={setShopId}/>
+      <h2>Current Shop: {shops.find((shop: any) => shop.id === shopId)?.name}</h2>
       </div>
        </div>
         <div className='flex gap-2 items-center'>
@@ -130,12 +147,13 @@ const VendorOrdersManagementTable = () => {
       </form>
 
       
-   {isLoading && <p>Loading...</p>}
+   {orderLoading || vendorLoading && <p>Loading...</p>}
 
 {orders.length > 0 &&  <>
 
+
    
-  <Table aria-label="Products Management Table">
+  <Table removeWrapper className='my-5' aria-label="Products Management Table">
         <TableHeader>
           <TableColumn>Order ID</TableColumn>
           <TableColumn>Image</TableColumn>
@@ -149,10 +167,18 @@ const VendorOrdersManagementTable = () => {
         </TableHeader>
         <TableBody >
           {orders?.map((order: any, i: number) => (
-            <TableRow key={order.id} className='bg-slate-800/15 rounded-md hover:bg-slate-700/10 hover:rounded-md'>
+            <TableRow key={order.id} className='dark:bg-slate-800/15 border border-gray-200 dark:border-white/15 rounded-md hover:bg-gray-500/25 dark:hover:bg-slate-700/75 hover:rounded-md'>
               <TableCell>o_id-{order.id}</TableCell>
-              <TableCell>
-                <Image className="w-12 h-12 hover:scale-150" src={order.product.images[0]} />
+              <TableCell  >
+            
+              <button onClick={() => handlePopupModalOpen(order.product.images[0])} >
+              <Image
+                 className="w-12 h-12 hover:cursor-pointer rounded hover:border-2 border-red-500" src={order.product.images[0]}
+                alt='image'
+                />
+              </button>
+               
+              
               </TableCell>
               <TableCell>{order.product.name}</TableCell>
              
@@ -186,7 +212,7 @@ const VendorOrdersManagementTable = () => {
       </Table>
       <div className="py-2  flex justify-between items-center">
         <p>
-          Total Products : {totalOrders}
+          Total Orders : {totalOrders}
         </p>
         <Pagination 
        
@@ -200,6 +226,7 @@ const VendorOrdersManagementTable = () => {
 
 
 }
+{isPopupModalOpen && <ImagePopupModal previewImage={isPopupImage} setIsOpen={setIsPopupModalOpen} />}
     </>
   );
 };

@@ -39,7 +39,12 @@ const OrderStatusChangeDropdown = ({orderItemId,status}:
         <>
         <Dropdown>
           <DropdownTrigger>
-            <button className="px-4 py-2 flex gap-2 border-1 rounded-md text-white ">
+            <button className={`
+              ${currentStatus === "PENDING" && "bg-pink-600/25"}
+              ${currentStatus === "SHIPPED" && "bg-yellow-600/25"}
+              ${currentStatus === "DELIVERED" && "bg-green-600/25"}
+              ${currentStatus === "CANCELED" && "bg-red-600/75"}
+              px-4 py-2 flex gap-2 min-w-28 text-center  border-1 rounded-md`}>
             {currentStatus}
             </button>
           </DropdownTrigger>
