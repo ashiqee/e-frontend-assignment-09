@@ -1,24 +1,9 @@
-import { getMyReviews } from "@/services/ReviewServices";
-import ReviewsHistoryTable from "../../components/Tables/ReviewHistoryTable";
+import ReviewsManage from "./ReviewsPages";
 
-export default async function ReviewsManage() {
-
-
-    const {data}  =  await getMyReviews()
-
-    
-    if(!data){
-        return <>Loading....</>
-    }
-
+export default function ReviewsPage() {
     return (
-        <>
-        
-        
-        
-<h2 className="text-xl mb-10">Reviws History</h2>
-        <ReviewsHistoryTable reviewData={data}/>
-        
-        </>
+        <div>
+            <ReviewsManage />
+        </div>
     );
 }

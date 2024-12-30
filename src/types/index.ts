@@ -28,6 +28,7 @@ export interface IRTextarea {
 
 
 export interface IUser{
+  id: string;
   _id: string;
   fullName: string;
   role: string;

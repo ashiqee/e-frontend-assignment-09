@@ -81,11 +81,11 @@ const ProductDetails = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className=" ">
+    <div className="container mx-auto ">
       <section className="md:flex gap-6">
         {/* Product Images */}
         <div className="md:flex flex md:flex-row flex-col-reverse gap-2">
-          <div className="md:px-1 w-16  md:w-[155px] md:h-[600px]">
+          <div className="md:px-1 w-16  md:w-[120px] md:h-[200px]">
             {product.images.map((img: string, i: number) => (
               <Image
                 key={i}
@@ -98,7 +98,7 @@ const ProductDetails = ({ id }: { id: string }) => {
               />
             ))}
           </div>
-          <div className="overflow-hidden  md:w-[800px] md:h-[600px]">
+          <div className="overflow-hidden md:w-[450px] md:h-[450px]  2xl:w-[600px] 2xl:h-[600px]">
             <Image
               alt={product.name}
               className="rounded-md object-cover hover:scale-125 duration-1000 w-full h-full shadow-md"
@@ -112,7 +112,7 @@ const ProductDetails = ({ id }: { id: string }) => {
        
 
         {/* Product Details */}
-        <div className="md:h-[600px] mb-10 md:mb-0 w-full overflow-hidden">
+        <div className="2xl:h-[600px] mb-10 md:mb-0 w-full overflow-hidden">
           <div className="space-y-3 mt-5 md:mt-0">
             <h1 className="md:text-4xl text-xl font-bold">{product?.name.slice(0, 70)}</h1>
             <p className="flex gap-4 items-center text-xl md:text-3xl">

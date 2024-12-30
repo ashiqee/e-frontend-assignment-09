@@ -2,27 +2,44 @@
 import Loading from "@/components/shared/Loading";
 import ProductCardSkeleton from "@/components/skeletons/ProductssSkeleton";
 import ProductCard from "@/components/ui/cards/ProductCard";
+import { useUser } from "@/context/user.provider";
 import { useGetAllShopProduct, useGetAllVendorShopsOrders } from "@/hooks/shops.hook";
+import { addFollowUnfollow } from "@/services/VendorShopService";
 import { Button, Image, Skeleton } from "@nextui-org/react";
-import { Stars } from "lucide-react";
-import { useState } from "react";
-import { FaArrowAltCircleDown } from "react-icons/fa";
+import { Star, Stars } from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 
 export default function AllVendorShopCards({id}:{id:string}) {
-    const {data,isLoading}= useGetAllShopProduct(id)
+    const {data,isLoading,refetch}= useGetAllShopProduct(id)
     const [isFollowing, setIsFollowing] = useState(false);
+    const {user,isLoading:userLoading}=useUser()
 
 
     const shops=data?.data;
     const products= shops?.products;
+
  
 
-  console.log(shops);
+    useEffect(() => {
+      if (!userLoading && user && shops?.followers) {
+          const userId = user.id as string;
+          const alreadyFollowing = shops.followers.some((follower: { id: string; }) => follower.id === userId);
+          setIsFollowing(alreadyFollowing);
+      }
+  }, [userLoading, user, shops]);
   
 
-    const handleFollowToggle = () => {
+    const handleFollowToggle = async () => {
+      const shopId ={ shopId:shops?.id};
+      const res =  await addFollowUnfollow(shopId)
+     
+      
+      if(res?.success){
+        toast.success(res?.message)}
       setIsFollowing((prev) => !prev);
+      refetch();
     };
     
     return (
@@ -50,15 +67,16 @@ export default function AllVendorShopCards({id}:{id:string}) {
    <p className="text-sm pt-2">{shops?.description}</p>
    <div className="flex gap-3 md:hidden items-center">
    <p className=" flex items-center gap-2  text-sm p-1 my-2 md:p-4 rounded-md"><Stars size={14}/> 1000</p>
-   <Button size="sm" className="dark:bg-slate-300/15 bg-slate-900/15   mx-auto" onClick={handleFollowToggle}>
-        {isFollowing ? 'Unfollow' : 'Follow Now'}
+   <Button size="sm" className={`${isFollowing ? 'bg-slate-300/15' : 'bg-pink-600/45 text-white'}   mx-auto`} 
+   onClick={handleFollowToggle}>
+        {isFollowing ? 'Follow Now' : 'Unfollow'}
       </Button>
    </div>
    </div>
    </div>
 
-   <div className="space-y-3 max-w-44 flex-end hidden md:flex w-full  flex-col justify-end md:justify-center">
-      <p className="bg-slate-300/15  text-sm p-2 md:p-4 rounded-md">Total Followers: 1000</p>
+   <div className="space-y-3 max-w-44 flex-end hidden md:flex w-full md:items-center  flex-col justify-end md:justify-center">
+      <p className="bg-slate-300/15 flex items-center gap-2  text-sm p-2 md:p-4 rounded-md"><Stars size={20}/>{shops?.followers?.length||0}</p>
       {/* Conditional rendering based on isFollowing */}
       <Button size="sm" className="dark:bg-slate-300/15 bg-sky-800 text-white  mx-auto" onClick={handleFollowToggle}>
         {isFollowing ? 'Unfollow' : 'Follow Now'}

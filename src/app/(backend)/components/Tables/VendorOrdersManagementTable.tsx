@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Image, Pagination, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
-import { ArrowDownWideNarrowIcon } from 'lucide-react';
+import { ArrowDownWideNarrowIcon, ShoppingCart } from 'lucide-react';
 
 
 import CreateProductModal from '../Modals/ShopsModal/CreateProductModal';
@@ -15,6 +15,7 @@ import OrderStatusChangeDropdown from '../Dropdown/OrderStatusChangeDropDown';
 import ShopSelectOption from '../Selects/ShopSelectOption';
 import ImagePopupModal from '../Modals/ProductsModal/ImagePopupModal';
 import { useGetVendorOrderHistory } from '@/hooks/orders.hook';
+import { FaBatteryEmpty } from 'react-icons/fa';
 
 
 interface QueryState {
@@ -149,7 +150,13 @@ const VendorOrdersManagementTable = () => {
       
    {orderLoading || vendorLoading && <p>Loading...</p>}
 
-{orders.length > 0 &&  <>
+{totalOrders === 0 ? <>
+<div className='my-5 flex md:p-10 bg-gray-300/25 shadow flex-col justify-center items-center text-xl md:text-3xl text-center'>
+  <ShoppingCart size={40} color='red' />
+  <p>No orders found!</p>
+</div>
+
+</>  :  <>
 
 
    
@@ -203,7 +210,7 @@ const VendorOrdersManagementTable = () => {
                     
             <OrderStatusChangeDropdown 
               status={order.orderStatus}
-              orderItemId={order.order.id}
+              orderItemId={order.id}
             />
               </TableCell>
             </TableRow>
