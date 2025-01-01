@@ -10,17 +10,18 @@ import Loading from "../Loading";
 import { useGetCartsItems } from "@/hooks/carts.hook";
 import { getCurrentUser } from "@/services/AuthService";
 import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
+import { useUser } from "@/context/user.provider";
 
 export default function CartBar() {
     const router = useRouter()
     const {data:cartsItemResult,isLoading}= useGetCartsItems()
     const [isCustomer, setIsCustomer] = useState(false);
+    const {user}= useUser()
 
     useEffect(() => {
      
       const checkUserRole = async () => {
-        const user = await getCurrentUser();
-
+      
         if (user?.role !== "CUSTOMER") {
           setIsCustomer(false); 
         } else {

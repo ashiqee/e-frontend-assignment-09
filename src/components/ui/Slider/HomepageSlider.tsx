@@ -14,6 +14,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Image from 'next/image';
 
 import { siteConfig } from '@/config/site';
+import Link from 'next/link';
 
 export default function HomepageSlider() {
   return (
@@ -24,20 +25,23 @@ export default function HomepageSlider() {
           disableOnInteraction: false,
         }}
         centeredSlides={true}
-        className="mySwiper"
+        className="mySwiper rounded-2xl "
         modules={[Autoplay, Pagination, Navigation]}
-        navigation={true}
+        navigation={false}
         pagination={{
           clickable: true,
         }}
         spaceBetween={30}
+        
       >
 
         { siteConfig.bannerImg.map((img,i)=>(
             <SwiperSlide key={i}>
+<Link href={img.pageUrl}>
 
-            <Image alt='KidzBazar Banner' className='w-full md:max-h-[400px] 2xl:max-h-[600px] object-cover' 
+<Image alt='KidzBazar Banner' className='w-full md:min-h-[350px] md:max-h-[350px] 2xl:min-h-[500px] object-cover' 
             height={1400} src={img.imgUrl} width={1980}/>
+</Link>
             </SwiperSlide>
 
         ))}

@@ -4,6 +4,7 @@ import FeaturedSection from "@/components/(pagesection)/Homepages/FeaturedSectio
 import TopProductsCategories from "@/components/(pagesection)/Homepages/TopCategories";
 import TopShops from "@/components/(pagesection)/Homepages/TopVendorShops";
 import HomepageSlider from "@/components/ui/Slider/HomepageSlider";
+import OfferSliderCard from "@/components/ui/Slider/OfferSliderCard";
 import { Suspense } from "react";
 
 
@@ -15,11 +16,13 @@ export default async function Home() {
   return (
     <>
     
-    <section className="max-h-[600px]">
-      <Suspense fallback={<p>Loading banner</p>}>
+    <section className="max-h-[600px] my-4 flex gap-4 container mx-auto">
+    
 
-   <HomepageSlider/>
-      </Suspense>
+      <HomepageSlider/>
+      {/* offer section  */}
+    <OfferSliderCard/>
+    
 
     </section>
     <section className=" md:px-6">

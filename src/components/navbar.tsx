@@ -87,10 +87,12 @@ export const Navbar =  () => {
       >
        <MainMenu/>
       
-        <NavbarItem className="hidden md:flex">
-        {user?.role === "CUSTOMER" &&  <CartBar/> }
-         
-        </NavbarItem>
+        {
+          user && <NavbarItem className="hidden md:flex">
+          {user?.role === "CUSTOMER" &&  <CartBar/> }
+           
+          </NavbarItem>
+        }
         <NavbarItem className="hidden sm:flex gap-2">
       {
         user ? <>{ isLoading ? <ProfileSkeleton/> :
