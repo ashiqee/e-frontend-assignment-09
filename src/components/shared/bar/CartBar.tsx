@@ -46,7 +46,7 @@ export default function CartBar() {
         {
 
           isLoading ?  <> <ProfileSkeleton/> </> : <Button
-          className="text-sm font-normal text-default-600 bg-default-100"
+          className="text-sm font-normal bg-default-100/15 text-white hover:bg-default-100/30" 
           variant="flat"
           
           onClick={()=>router.push("/cart")}

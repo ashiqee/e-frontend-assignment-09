@@ -53,31 +53,31 @@ export const siteConfig = {
   bannerImg: [
     {
       imgUrl:"https://htmldemo.net/kidol/kidol/assets/img/slider/3.jpg",
-      pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+      pageUrl:"/products"
   },
     {
       imgUrl:"https://opencart4.magentech.com/themes/so_emarket/layout32/image/cache/catalog/slideshow/home32/slide1-1150x560.jpg",
-       pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+       pageUrl:"/products"
   },
     {
       imgUrl:"https://htmldemo.net/kidol/kidol/assets/img/slider/3.jpg",
-       pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+       pageUrl:"/products"
   },
     {
       imgUrl:"https://new-ella-demo.myshopify.com/cdn/shop/files/slideshow-1.jpg?v=1632195167&width=1880",
-       pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+       pageUrl:"/products"
   },
     {
       imgUrl:"https://new-ella-demo.myshopify.com/cdn/shop/files/banner-jewelry.gif?v=1641367506&width=2000",
-       pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+       pageUrl:"/products"
   },
     {
       imgUrl:"https://new-ella-demo.myshopify.com/cdn/shop/files/banner-1.jpg?v=1655194043&width=1880",
-       pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+       pageUrl:"/products"
   },
     {
       imgUrl:"https://opencart4.magentech.com/themes/so_emarket/layout20/image/cache/catalog/slideshow/home20/slide3-1060x535.jpg",
-       pageUrl:"https://htmldemo.net/kidol/kidol/shop.html"
+       pageUrl:"/products"
   },
 ]
 };

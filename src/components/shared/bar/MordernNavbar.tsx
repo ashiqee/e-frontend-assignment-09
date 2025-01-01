@@ -65,9 +65,9 @@ export default function MordernNavbar() {
           </div>
 
           {/* cart Bar */}
-          <ul className="hidden sm:flex">
+          <ul className="hidden sm:flex gap-2">
             {user && (
-              <li className="hidden md:flex">
+              <li className="hidden md:flex ">
                 {user?.role === "CUSTOMER" && <CartBar />}
               </li>
             )}

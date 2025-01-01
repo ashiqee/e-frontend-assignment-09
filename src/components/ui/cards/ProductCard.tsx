@@ -23,7 +23,10 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
   const [isOpen,setIsOpen]=useState(false);
   const router = useRouter()
 
-console.log(item);
+  const reviews = item?.reviews
+  const averageRating = item?.reviews?.length
+  ? reviews.reduce((sum: any, review: { rating: any; }) => sum + review.rating, 0) / reviews.length
+  : 0;
 
 
       const handleIsHover = (i:any)=>{
@@ -83,7 +86,7 @@ console.log(item);
           {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
           <Image
               alt={item?.name}
-              className="mx-auto min-w-60 rounded-none object-cover h-[160px] w-full  md:h-[240px]"
+              className="mx-auto min-w-60 rounded-none object-cover h-[160px] w-full  md:h-[260px]"
               radius="lg"
               shadow="sm"
               src={item.images[0]}
@@ -108,14 +111,34 @@ console.log(item);
     </motion.button>
     )}
           </CardBody>
-          <CardFooter className="text-small border border-black/10 flex flex-col h-full justify-between  py-3">
+          <CardFooter className="text-small border border-black/10 flex flex-col h-full justify-between  py-1.5">
             <h6 className='text-green-300/75 text-[8px] hidden my-1 px-1 rounded bg-sky-200/15 font-light'>
              {item?.category?.name}</h6>
-           <div className='flex flex-col gap-1'>
+           <div className='flex flex-col'>
            <Link href={`/products/${item.id}`}>
            {/* <Link href={`/shop/${item.title.replace(/\\s+/g,'-')}}`}> */}
            
-           <p className='md:text-[14px] font-light text-[10px] my-1.5'>{item?.name.slice(0,30)}</p></Link>
+           <p className='md:text-[15px] font-light text-[10px] my-1'>{item?.name.slice(0,30)}</p></Link>
+            {/* Rating */}
+            <div className="flex justify-center items-center my-2">
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg
+                  key={i}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill={i < Math.round(averageRating)  ? "red" : "#E5E7EB"}
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-3 h-3"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  />
+                </svg>
+              ))}
+            </div>
            <p className="md:text-[18px] font-semibold text-sky-600 text-md">{item.price}৳   <span className='line-through ml-4 text-gray-600'>{item.discount && item.price+item.discount+"৳"}  </span></p>
            </div>
             

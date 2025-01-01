@@ -32,13 +32,13 @@ import { useRouter } from "next/navigation";
         }}
       >
         <DropdownTrigger>
-        <div className="flex gap-2 items-center p-2.5 bg-black/45 hover:bg-slate-600/45 rounded-2xl px-8">
+        <div className="flex gap-2 items-center p-2.5 border border-slate-500/45 bg-transparent hover:bg-slate-600/45 rounded-2xl px-8">
               <List /> <span> All Categories</span>
             </div>
         </DropdownTrigger>
         <DropdownMenu aria-label="Dropdown menu with description" variant="faded">
 
-            {categories?.slice(0,10).map((cat:any) => (
+            {categories?.slice(0,15).map((cat:any) => (
                  <DropdownItem
                  key={`new-${cat.id}`}
                  onClick={() => router.push(`/products?searchTerm=${cat.name}`)}
