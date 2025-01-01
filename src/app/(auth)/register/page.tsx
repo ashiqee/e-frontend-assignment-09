@@ -15,19 +15,16 @@ const RegisterPage = () => {
 
 <div className="relative h-screen w-full overflow-hidden">
   {/* Background video  */}
-  <Image
-  className="absolute top-0 left-0 w-full h-full object-cover z-0"
-  src="https://t3.ftcdn.net/jpg/05/07/37/24/240_F_507372461_C6mxvQpM8pBKP2cWSIRMF2UmmGaI18VL.jpg"
-  />
-  {/* <video
+
+  <video
     autoPlay
     loop
     muted
     className="absolute top-0 left-0 w-full h-full object-cover z-0"
   >
-    <source src="/video/bg_2_video.mp4" type="video/mp4" />
+    <source src="/video/bg_video_2.mp4" type="video/mp4" />
     Your browser does not support the video tag.
-  </video> */}
+  </video>
   <motion.div animate={{ y: [-200, 100, 0] }} className="relative z-10  items-center h-full flex justify-center">
       <NextUiCard
         isBlurred
