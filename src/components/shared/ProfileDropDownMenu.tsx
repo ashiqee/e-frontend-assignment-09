@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { logout } from "@/services/AuthService";
 
-export default function ProfileDropDown({user}:{user:any}) {
+export default function ProfileDropDown({user}:{user?:any}) {
   const router = useRouter()
  
 
@@ -12,15 +12,26 @@ export default function ProfileDropDown({user}:{user:any}) {
   return (
     <Dropdown>
       <DropdownTrigger>
-      <Avatar src={user.profilePhoto} />
+     {
+      user ?  <Avatar src={user?.profilePhoto} />: <Avatar />
+     }
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
        
-        <DropdownItem key="new" onClick={()=>router.push(`/${user.role.toLowerCase()}/dashboard`)}>Dashboard</DropdownItem>
-        <DropdownItem key="new" onClick={()=>router.push(`/${user.role.toLowerCase()}/settings`)}>Settings</DropdownItem>
+        {
+          !user ?  <> 
+          
+          <DropdownItem key="login" onClick={()=>router.push("/login")}>Login</DropdownItem>
+          <DropdownItem key="login" onClick={()=>router.push("/register")}>Register</DropdownItem>
+          
+          </>: <>
+          <DropdownItem key="new" onClick={()=>router.push(`/${user.role.toLowerCase()}/dashboard`)}>Dashboard</DropdownItem>
+        <DropdownItem key="profile" onClick={()=>router.push(`/${user.role.toLowerCase()}/settings`)}>Profile</DropdownItem>
         <DropdownItem key="delete" className="text-danger" color="danger" onClick={()=>logout()}>
           Logout
         </DropdownItem>
+          </>
+        }
       </DropdownMenu>
     </Dropdown>
   );

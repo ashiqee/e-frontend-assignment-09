@@ -68,22 +68,55 @@ const searchTerm = useDebounce(watch('search'))
     return (
         <div className='w-full'>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
+            {/* <Input
             {...register("search")}
       aria-label="Search"
-      classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
-      
-        
-      }}
+      className=" rounded-lg  min-w-[500px]"
       labelPlacement="outside"
       placeholder="Search..."
       startContent={
         <SearchIcon className="text-base text-default-400 pointer-events-none  flex-shrink-0" />
       }
       type="search"
-    />
+    /> */}
+
+<div className=" ">
+      <Input
+        isClearable
+        classNames={{
+          label: "text-black/50 dark:text-white/90",
+          input: [
+            "bg-transparent",
+            "text-black/90 dark:text-white/90",
+            "placeholder:text-white dark:placeholder:text-white/60",
+            "focus:shadow-transparent",
+          ],
+          innerWrapper: "bg-transparent",
+          inputWrapper: [
+            "shadow-xl",
+            "bg-default-200/25",
+            "dark:bg-default/60",
+            "backdrop-blur-xl",
+            "backdrop-saturate-200",
+            "hover:bg-default-200/70",
+            "dark:hover:bg-default/70",
+            "group-data-[focus=true]:bg-default-200/50",
+            "dark:group-data-[focus=true]:bg-default/60",
+            "!cursor-text",
+          ],
+        }}
+        {...register("search")}
+        aria-label="Search"
+        className=" rounded-lg  min-w-[500px]"
+        labelPlacement="outside"
+        placeholder="Type to search..."
+        radius="lg"
+        startContent={
+          <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+        }
+      />
+    </div>
+
     </form>
     {isPending  && <p className='absolute top-16 bg-gray-600/45 w-60 rounded-lg p-4 '>Loading...</p>}
 

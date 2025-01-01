@@ -1,4 +1,7 @@
 import { Navbar } from "@/components/navbar";
+import MiniBar from "@/components/shared/bar/MiniBar";
+import MordernNavbar from "@/components/shared/bar/MordernNavbar";
+import StickyNavBar from "@/components/shared/bar/StickyNavBar";
 import "@/styles/globals.css";
 
 import { Link } from "@nextui-org/link";
@@ -13,7 +16,10 @@ export default function FrontendLayout({
   return (
  <div className="flex flex-col justify-between min-h-screen">
 <main>
-<Navbar/>
+<MiniBar/>
+  <MordernNavbar/>
+  <StickyNavBar/>
+
 
 {children}
 </main>
