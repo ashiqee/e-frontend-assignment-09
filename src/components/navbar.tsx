@@ -61,9 +61,9 @@ export const Navbar =  () => {
   );
 
   return (
-    <NextUINavbar maxWidth="full"  position="sticky">
-     <div className="flex items-center md:container mx-auto justify-between w-full">
-     <NavbarContent className="" justify="start">
+    <NextUINavbar maxWidth="full" className="md:hidden block"  position="sticky">
+     <div className="flex  items-center md:container mx-auto justify-between w-full">
+     <NavbarContent className="md:hidden block" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
@@ -71,53 +71,13 @@ export const Navbar =  () => {
           </NextLink>
         </NavbarBrand>
 
-        <NavbarItem className="hidden lg:flex">
-          {/* {searchInput} */}
-
-          <DebounceSearch/>
-
-
-        </NavbarItem>
+ 
        
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex "
-        justify="end"
-      >
-       <MainMenu/>
-      
-        {
-          user && <NavbarItem className="hidden md:flex">
-          {user?.role === "CUSTOMER" &&  <CartBar/> }
-           
-          </NavbarItem>
-        }
-        <NavbarItem className="hidden sm:flex gap-2">
-      {
-        user ? <>{ isLoading ? <ProfileSkeleton/> :
-        
-<ProfileDropDown user={user}/> 
-        }
-        
-        </>
-
-      :<>
-            <Link  className="flex gap-2 items-center p-2 px-4 bg-slate-500/5
-             hover:bg-slate-500/25 rounded-xl" 
-              href={'/login'}>
-          <User  className="text-default-500" />
-           <span>Sing In</span> 
-          </Link>
-        </>
-      }
-       
-          <ThemeSwitch />
-        </NavbarItem>
-      </NavbarContent>
    
 
-      <NavbarContent className="sm:hidden " justify="end">
+      <NavbarContent className="z-50" justify="end">
         
         <ThemeSwitch />
         <NavbarMenuToggle />

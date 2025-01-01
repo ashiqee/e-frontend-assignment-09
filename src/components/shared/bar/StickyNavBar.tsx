@@ -20,7 +20,7 @@ export default function NavBar() {
    useEffect(() => {
      const handleScroll = () => {
        const currentScrollY = window.scrollY;
-       if (currentScrollY > lastScrollY && currentScrollY > 60) {
+       if (currentScrollY > lastScrollY && currentScrollY > 20) {
          // Scrolling down
          setShowMenubar(true);
        } else {
@@ -30,7 +30,7 @@ export default function NavBar() {
        setLastScrollY(currentScrollY);
      };
  
-     const debouncedHandleScroll = debounce(handleScroll, 200);
+     const debouncedHandleScroll = debounce(handleScroll, 150);
  
      window.addEventListener("scroll", debouncedHandleScroll);
      return () => {
@@ -38,17 +38,20 @@ export default function NavBar() {
      };
    }, [lastScrollY]);
 
+
+   
   return (
     <>
     
 
       {/* Sticky Navbar */}
       {showMenubar && (
-        <div
-          className={`sticky container mx-auto top-0 w-full z-50 bg-gradient-to-tl from-pink-500/15 to-slate-800/75 
-          dark:bg-slate-800/75 bg-[#1B1A41]/65 text-white rounded-b-2xl shadow-lg transition-transform duration-1000 ease-in-out transform translate-y-0 
-          ${lastScrollY ? "translate-y-0" : "translate-y-[-100%]"} `}
-        >
+        <div className="fixed top-0 left-0 right-0 z-50">
+            <div
+        className={`container mx-auto w-full  bg-gradient-to-tl from-pink-500/15 to-slate-800/75 
+          dark:bg-slate-800/75 bg-[#1B1A41]/65 text-white rounded-b-2xl shadow-lg transition-transform duration-1000 ease-in transform 
+          ${lastScrollY ? "translate-y-0" : "translate-y-[-100%]"}`}
+      >
           <section className="flex justify-between items-center p-4">
             {/* Logo */}
             <div>
@@ -92,6 +95,7 @@ export default function NavBar() {
               </li>
             </ul>
           </section>
+        </div>
         </div>
       )}
     </>

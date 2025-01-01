@@ -39,7 +39,11 @@ export default function HomepageSlider() {
             <SwiperSlide key={i}>
 <Link href={img.pageUrl}>
 
-<Image alt='KidzBazar Banner' className='w-full md:min-h-[350px] md:max-h-[350px] 2xl:min-h-[500px] object-cover' 
+<Image alt='KidzBazar Banner' className='w-full
+min-h-[200px] max-h-[200px]
+md:min-h-[350px] md:max-h-[350px] 
+2xl:min-h-[500px] 
+object-cover' 
             height={1400} src={img.imgUrl} width={1980}/>
 </Link>
             </SwiperSlide>

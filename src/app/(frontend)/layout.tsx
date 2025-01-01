@@ -16,9 +16,12 @@ export default function FrontendLayout({
   return (
  <div className="flex flex-col justify-between min-h-screen">
 <main>
+<div className="hidden md:block">
 <MiniBar/>
   <MordernNavbar/>
   <StickyNavBar/>
+</div>
+  <Navbar/>
 
 
 {children}

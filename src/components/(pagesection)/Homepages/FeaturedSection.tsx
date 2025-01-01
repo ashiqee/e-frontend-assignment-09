@@ -29,7 +29,7 @@ const FeaturedSection = () => {
   const products = flashSaleProduct?.data.flashSaleProduct || [];
 
   return (
-    <div className="md:my-20 md:flex gap-4 h-full  container mx-auto">
+    <div className="md:my-10 md:flex gap-4 h-full  container mx-auto">
       <div>
         <Image
           className="h-full p-4 md:p-0 md:w-96 object-cover"
