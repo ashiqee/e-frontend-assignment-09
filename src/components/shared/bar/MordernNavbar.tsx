@@ -13,6 +13,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@headlessui/react";
 import { FaDiscourse } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
+import MegaMenuDropDown from "../DropdownMenu/MegaMenuDropDown";
 
 export default function MordernNavbar() {
   const { user, isLoading } = useUser();
@@ -102,10 +103,8 @@ export default function MordernNavbar() {
           }`}
         >
           <div className="flex gap-6 items-center">
-            <div className="flex gap-2 items-center p-2.5 bg-black/45 hover:bg-slate-600/45 rounded-2xl px-8">
-              <List /> <Button> All Categories</Button>
-            </div>
-
+            
+            <MegaMenuDropDown/>
             <div className="flex gap-6 items-center">
               {siteConfig.navItems.map((item) => (
                 <Link

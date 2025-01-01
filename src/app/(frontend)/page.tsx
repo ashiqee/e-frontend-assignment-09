@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <>
     
-    <section className="md:max-h-[600px] my-4 md:flex gap-4 container mx-auto">
+    <section className="md:max-h-[600px] my-4 md:flex md:px-6 2xl:px-0 gap-4 container mx-auto">
     
 
       <HomepageSlider/>
