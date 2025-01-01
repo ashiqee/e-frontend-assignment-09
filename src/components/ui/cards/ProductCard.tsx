@@ -111,7 +111,7 @@ const ProductCard = ({item, index}:{item:any,index:number}) => {
     </motion.button>
     )}
           </CardBody>
-          <CardFooter className="text-small border border-black/10 flex flex-col h-full justify-between  py-1.5">
+          <CardFooter className="text-small dark:bg-slate-800/75 bg-[#1B1A41] bg-gradient-to-tl from-pink-500/15 to-slate-800/75 flex flex-col h-full justify-between  py-1.5">
             <h6 className='text-green-300/75 text-[8px] hidden my-1 px-1 rounded bg-sky-200/15 font-light'>
              {item?.category?.name}</h6>
            <div className='flex flex-col'>
